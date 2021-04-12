@@ -11,6 +11,7 @@ import TaskListScreen from './src/screens/TaskListScreen';
 import TaskTimerScreen from './src/screens/TaskTimerScreen';
 import TrackerScreen from './src/screens/TrackerScreen';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Provider as AuthProvider } from './src/context/AuthContext';
 
 /** Navigation */
 const homeFlow = createStackNavigator({
@@ -50,5 +51,9 @@ const switchNavigator = createSwitchNavigator({
 const App = createAppContainer(switchNavigator);
 
 export default () => {
-	return <App />;
+	return (
+		<AuthProvider>
+			<App />
+		</AuthProvider>
+	);
 };

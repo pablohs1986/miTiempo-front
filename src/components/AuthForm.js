@@ -4,9 +4,8 @@ import { Text, Input, Button } from 'react-native-elements';
 import Spacer from './Spacer';
 import { withNavigation } from 'react-navigation';
 
-// prettier-ignore
 const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
-    const [email, setEmail] = useState('');
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	return (
@@ -16,20 +15,25 @@ const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Email"
-                    value={email}
-                    onChangeText={setEmail}
+					value={email}
+					onChangeText={setEmail}
 				/>
 				<Input
 					secureTextEntry
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Password"
-                    value={password}
-                    onChangeText={setPassword} 
+					value={password}
+					onChangeText={setPassword}
 				/>
-                {/** prettier-ignore */}
-                {errorMessage ? (<Text style={styles.errorMessage}>{errorMessage}</Text>) : null}
-				<Button buttonStyle={styles.solidButton} title={buttonText} />
+				{errorMessage ? (
+					<Text style={styles.errorMessage}>{errorMessage}</Text>
+				) : null}
+				<Button
+					buttonStyle={styles.solidButton}
+					title={buttonText}
+					onPress={() => onSubmit({ email, password })}
+				/>
 				<Button
 					buttonStyle={styles.outlineButton}
 					titleStyle={styles.titleColorOutlineButton}

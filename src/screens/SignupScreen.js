@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, Input, Button, Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
 import { FontAwesome } from '@expo/vector-icons';
 
-const SignupScreen = () => {
+const SignupScreen = ({ navigation }) => {
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
 			<Spacer>
@@ -36,12 +36,11 @@ const SignupScreen = () => {
 						<FontAwesome name="google" style={styles.googleIcon} />
 					}
 					iconRight
+					onPress={() => navigation.navigate('mainFlow')}
 				/>
 			</Spacer>
 			<Spacer>
-				<TouchableOpacity
-					onPress={() => navigation.navigate(routeName)}
-				>
+				<TouchableOpacity onPress={() => navigation.navigate(homeFlow)}>
 					<Text style={styles.link}>
 						Already have an account? Sign in instead!
 					</Text>

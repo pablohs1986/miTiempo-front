@@ -9,6 +9,10 @@ const TaskListScreen = () => {
 	);
 };
 
+TaskListScreen.navigationOptions = {
+	title: 'Tasks',
+};
+
 const styles = StyleSheet.create({});
 
 export default TaskListScreen;

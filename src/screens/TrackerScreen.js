@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const TrackerScreen = () => {
 	return (
@@ -12,11 +12,7 @@ const TrackerScreen = () => {
 
 TrackerScreen.navigationOptions = {
 	tabBarIcon: ({ tintColor }) => (
-		<MaterialCommunityIcons
-			name="clock"
-			size={25}
-			style={{ color: tintColor }}
-		/>
+		<FontAwesome5 name="clock" size={20} style={{ color: tintColor }} />
 	),
 };
 

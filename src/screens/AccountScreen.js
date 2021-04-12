@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const AccountScreen = () => {
 	return (
@@ -12,11 +12,7 @@ const AccountScreen = () => {
 
 AccountScreen.navigationOptions = {
 	tabBarIcon: ({ tintColor }) => (
-		<MaterialCommunityIcons
-			name="account"
-			size={25}
-			style={{ color: tintColor }}
-		/>
+		<FontAwesome5 name="cog" size={20} style={{ color: tintColor }} />
 	),
 };
 

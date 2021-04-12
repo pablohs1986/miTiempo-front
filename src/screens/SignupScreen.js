@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, Input, Button, Image } from 'react-native-elements';
+import { StyleSheet } from 'react-native';
+import { Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
+import AuthForm from '../components/AuthForm';
+import NavLink from '../components/NavLink';
 import { FontAwesome } from '@expo/vector-icons';
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen = () => {
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
 			<Spacer>
@@ -15,37 +17,15 @@ const SignupScreen = ({ navigation }) => {
 				/>
 			</Spacer>
 
-			<Spacer>
-				<Input
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Email"
-				/>
-				<Input
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Password"
-				/>
-				<Button buttonStyle={styles.solidButton} title="Sign up" />
-				<Button
-					buttonStyle={styles.outlineButton}
-					titleStyle={styles.titleColorOutlineButton}
-					type="outline"
-					title="Sign up with "
-					icon={
-						<FontAwesome name="google" style={styles.googleIcon} />
-					}
-					iconRight
-					onPress={() => navigation.navigate('mainFlow')}
-				/>
-			</Spacer>
-			<Spacer>
-				<TouchableOpacity onPress={() => navigation.navigate(homeFlow)}>
-					<Text style={styles.link}>
-						Already have an account? Sign in instead!
-					</Text>
-				</TouchableOpacity>
-			</Spacer>
+			<AuthForm
+				buttonText="Sign up"
+				icon={<FontAwesome name="google" style={styles.googleIcon} />}
+			/>
+
+			<NavLink
+				text="Already have an account? Sign in instead!"
+				routeName="Signin"
+			/>
 		</SafeAreaView>
 	);
 };
@@ -68,21 +48,6 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		marginTop: 10,
 		marginBottom: 5,
-	},
-	solidButton: {
-		backgroundColor: '#C830CC',
-		marginTop: 5,
-		marginBottom: 10,
-	},
-	outlineButton: {
-		borderColor: '#C830CC',
-		borderWidth: 1,
-	},
-	titleColorOutlineButton: {
-		color: '#C830CC',
-	},
-	link: {
-		color: '#C830CC',
 	},
 	googleIcon: {
 		marginLeft: 5,

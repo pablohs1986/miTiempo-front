@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const TaskCreateScreen = () => {
 	return (
@@ -13,11 +12,7 @@ const TaskCreateScreen = () => {
 
 TaskCreateScreen.navigationOptions = {
 	tabBarIcon: ({ tintColor }) => (
-		<MaterialCommunityIcons
-			name="plus"
-			size={25}
-			style={{ color: tintColor }}
-		/>
+		<FontAwesome5 name="plus" size={20} style={{ color: tintColor }} />
 	),
 };
 

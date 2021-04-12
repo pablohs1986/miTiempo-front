@@ -10,7 +10,7 @@ import TaskDetailScreen from './src/screens/TaskDetailScreen';
 import TaskListScreen from './src/screens/TaskListScreen';
 import TaskTimerScreen from './src/screens/TaskTimerScreen';
 import TrackerScreen from './src/screens/TrackerScreen';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 /** Navigation */
 const homeFlow = createStackNavigator({
@@ -21,11 +21,7 @@ const homeFlow = createStackNavigator({
 
 homeFlow.navigationOptions = {
 	tabBarIcon: ({ tintColor }) => (
-		<MaterialCommunityIcons
-			name="home"
-			size={25}
-			style={{ color: tintColor }}
-		/>
+		<FontAwesome5 name="home" size={20} style={{ color: tintColor }} />
 	),
 };
 

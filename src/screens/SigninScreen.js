@@ -7,12 +7,15 @@ import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 import { FontAwesome } from '@expo/vector-icons';
 import { Context as AuthContext } from '../context/AuthContext';
+import { NavigationEvents } from 'react-navigation';
 
 const SigninScreen = () => {
-	const { state, signin } = useContext(AuthContext);
+	const { state, signin, clearErrorMessage } = useContext(AuthContext);
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+			<NavigationEvents onWillFocus={clearErrorMessage} />
+
 			<Spacer>
 				<Image
 					source={require('../../assets/img/logoMiTiempo.png')}

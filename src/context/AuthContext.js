@@ -10,6 +10,8 @@ const authReducer = (state, action) => {
 			return { errorMessage: '', token: action.payload };
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
+		case 'clear_error_message':
+			return { ...state, errorMessage: '' };
 		default:
 			return state;
 	}
@@ -78,9 +80,13 @@ const signout = (dispatch) => {
 	};
 };
 
+/** Method that clears the error message showed by sign screens */
+const clearErrorMessage = (dispatch) => () => {
+	dispatch({ type: 'clear_error_message' });
+};
+
 export const { Provider, Context } = createDataContext(
 	authReducer,
-	{ signup, signin, tryLocalSignIn, signout },
+	{ signup, signin, tryLocalSignIn, signout, clearErrorMessage },
 	{ token: null, errorMessage: '' }
 );
-

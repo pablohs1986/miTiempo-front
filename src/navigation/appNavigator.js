@@ -1,0 +1,52 @@
+import React from 'react';
+import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import AccountScreen from '../screens/AccountScreen';
+import SigninScreen from '../screens/SigninScreen';
+import SignupScreen from '../screens/SignupScreen';
+import TaskCreateScreen from '../screens/TaskCreateScreen';
+import TaskDetailScreen from '../screens/TaskDetailScreen';
+import TaskListScreen from '../screens/TaskListScreen';
+import TaskTimerScreen from '../screens/TaskTimerScreen';
+import TrackerScreen from '../screens/TrackerScreen';
+import { FontAwesome5 } from '@expo/vector-icons';
+
+/** Method that generates the navigation of the application. */
+export default () => {
+	const homeFlow = createStackNavigator({
+		TaskList: TaskListScreen,
+		TaskDetail: TaskDetailScreen,
+		TaskTimer: TaskTimerScreen,
+	});
+
+	homeFlow.navigationOptions = {
+		tabBarIcon: ({ tintColor }) => (
+			<FontAwesome5 name="home" size={20} style={{ color: tintColor }} />
+		),
+	};
+
+	const switchNavigator = createSwitchNavigator({
+		loginFlow: createStackNavigator({
+			Signup: SignupScreen,
+			Signin: SigninScreen,
+		}),
+		mainFlow: createBottomTabNavigator(
+			{
+				homeFlow,
+				Tracker: TrackerScreen,
+				TaskCreate: TaskCreateScreen,
+				Account: AccountScreen,
+			},
+			{
+				tabBarOptions: {
+					showLabel: false,
+					activeTintColor: '#C830CC',
+					inactiveTintColor: 'grey',
+				},
+			}
+		),
+	});
+
+	return switchNavigator;
+};

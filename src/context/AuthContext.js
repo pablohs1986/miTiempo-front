@@ -1,38 +1,74 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import createDataContext from './createDataContext';
 import miTiempoApi from '../api/miTiempoApi';
+import { navigate } from '../navigation/externalNavigator';
 
+// TODO: documentar
 const authReducer = (state, action) => {
 	switch (action.type) {
+		case 'signInUp':
+			return { errorMessage: '', token: action.payload };
+		case 'add_error':
+			return { ...state, errorMessage: action.payload };
 		default:
 			return state;
 	}
 };
 
-/** Action functions */
-const signup = (dispatch) => {
-	return async ({ email, password }) => {
-		// TODO:
-		// Request to sign up with email and pass
-		// if we sign up, modify our state
-		// if fails, reflect error message
-		try {
-			// prettier-ignore
-			const response = await miTiempoApi.post('/signup', { email, password });
-			console.log(response.data);
-		} catch (error) {
-			// FIXME: Operation `users.insertOne()` buffering timed out after 10000ms. OJO -> BACK
-			console.log(error.response.data);
-		}
-	};
+// Action functions
+
+/** Action function that makes a request to sign up a user.
+ * If the record is not accepted by the backend, it returns an error message.
+ * If it is successful, it takes the token that is returned from the backend,
+ * stores it on the device with AsyncStorage to maintain the session,
+ * launch an action and takes the user to the main flow.
+ */
+const signup = (dispatch) => async ({ email, password }) => {
+	try {
+		const response = await miTiempoApi.post('/signup', { email, password }); // make post request to backend
+		await AsyncStorage.setItem('token', response.data.token); // stores the token
+		dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
+		navigate('mainFlow'); // navigate to main flow
+	} catch (error) {
+		console.log(error.response.data);
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong with sign up',
+		});
+	}
 };
 
-const signin = (dispatch) => {
-	return ({ email, password }) => {
-		// TODO:
-		// Request ti sign in
-		// if we sign in, modify state
-		// if fails, reflect
-	};
+/** Action function that makes a request to sign in a user.
+ * If the login is not accepted by the backend, it returns an error message.
+ * If it is successful, it takes the token that is returned from the backend,
+ * stores it on the device with AsyncStorage to maintain the session,
+ * launch an action and takes the user to the main flow.
+ */
+const signin = (dispatch) => async ({ email, password }) => {
+	try {
+		const response = await miTiempoApi.post('/signin', { email, password }); // make post request to backend
+		await AsyncStorage.setItem('token', response.data.token); // stores the token
+		dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
+		navigate('mainFlow'); // navigate to main flow
+	} catch (error) {
+		console.log(error.response.data);
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong with sign in',
+		});
+	}
+};
+
+/** Method that checks if the user has a stored token. If so, log into the app.
+ * If not, it redirects to the registration screen.  */
+const tryLocalSignIn = (dispatch) => async () => {
+	const token = await AsyncStorage.getItem('token');
+	if (token) {
+		dispatch({ type: 'signInUp', payload: token });
+		navigate('mainFlow');
+	} else {
+		navigate('Signup');
+	}
 };
 
 const signout = (dispatch) => {
@@ -44,6 +80,7 @@ const signout = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
 	authReducer,
-	{ signup, signin, signout },
-	{ isSignedin: false }
+	{ signup, signin, tryLocalSignIn, signout },
+	{ token: null, errorMessage: '' }
 );
+

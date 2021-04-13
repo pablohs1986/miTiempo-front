@@ -61,6 +61,12 @@ const styles = StyleSheet.create({
 	titleColorOutlineButton: {
 		color: '#C830CC',
 	},
+	errorMessage: {
+		alignSelf: 'center',
+		fontSize: 16,
+		color: 'red',
+		marginBottom: 15,
+	},
 });
 
 export default withNavigation(AuthForm);

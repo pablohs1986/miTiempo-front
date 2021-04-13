@@ -21,10 +21,10 @@ const SignupScreen = () => {
 			</Spacer>
 
 			<AuthForm
-                errorMessage={state.errorMessage}
+				errorMessage={state.errorMessage}
 				buttonText="Sign up"
 				icon={<FontAwesome name="google" style={styles.googleIcon} />}
-                onSubmit={signup}
+				onSubmit={signup}
 			/>
 
 			<NavLink

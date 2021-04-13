@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 import { Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
@@ -6,8 +6,11 @@ import Spacer from '../components/Spacer';
 import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 import { FontAwesome } from '@expo/vector-icons';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const SigninScreen = () => {
+	const { state, signin } = useContext(AuthContext);
+
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
 			<Spacer>
@@ -18,8 +21,10 @@ const SigninScreen = () => {
 			</Spacer>
 
 			<AuthForm
+				errorMessage={state.errorMessage}
 				buttonText="Sign in"
 				icon={<FontAwesome name="google" style={styles.googleIcon} />}
+				onSubmit={signin}
 			/>
 
 			<NavLink

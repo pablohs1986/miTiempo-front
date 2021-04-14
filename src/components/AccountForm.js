@@ -2,25 +2,13 @@ import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
 import Spacer from '../components/Spacer';
-import ConfirmPasswordForm from './ConfirmPasswordOverlay';
 
-const AccountForm = () => {
-	const [overlayVisibility, serOverlayVisibility] = useState(false);
-
-	const toggleOverlay = () => {
-		setVisible(!visible);
-	};
-
+const AccountForm = ({ signout }) => {
 	return (
 		<>
 			<Text style={styles.header} h4>
 				My Account
 			</Text>
-
-			<ConfirmPasswordForm
-				overlyVisibility={overlayVisibility}
-				toggleOverlay={toggleOverlay}
-			></ConfirmPasswordForm>
 
 			<Spacer>
 				<Input
@@ -30,20 +18,6 @@ const AccountForm = () => {
 					// value="{email}"
 					onChangeText="{setEmail}"
 				/>
-				<Input
-					secureTextEntry
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Password"
-					// value="{password}"
-					onChangeText="{setPassword}"
-				/>
-				{/* {errorMessage ? (
-					<Text style={styles.errorMessage}>{errorMessage}</Text>
-				) : null} */}
-				<Divider style={styles.divider} />
-
-				<Text>Aditional data (optional)</Text>
 
 				<Input
 					autoCapitalize="none"
@@ -59,12 +33,32 @@ const AccountForm = () => {
 					// value="{password}"
 					onChangeText="{setPassword}"
 				/>
+
+				<Divider style={styles.divider} />
+
+				<Input
+					autoCapitalize="none"
+					autoCorrect={false}
+					placeholder="New password"
+					// value="{password}"
+					onChangeText="{setPassword}"
+				/>
+				<Input
+					autoCapitalize="none"
+					autoCorrect={false}
+					placeholder="Confirm password"
+					// value="{password}"
+					onChangeText="{setPassword}"
+				/>
 				<Spacer />
+				{/* {errorMessage ? (
+					<Text style={styles.errorMessage}>{errorMessage}</Text>
+				) : null} */}
 				<Button
 					buttonStyle={styles.solidButton}
 					title="Update"
 					// onPress={() => onSubmit({ email, password })}
-					onPress={toggleOverlay}
+					// onPress={toggleOverlay}
 				/>
 				<Button
 					buttonStyle={styles.outlineButton}
@@ -73,7 +67,7 @@ const AccountForm = () => {
 					title="Sign out"
 					// icon={icon}
 					iconRight
-					// onPress={() => navigation.navigate('mainFlow')}
+					onPress={signout}
 				/>
 			</Spacer>
 		</>
@@ -88,11 +82,10 @@ const styles = StyleSheet.create({
 	divider: {
 		width: '100%',
 		alignSelf: 'center',
-		margin: 20,
+		margin: 10,
 	},
 	solidButton: {
 		backgroundColor: '#C830CC',
-		marginTop: 5,
 		marginBottom: 10,
 	},
 	outlineButton: {

@@ -3,13 +3,15 @@ import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { FontAwesome5 } from '@expo/vector-icons';
-import Spacer from '../components/Spacer';
 import AccountForm from '../components/AccountForm';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const AccountScreen = () => {
+	const { signout } = useContext(AuthContext);
+
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
-			<AccountForm></AccountForm>
+			<AccountForm signout={signout}></AccountForm>
 		</SafeAreaView>
 	);
 };

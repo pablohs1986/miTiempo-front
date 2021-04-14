@@ -12,6 +12,8 @@ const authReducer = (state, action) => {
 			return { ...state, errorMessage: action.payload };
 		case 'clear_error_message':
 			return { ...state, errorMessage: '' };
+		case 'signout':
+			return { token: null, errorMessage: '' };
 		default:
 			return state;
 	}
@@ -73,11 +75,11 @@ const tryLocalSignIn = (dispatch) => async () => {
 	}
 };
 
-const signout = (dispatch) => {
-	return () => {
-		// TODO:
-		//sign out
-	};
+/** Method that sings out a user, removing his token from the device  */
+const signout = (dispatch) => async () => {
+	await AsyncStorage.removeItem('token');
+	dispatch({ type: 'signout' });
+	navigate('loginFlow');
 };
 
 /** Method that clears the error message showed by sign screens */

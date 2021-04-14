@@ -47,7 +47,7 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1, // rellena todo el alto
+		flex: 1, 
 		justifyContent: 'flex-start',
 	},
 	logo: {

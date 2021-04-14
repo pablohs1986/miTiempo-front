@@ -1,12 +1,16 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { Text, Input, Button, Divider } from 'react-native-elements';
+import { SafeAreaView } from 'react-navigation';
 import { FontAwesome5 } from '@expo/vector-icons';
+import Spacer from '../components/Spacer';
+import AccountForm from '../components/AccountForm';
 
 const AccountScreen = () => {
 	return (
-		<View>
-			<Text>AccountScreen</Text>
-		</View>
+		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+			<AccountForm></AccountForm>
+		</SafeAreaView>
 	);
 };
 
@@ -16,6 +20,11 @@ AccountScreen.navigationOptions = {
 	),
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'flex-start',
+	},
+});
 
 export default AccountScreen;

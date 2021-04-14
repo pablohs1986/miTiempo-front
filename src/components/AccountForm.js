@@ -2,13 +2,25 @@ import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
 import Spacer from '../components/Spacer';
+import ConfirmPasswordForm from './ConfirmPasswordOverlay';
 
 const AccountForm = () => {
+	const [overlayVisibility, serOverlayVisibility] = useState(false);
+
+	const toggleOverlay = () => {
+		setVisible(!visible);
+	};
+
 	return (
 		<>
 			<Text style={styles.header} h4>
 				My Account
 			</Text>
+
+			<ConfirmPasswordForm
+				overlyVisibility={overlayVisibility}
+				toggleOverlay={toggleOverlay}
+			></ConfirmPasswordForm>
 
 			<Spacer>
 				<Input
@@ -52,6 +64,7 @@ const AccountForm = () => {
 					buttonStyle={styles.solidButton}
 					title="Update"
 					// onPress={() => onSubmit({ email, password })}
+					onPress={toggleOverlay}
 				/>
 				<Button
 					buttonStyle={styles.outlineButton}

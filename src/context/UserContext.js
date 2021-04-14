@@ -16,7 +16,7 @@ const authReducer = (state, action) => {
 // Action functions
 
 /**
- *
+ * Get user info.
  */
 const getUserInfo = (dispatch) => async ({ email, password }) => {
 	try {

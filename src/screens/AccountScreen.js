@@ -11,11 +11,13 @@ const AccountScreen = () => {
 	const { signout } = useContext(AuthContext);
 	const { state, getUserInfo } = useContext(UserContext);
 
-	const [email, setEmail] = useState(state.email);
+	const [email, setEmail] = useState('');
+	console.log('EMAIL' + state.email);
 
-	// TODO: doc
+	// FIXME: doc
 	useEffect(() => {
 		getUserInfo();
+		setEmail(state.email);
 	}, []);
 
 	return (
@@ -28,9 +30,9 @@ const AccountScreen = () => {
 				<Input
 					autoCapitalize="none"
 					autoCorrect={false}
-					placeholder="Email"
-					value={email}
-					onChangeText={setEmail}
+					// placeholder="Email"
+					value={email} // FIXME: always show previous value
+					// onChangeText={setEmail}
 				/>
 
 				<Input

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const instance = axios.create({
 	baseURL: 'https://mitiempo-back.herokuapp.com/',

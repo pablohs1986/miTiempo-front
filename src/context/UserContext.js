@@ -9,7 +9,12 @@ import { navigate } from '../navigation/externalNavigator';
 const userReducer = (state, action) => {
 	switch (action.type) {
 		case 'getUserInfo':
-			return { email: action.payload.email };
+			return {
+				...state,
+				email: action.payload.email,
+				name: action.payload.name,
+				city: action.payload.city,
+			};
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
 		default:
@@ -24,11 +29,10 @@ const userReducer = (state, action) => {
 const getUserInfo = (dispatch) => async () => {
 	try {
 		const response = await miTiempoApi.get('/getUserInfo');
-		console.log(response.data);
-		console.log('>>>>>>' + response.email);
+		console.log('CARGAAAA' + response.data.email);
 		dispatch({
 			type: 'getUserInfo',
-			payload: { email: response.data },
+			payload: response.data,
 		});
 	} catch (error) {
 		dispatch({
@@ -42,5 +46,5 @@ const getUserInfo = (dispatch) => async () => {
 export const { Provider, Context } = createDataContext(
 	userReducer,
 	{ getUserInfo },
-	{ email: '', errorMessage: '' }
+	{ email: '', name: '', city: '', errorMessage: '' }
 );

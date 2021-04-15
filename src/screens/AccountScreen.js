@@ -5,9 +5,11 @@ import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Context as AuthContext } from '../context/AuthContext';
+import { Context as UserContext } from '../context/UserContext';
 
 const AccountScreen = () => {
 	const { signout } = useContext(AuthContext);
+	const { getUserInfo } = useContext(UserContext);
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
@@ -72,7 +74,8 @@ const AccountScreen = () => {
 					title="Sign out"
 					// icon={icon}
 					iconRight
-					onPress={signout}
+					// onPress={signout}
+					onPress={getUserInfo}
 				/>
 			</Spacer>
 		</SafeAreaView>

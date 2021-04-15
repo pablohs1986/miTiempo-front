@@ -9,7 +9,7 @@ import { navigate } from '../navigation/externalNavigator';
 const userReducer = (state, action) => {
 	switch (action.type) {
 		case 'getUserInfo':
-			return { user: action.payload };
+			return { email: action.payload.email };
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
 		default:
@@ -18,16 +18,17 @@ const userReducer = (state, action) => {
 };
 
 /** Action function that makes a request to get the information of a user.
- * It sends the request, if this is successful, it launches an action with 
+ * It sends the request, if this is successful, it launches an action with
  * the user it receives from the backend. If not, it returns an error message.
  */
 const getUserInfo = (dispatch) => async () => {
 	try {
 		const response = await miTiempoApi.get('/getUserInfo');
 		console.log(response.data);
+		console.log('>>>>>>' + response.email);
 		dispatch({
 			type: 'getUserInfo',
-			payload: response.data,
+			payload: { email: response.data },
 		});
 	} catch (error) {
 		dispatch({
@@ -41,5 +42,5 @@ const getUserInfo = (dispatch) => async () => {
 export const { Provider, Context } = createDataContext(
 	userReducer,
 	{ getUserInfo },
-	{ user: null, errorMessage: '' }
+	{ email: '', errorMessage: '' }
 );

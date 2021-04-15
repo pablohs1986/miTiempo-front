@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
@@ -10,7 +10,16 @@ import { Context as AuthContext } from '../context/AuthContext';
 import { NavigationEvents } from 'react-navigation';
 
 const SignupScreen = () => {
-	const { state, signup, clearErrorMessage } = useContext(AuthContext);
+	const { state, signup, tryLocalSignIn, clearErrorMessage } = useContext(
+		AuthContext
+	);
+
+	/** Use of useEffect Hook for runs tryLocalSignIn the first time that the
+	 * component renders.
+	 */
+	useEffect(() => {
+		tryLocalSignIn();
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
@@ -47,7 +56,7 @@ SignupScreen.navigationOptions = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1, 
+		flex: 1,
 		justifyContent: 'flex-start',
 	},
 	logo: {

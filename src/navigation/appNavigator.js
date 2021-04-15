@@ -2,7 +2,7 @@ import React from 'react';
 import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import AccountScreen from '../screens/AccountScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import TaskCreateScreen from '../screens/TaskCreateScreen';
@@ -10,6 +10,7 @@ import TaskDetailScreen from '../screens/TaskDetailScreen';
 import TaskListScreen from '../screens/TaskListScreen';
 import TaskTimerScreen from '../screens/TaskTimerScreen';
 import TrackerScreen from '../screens/TrackerScreen';
+import AccountScreen from '../screens/AccountScreen';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 /** Method that generates the navigation of the application. */
@@ -27,6 +28,7 @@ export default () => {
 	};
 
 	const switchNavigator = createSwitchNavigator({
+		loadingApp: LoadingScreen,
 		loginFlow: createStackNavigator({
 			Signup: SignupScreen,
 			Signin: SigninScreen,

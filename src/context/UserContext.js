@@ -18,28 +18,22 @@ const userReducer = (state, action) => {
 };
 
 /** Action function that makes a request to get the information of a user.
- * It checks if there is a token in the device, in which case it sends the request
- * with the token. If this is successful, it launches an action with the user
- * it receives from the backend. If not, it returns an error message.
+ * It sends the request, if this is successful, it launches an action with 
+ * the user it receives from the backend. If not, it returns an error message.
  */
 const getUserInfo = (dispatch) => async () => {
-	const token = await AsyncStorage.getItem('token');
-	if (token) {
-		try {
-			const response = await miTiempoApi.get('/getUserInfo', { token });
-			console.log(response.data);
-			dispatch({
-				type: 'getUserInfo',
-				payload: response.data,
-			});
-		} catch (error) {
-			dispatch({
-				type: 'add_error',
-				payload: 'Something went wrong retrieving user data.',
-			});
-		}
-	} else {
-		navigate('Signup');
+	try {
+		const response = await miTiempoApi.get('/getUserInfo');
+		console.log(response.data);
+		dispatch({
+			type: 'getUserInfo',
+			payload: response.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong retrieving user data.',
+		});
 	}
 };
 

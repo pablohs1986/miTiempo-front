@@ -9,7 +9,7 @@ import { Context as UserContext } from '../context/UserContext';
 
 const AccountScreen = () => {
 	const { signout } = useContext(AuthContext);
-	const { email, getUserInfo } = useContext(UserContext);
+	const { state, getUserInfo } = useContext(UserContext);
 
 	const [email, setEmail] = useState(state.email);
 

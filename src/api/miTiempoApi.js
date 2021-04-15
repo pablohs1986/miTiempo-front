@@ -5,7 +5,9 @@ const instance = axios.create({
 	baseURL: 'https://mitiempo-back.herokuapp.com/',
 });
 
-// TODO: ojooo, revisar... lanza la autenticación con token cada vez que se hace una request
+/** Request interceptor that forces the validation of the user's token in each
+ * request made to the api.
+ * */
 instance.interceptors.request.use(
 	async (config) => {
 		const token = await AsyncStorage.getItem('token');

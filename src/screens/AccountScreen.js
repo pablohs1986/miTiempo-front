@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
@@ -9,7 +9,14 @@ import { Context as UserContext } from '../context/UserContext';
 
 const AccountScreen = () => {
 	const { signout } = useContext(AuthContext);
-	const { getUserInfo } = useContext(UserContext);
+	const { email, getUserInfo } = useContext(UserContext);
+
+	const [email, setEmail] = useState(state.email);
+
+	// TODO: doc
+	useEffect(() => {
+		getUserInfo();
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
@@ -22,8 +29,8 @@ const AccountScreen = () => {
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Email"
-					// value="{email}"
-					onChangeText="{setEmail}"
+					value={email}
+					onChangeText={setEmail}
 				/>
 
 				<Input
@@ -31,7 +38,7 @@ const AccountScreen = () => {
 					autoCorrect={false}
 					placeholder="Name"
 					// value="{email}"
-					onChangeText="{setEmail}"
+					// onChangeText="{setEmail}"
 				/>
 				<Input
 					autoCapitalize="none"
@@ -74,8 +81,7 @@ const AccountScreen = () => {
 					title="Sign out"
 					// icon={icon}
 					iconRight
-					// onPress={signout}
-					onPress={getUserInfo}
+					onPress={signout}
 				/>
 			</Spacer>
 		</SafeAreaView>

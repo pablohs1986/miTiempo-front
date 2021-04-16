@@ -11,6 +11,7 @@ import TaskListScreen from '../screens/TaskListScreen';
 import TaskTimerScreen from '../screens/TaskTimerScreen';
 import TrackerScreen from '../screens/TrackerScreen';
 import AccountScreen from '../screens/AccountScreen';
+import EditAccountScreen from '../screens/EditAccountScreen';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 /** Method that generates the navigation of the application. */
@@ -27,6 +28,17 @@ export default () => {
 		),
 	};
 
+	const accountFlow = createStackNavigator({
+		Account: AccountScreen,
+		EditAccount: EditAccountScreen,
+	});
+
+	accountFlow.navigationOptions = {
+		tabBarIcon: ({ tintColor }) => (
+			<FontAwesome5 name="cog" size={20} style={{ color: tintColor }} />
+		),
+	};
+
 	const switchNavigator = createSwitchNavigator({
 		loadingApp: LoadingScreen,
 		loginFlow: createStackNavigator({
@@ -38,7 +50,7 @@ export default () => {
 				homeFlow,
 				Tracker: TrackerScreen,
 				TaskCreate: TaskCreateScreen,
-				Account: AccountScreen,
+				accountFlow,
 			},
 			{
 				tabBarOptions: {

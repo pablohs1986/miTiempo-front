@@ -9,7 +9,7 @@ import { Context as AuthContext } from '../context/AuthContext';
 import { Context as UserContext } from '../context/UserContext';
 import { withNavigation } from 'react-navigation';
 
-const AccountScreen = ({ navigation }) => {
+const EditAccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
 	const { state, getUserInfo, updateUserInfo } = useContext(UserContext);
 	const [email, setEmail] = useState('');
@@ -28,7 +28,6 @@ const AccountScreen = ({ navigation }) => {
 
 			<Spacer>
 				<Input
-					leftIcon={<Feather name="mail" style={styles.inputIcons} />}
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Email"
@@ -37,7 +36,6 @@ const AccountScreen = ({ navigation }) => {
 				/>
 
 				<Input
-					leftIcon={<Feather name="user" style={styles.inputIcons} />}
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Name"
@@ -45,9 +43,6 @@ const AccountScreen = ({ navigation }) => {
 					onChangeText={setName}
 				/>
 				<Input
-					leftIcon={
-						<Feather name="compass" style={styles.inputIcons} />
-					}
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="City"
@@ -55,26 +50,64 @@ const AccountScreen = ({ navigation }) => {
 					onChangeText={setCity}
 				/>
 
+				<Divider style={styles.divider} />
+
+				<Input
+					secureTextEntry
+					autoCapitalize="none"
+					autoCorrect={false}
+					placeholder="New password"
+					value={newPassword}
+					onChangeText={setNewPassword}
+				/>
+
+				<Input
+					secureTextEntry
+					autoCapitalize="none"
+					autoCorrect={false}
+					placeholder="Confirm password"
+					value={newPasswordConfirmation}
+					onChangeText={setNewPasswordConfirmation}
+					errorMessage={
+						!(newPassword === newPasswordConfirmation)
+							? 'Passwords must match'
+							: null
+					}
+					disabledInputStyle={{ background: '#ddd' }}
+				/>
+
 				<Spacer />
 
 				<Button
 					buttonStyle={styles.solidButton}
-					title="Edit"
-					onPress={() => navigation.navigate('EditAccount')}
+					title="Update"
+					disabled={
+						!(
+							newPassword === newPasswordConfirmation &&
+							newPassword.length > 0
+						)
+					}
+					onPress={updateUserInfo(email, name, city, newPassword)}
 				/>
 				<Button
+					icon={
+						<Feather
+							name="chevron-left"
+							style={styles.inputIcons}
+						/>
+					}
 					buttonStyle={styles.outlineButton}
 					titleStyle={styles.titleColorOutlineButton}
 					type="outline"
-					title="Sign out"
-					onPress={signout}
+					title="Go back"
+					onPress={() => navigation.navigate('Account')}
 				/>
 			</Spacer>
 		</SafeAreaView>
 	);
 };
 
-AccountScreen.navigationOptions = () => {
+EditAccountScreen.navigationOptions = () => {
 	return {
 		headerShown: false,
 		cardStyle: { backgroundColor: 'white' },
@@ -100,17 +133,22 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	outlineButton: {
-		borderColor: 'red',
+		borderColor: '#C830CC',
 		borderWidth: 1,
 	},
 	titleColorOutlineButton: {
+		color: '#C830CC',
+	},
+	inputs: {
+		alignSelf: 'center',
+		fontSize: 16,
 		color: 'red',
 	},
 	inputIcons: {
-		color: 'black',
+		marginRight: 5,
 		fontSize: 24,
-		marginRight: 10,
+		color: '#C830CC',
 	},
 });
 
-export default withNavigation(AccountScreen);
+export default withNavigation(EditAccountScreen);

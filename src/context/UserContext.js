@@ -29,7 +29,6 @@ const userReducer = (state, action) => {
 const getUserInfo = (dispatch) => async () => {
 	try {
 		const response = await miTiempoApi.get('/getUserInfo');
-		console.log('CARGAAAA' + response.data.email);
 		dispatch({
 			type: 'getUserInfo',
 			payload: response.data,
@@ -42,9 +41,24 @@ const getUserInfo = (dispatch) => async () => {
 	}
 };
 
+/** Action that makes a request to update the user's information. */
+const updateUserInfo = (dispatch) => async ({
+	email,
+	name,
+	city,
+	newPassword,
+}) => {
+	await miTiempoApi.post('/updateUserInfo', {
+		email,
+		name,
+		city,
+		newPassword,
+	});
+};
+
 /** Export and call createDataContext to create the context and its provider. */
 export const { Provider, Context } = createDataContext(
 	userReducer,
-	{ getUserInfo },
+	{ getUserInfo, updateUserInfo },
 	{ email: '', name: '', city: '', errorMessage: '' }
 );

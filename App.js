@@ -6,7 +6,7 @@ import { setNavigator } from './src/navigation/externalNavigator';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as UserProvider } from './src/context/UserContext';
 
-LogBox.ignoreAllLogs(); // Ignore all log notifications on dev device
+// LogBox.ignoreAllLogs(); // Ignore all log notifications on dev device
 
 const App = createAppContainer(appNavigator());
 

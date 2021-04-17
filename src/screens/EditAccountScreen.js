@@ -1,17 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
-import { SafeAreaView, NavigationEvents } from 'react-navigation';
+import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-import { Context as AuthContext } from '../context/AuthContext';
 import { Context as UserContext } from '../context/UserContext';
 import { withNavigation } from 'react-navigation';
 
 const EditAccountScreen = ({ navigation }) => {
-	const { signout } = useContext(AuthContext);
-	const { state, getUserInfo, updateUserInfo } = useContext(UserContext);
+	const { updateUserInfo, errorMessage } = useContext(UserContext);
 	const [email, setEmail] = useState('');
 	const [name, setName] = useState('');
 	const [city, setCity] = useState('');
@@ -20,39 +17,42 @@ const EditAccountScreen = ({ navigation }) => {
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
-			<NavigationEvents onWillFocus={getUserInfo} />
-
 			<Text style={styles.header} h4>
-				My Account
+				Edit My Account
 			</Text>
 
 			<Spacer>
 				<Input
+					leftIcon={<Feather name="mail" style={styles.inputIcons} />}
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Email"
-					value={state.email}
+					value={email}
 					onChangeText={setEmail}
 				/>
-
 				<Input
+					leftIcon={<Feather name="user" style={styles.inputIcons} />}
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Name"
-					value={state.name}
+					value={name}
 					onChangeText={setName}
 				/>
 				<Input
+					leftIcon={
+						<Feather name="compass" style={styles.inputIcons} />
+					}
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="City"
-					value={state.city}
+					value={city}
 					onChangeText={setCity}
 				/>
 
 				<Divider style={styles.divider} />
 
 				<Input
+					leftIcon={<Feather name="lock" style={styles.inputIcons} />}
 					secureTextEntry
 					autoCapitalize="none"
 					autoCorrect={false}
@@ -60,8 +60,13 @@ const EditAccountScreen = ({ navigation }) => {
 					value={newPassword}
 					onChangeText={setNewPassword}
 				/>
-
 				<Input
+					leftIcon={
+						<Feather
+							name="alert-triangle"
+							style={styles.confirmPasswordIcon}
+						/>
+					}
 					secureTextEntry
 					autoCapitalize="none"
 					autoCorrect={false}
@@ -76,7 +81,9 @@ const EditAccountScreen = ({ navigation }) => {
 					disabledInputStyle={{ background: '#ddd' }}
 				/>
 
-				<Spacer />
+				{errorMessage ? (
+					<Text style={styles.errorMessage}>{errorMessage}</Text>
+				) : null}
 
 				<Button
 					buttonStyle={styles.solidButton}
@@ -87,7 +94,9 @@ const EditAccountScreen = ({ navigation }) => {
 							newPassword.length > 0
 						)
 					}
-					onPress={updateUserInfo(email, name, city, newPassword)}
+					onPress={() =>
+						updateUserInfo({ email, name, city, newPassword })
+					}
 				/>
 				<Button
 					icon={
@@ -148,6 +157,11 @@ const styles = StyleSheet.create({
 		marginRight: 5,
 		fontSize: 24,
 		color: '#C830CC',
+	},
+	confirmPasswordIcon: {
+		marginRight: 5,
+		fontSize: 24,
+		color: 'red',
 	},
 });
 

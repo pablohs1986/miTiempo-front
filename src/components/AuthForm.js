@@ -26,9 +26,11 @@ const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
 					value={password}
 					onChangeText={setPassword}
 				/>
+
 				{errorMessage ? (
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
 				) : null}
+
 				<Button
 					buttonStyle={styles.solidButton}
 					title={buttonText}

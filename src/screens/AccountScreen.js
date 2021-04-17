@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
-import { Text, Input, Button, Divider } from 'react-native-elements';
+import { Text, Input, Button } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as UserContext } from '../context/UserContext';
@@ -11,12 +10,7 @@ import { withNavigation } from 'react-navigation';
 
 const AccountScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
-	const { state, getUserInfo, updateUserInfo } = useContext(UserContext);
-	const [email, setEmail] = useState('');
-	const [name, setName] = useState('');
-	const [city, setCity] = useState('');
-	const [newPassword, setNewPassword] = useState('');
-	const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
+	const { state, getUserInfo, errorMessage } = useContext(UserContext);
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
@@ -33,16 +27,13 @@ const AccountScreen = ({ navigation }) => {
 					autoCorrect={false}
 					placeholder="Email"
 					value={state.email}
-					onChangeText={setEmail}
 				/>
-
 				<Input
 					leftIcon={<Feather name="user" style={styles.inputIcons} />}
 					autoCapitalize="none"
 					autoCorrect={false}
 					placeholder="Name"
 					value={state.name}
-					onChangeText={setName}
 				/>
 				<Input
 					leftIcon={
@@ -52,10 +43,12 @@ const AccountScreen = ({ navigation }) => {
 					autoCorrect={false}
 					placeholder="City"
 					value={state.city}
-					onChangeText={setCity}
 				/>
 
 				<Spacer />
+				{errorMessage ? (
+					<Text style={styles.errorMessage}>{errorMessage}</Text>
+				) : null}
 
 				<Button
 					buttonStyle={styles.solidButton}
@@ -90,11 +83,6 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		alignSelf: 'center',
 	},
-	divider: {
-		width: '100%',
-		alignSelf: 'center',
-		margin: 10,
-	},
 	solidButton: {
 		backgroundColor: '#C830CC',
 		marginBottom: 10,
@@ -107,9 +95,9 @@ const styles = StyleSheet.create({
 		color: 'red',
 	},
 	inputIcons: {
-		color: 'black',
-		fontSize: 24,
 		marginRight: 10,
+		color: '#C830CC',
+		fontSize: 24,
 	},
 });
 

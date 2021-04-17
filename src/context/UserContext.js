@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import createDataContext from './createDataContext';
 import miTiempoApi from '../api/miTiempoApi';
 import { navigate } from '../navigation/externalNavigator';
@@ -41,19 +40,29 @@ const getUserInfo = (dispatch) => async () => {
 	}
 };
 
-/** Action that makes a request to update the user's information. */
+/** Action that makes a request to update the user's information.
+ * If there's some problem updating, returns an error message.
+ */
 const updateUserInfo = (dispatch) => async ({
 	email,
 	name,
 	city,
 	newPassword,
 }) => {
-	await miTiempoApi.post('/updateUserInfo', {
-		email,
-		name,
-		city,
-		newPassword,
-	});
+	try {
+		await miTiempoApi.post('/updateUserInfo', {
+			email,
+			name,
+			city,
+			newPassword,
+		});
+		navigate('Account');
+	} catch (error) {
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong updating your data. Try again.',
+		});
+	}
 };
 
 /** Export and call createDataContext to create the context and its provider. */

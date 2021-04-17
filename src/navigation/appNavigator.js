@@ -7,7 +7,7 @@ import SigninScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
 import TaskCreateScreen from '../screens/TaskCreateScreen';
 import TaskDetailScreen from '../screens/TaskDetailScreen';
-import TaskListScreen from '../screens/TaskListScreen';
+import TaskHomeScreen from '../screens/TaskHomeScreen';
 import TaskTimerScreen from '../screens/TaskTimerScreen';
 import TrackerScreen from '../screens/TrackerScreen';
 import AccountScreen from '../screens/AccountScreen';
@@ -17,7 +17,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 /** Method that generates the navigation of the application. */
 export default () => {
 	const homeFlow = createStackNavigator({
-		TaskList: TaskListScreen,
+		TaskHome: TaskHomeScreen,
 		TaskDetail: TaskDetailScreen,
 		TaskTimer: TaskTimerScreen,
 	});

@@ -46,6 +46,7 @@ const AccountScreen = ({ navigation }) => {
 				/>
 
 				<Spacer />
+
 				{errorMessage ? (
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
 				) : null}

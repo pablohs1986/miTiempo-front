@@ -81,6 +81,8 @@ const EditAccountScreen = ({ navigation }) => {
 					disabledInputStyle={{ background: '#ddd' }}
 				/>
 
+				<Spacer />
+
 				{errorMessage ? (
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
 				) : null}
@@ -97,19 +99,6 @@ const EditAccountScreen = ({ navigation }) => {
 					onPress={() =>
 						updateUserInfo({ email, name, city, newPassword })
 					}
-				/>
-				<Button
-					icon={
-						<Feather
-							name="chevron-left"
-							style={styles.inputIcons}
-						/>
-					}
-					buttonStyle={styles.outlineButton}
-					titleStyle={styles.titleColorOutlineButton}
-					type="outline"
-					title="Go back"
-					onPress={() => navigation.navigate('Account')}
 				/>
 			</Spacer>
 		</SafeAreaView>
@@ -140,13 +129,6 @@ const styles = StyleSheet.create({
 	solidButton: {
 		backgroundColor: '#C830CC',
 		marginBottom: 10,
-	},
-	outlineButton: {
-		borderColor: '#C830CC',
-		borderWidth: 1,
-	},
-	titleColorOutlineButton: {
-		color: '#C830CC',
 	},
 	inputs: {
 		alignSelf: 'center',

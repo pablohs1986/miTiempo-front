@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
 
-const CategoryList = ({ data }) => {
+const CategoryList = ({ data, changeCategory }) => {
 	return (
 		<>
 			<FlatList
@@ -18,13 +18,12 @@ const CategoryList = ({ data }) => {
 								<ListItem.Title
 									titleStyle={styles.itemContainer}
 								>
-									{/* {item} */}
 									<Button
 										buttonStyle={styles.item}
 										titleStyle={styles.itemTitle}
 										type="outline"
 										title={item}
-										// onPress={signout}
+										onPress={() => changeCategory(item)}
 									/>
 								</ListItem.Title>
 							</ListItem.Content>

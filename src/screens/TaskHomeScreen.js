@@ -4,17 +4,20 @@ import { SearchBar, Text } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
 import TaskList from '../components/TaskList';
+import CategoryList from '../components/CategoryList';
 import { Context as TaskContext } from '../context/TaskContext';
 
 const TaskHomeScreen = () => {
-	const { state, listTasks, listTodayTasks } = useContext(TaskContext);
+	const { state, listTasks, listTodayTasks, listCategories } = useContext(
+		TaskContext
+	);
 	const [category, setcategory] = useState('allCategories');
-	// console.log(state.tasks);
 
 	/** Use of useEffect Hook to load data. */
 	useEffect(() => {
 		listTasks({ category });
 		listTodayTasks({ category });
+		listCategories();
 	}, []);
 
 	return (
@@ -29,6 +32,8 @@ const TaskHomeScreen = () => {
 				inputStyle={styles.searchBarInputStyle}
 				inputContainerStyle={styles.searchBarInputContainerStyle}
 			/>
+			<Spacer />
+			<CategoryList data={state.categories} />
 			<Spacer>
 				<Text h4>Today</Text>
 				<TaskList data={state.todayTasks} />
@@ -53,8 +58,8 @@ const styles = StyleSheet.create({
 		shadowColor: 'transparent',
 		borderBottomColor: 'transparent',
 		borderTopColor: 'transparent',
-		marginRight: 15,
-		marginLeft: 15,
+		marginRight: 7,
+		marginLeft: 7,
 	},
 	searchBarInputStyle: {
 		fontSize: 14,

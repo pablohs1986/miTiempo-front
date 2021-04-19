@@ -17,19 +17,10 @@ const taskReducer = (state, action) => {
 				...state,
 				todayTasks: action.payload,
 			};
-		case 'listTodayTasks':
+		case 'listCategories':
 			return {
 				...state,
-				title: action.payload.title,
-				description: action.payload.description,
-				category: action.payload.category,
-				duration: action.payload.duration,
-				repeat: action.payload.repeat,
-				color: action.payload.color,
-				creationDate: action.payload.creationDate,
-				expirationDate: action.payload.expirationDate,
-				isPomodoro: action.payload.isPomodoro,
-				isDone: action.payload.isDone,
+				categories: action.payload,
 			};
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
@@ -72,6 +63,20 @@ const listTodayTasks = (dispatch) => async ({ category }) => {
 	}
 };
 
+/** List categories */
+const listCategories = (dispatch) => async () => {
+	try {
+		const response = await miTiempoApi.get('/listCategories');
+		dispatch({ type: 'listCategories', payload: response.data });
+	} catch (error) {
+		console.log(error);
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong retrieving categories.',
+		});
+	}
+};
+
 /** Update task */
 
 /** Delete task */
@@ -79,10 +84,11 @@ const listTodayTasks = (dispatch) => async ({ category }) => {
 /** Export and call createDataContext to create the context and its provider. */
 export const { Provider, Context } = createDataContext(
 	taskReducer,
-	{ listTasks, listTodayTasks },
+	{ listTasks, listTodayTasks, listCategories },
 	{
 		tasks: [],
 		todayTasks: [],
+		categories: [],
 		errorMessage: '',
 	}
 );

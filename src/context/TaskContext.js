@@ -40,19 +40,14 @@ const taskReducer = (state, action) => {
 
 /** Add task */
 
-/** List tasks */
-/** FIXME: no se puede enviar nada en el body en una petición GET. Cambiar
- * de body a PARAM. Modificar en BACK primero.
+/** Action function that fetch all tasks, filtered by category or not.
+ * It sends a request with the type of category, if this is succesful, it
+ * launches an action with the tasks.
  */
-const listTasks = (dispatch) => async ({ categoryFilter }) => {
-	console.log('>>>>>>>>' + categoryFilter);
-	categoryFilter = 'Study';
+const listTasks = (dispatch) => async ({ category }) => {
 	try {
-		const response = await miTiempoApi.get('/listTasks', {
-			categoryFilter,
-		});
+		const response = await miTiempoApi.get(`/listTasks/${category}`);
 		dispatch({ type: 'listTasks', payload: response.data });
-		console.log(response);
 	} catch (error) {
 		dispatch({
 			type: 'add_error',
@@ -61,10 +56,13 @@ const listTasks = (dispatch) => async ({ categoryFilter }) => {
 	}
 };
 
-/** List today tasks */
-const listTodayTasks = (dispatch) => async () => {
+/** Action function that fetch today tasks, filtered by category or not.
+ * It sends a request with the type of category, if this is succesful, it
+ * launches an action with the tasks.
+ */
+const listTodayTasks = (dispatch) => async ({ category }) => {
 	try {
-		const response = await miTiempoApi.get('/listTodayTasks');
+		const response = await miTiempoApi.get(`/listTodayTasks/${category}`);
 		dispatch({ type: 'listTodayTasks', payload: response.data });
 	} catch (error) {
 		dispatch({

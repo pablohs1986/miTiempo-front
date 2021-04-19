@@ -8,19 +8,19 @@ import { Context as TaskContext } from '../context/TaskContext';
 
 const TaskHomeScreen = () => {
 	const { state, listTasks, listTodayTasks } = useContext(TaskContext);
-	const [categoryFilter, setCategoryFilter] = useState('');
+	const [category, setcategory] = useState('allCategories');
 	// console.log(state.tasks);
 
-	// useEffect(() => {
-	// 	listTasks({ categoryFilter });
-	// }, []);
+	/** Use of useEffect Hook to load data. */
+	useEffect(() => {
+		listTasks({ category });
+		listTodayTasks({ category });
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
-			<NavigationEvents onWillFocus={listTodayTasks} />
-			<NavigationEvents
-				onWillFocus={() => listTasks({ categoryFilter })}
-			/>
+			{/* <NavigationEvents onWillFocus={listTodayTasks} /> */}
+			{/* <NavigationEvents onWillFocus={() => listTasks({ category })} /> */}
 			<SearchBar
 				round
 				lightTheme

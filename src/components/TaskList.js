@@ -3,11 +3,11 @@ import { StyleSheet, TouchableHighlight, FlatList } from 'react-native';
 import { ListItem, Avatar, Text } from 'react-native-elements';
 import TaskItem from '../components/TaskItem';
 
-const TaskList = () => {
+const TaskList = ({ data }) => {
 	return (
 		<>
-			{/* <FlatList
-				data={}
+			<FlatList
+				data={data}
 				keyExtractor={(task) => task._id}
 				renderItem={({ item }) => {
 					return (
@@ -19,7 +19,7 @@ const TaskList = () => {
 						</ListItem>
 					);
 				}}
-			/> */}
+			/>
 		</>
 	);
 };

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 	},
 	itemTitle: {
 		color: 'white',
-		fontSize: 15,
+		fontSize: 13,
 		fontWeight: '500',
 	},
 });

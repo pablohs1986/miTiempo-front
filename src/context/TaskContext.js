@@ -67,7 +67,9 @@ const listTodayTasks = (dispatch) => async ({ category }) => {
 const listCategories = (dispatch) => async () => {
 	try {
 		const response = await miTiempoApi.get('/listCategories');
-		dispatch({ type: 'listCategories', payload: response.data });
+		const categories = response.data;
+		categories.unshift('All'); // add All category to de beginning of the array
+		dispatch({ type: 'listCategories', payload: categories });
 	} catch (error) {
 		console.log(error);
 		dispatch({

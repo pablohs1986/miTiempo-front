@@ -50,12 +50,21 @@ const updateUserInfo = (dispatch) => async ({
 	newPassword,
 }) => {
 	try {
-		await miTiempoApi.post('/updateUserInfo', {
-			email,
-			name,
-			city,
-			newPassword,
-		});
+		if (newPassword === '') {
+			await miTiempoApi.post('/updateUserInfo', {
+				email,
+				name,
+				city,
+			});
+		} else {
+			await miTiempoApi.post('/updateUserInfo', {
+				email,
+				name,
+				city,
+				newPassword,
+			});
+		}
+
 		navigate('Account');
 	} catch (error) {
 		dispatch({

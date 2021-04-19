@@ -8,10 +8,10 @@ import { Context as UserContext } from '../context/UserContext';
 import { withNavigation } from 'react-navigation';
 
 const EditAccountScreen = ({ navigation }) => {
-	const { updateUserInfo, errorMessage } = useContext(UserContext);
-	const [email, setEmail] = useState('');
-	const [name, setName] = useState('');
-	const [city, setCity] = useState('');
+	const { state, updateUserInfo, errorMessage } = useContext(UserContext);
+	const [email, setEmail] = useState(state.email);
+	const [name, setName] = useState(state.name);
+	const [city, setCity] = useState(state.city);
 	const [newPassword, setNewPassword] = useState('');
 	const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
@@ -56,7 +56,7 @@ const EditAccountScreen = ({ navigation }) => {
 					secureTextEntry
 					autoCapitalize="none"
 					autoCorrect={false}
-					placeholder="New password"
+					placeholder={'New password'}
 					value={newPassword}
 					onChangeText={setNewPassword}
 				/>
@@ -93,7 +93,7 @@ const EditAccountScreen = ({ navigation }) => {
 					disabled={
 						!(
 							newPassword === newPasswordConfirmation &&
-							newPassword.length > 0
+							newPassword.length > 0 || (newPassword==='' && newPasswordConfirmation==='')
 						)
 					}
 					onPress={() =>

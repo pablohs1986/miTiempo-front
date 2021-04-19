@@ -32,7 +32,6 @@ const TaskHomeScreen = () => {
 				inputStyle={styles.searchBarInputStyle}
 				inputContainerStyle={styles.searchBarInputContainerStyle}
 			/>
-			<Spacer />
 			<CategoryList data={state.categories} />
 			<Spacer>
 				<Text h4>Today</Text>
@@ -60,6 +59,8 @@ const styles = StyleSheet.create({
 		borderTopColor: 'transparent',
 		marginRight: 7,
 		marginLeft: 7,
+		marginTop: 5,
+		marginBottom: 25,
 	},
 	searchBarInputStyle: {
 		fontSize: 14,

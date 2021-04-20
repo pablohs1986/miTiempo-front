@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SearchBar, Text } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
 import TaskList from '../components/TaskList';
-import CategoryList from '../components/CategoryList';
+import HorizontalList from '../components/HorizontalList';
 import { Context as TaskContext } from '../context/TaskContext';
 
 const TaskHomeScreen = () => {
@@ -34,10 +34,14 @@ const TaskHomeScreen = () => {
 				onChangeText={setSearchTerm}
 				value={searchTerm}
 			/>
-			<CategoryList
-				data={state.categories}
-				changeCategory={setCategory}
-			/>
+			<View style={styles.horizontalList}>
+				<HorizontalList
+					data={state.categories}
+					changeCategory={setCategory}
+					style={styles.horizontalList}
+				/>
+			</View>
+
 			<Spacer>
 				<Text h4>Today</Text>
 				<TaskList data={state.todayTasks} searchTerm={searchTerm} />
@@ -74,6 +78,10 @@ const styles = StyleSheet.create({
 	searchBarInputContainerStyle: {
 		backgroundColor: '#E7ECF0',
 		height: 10,
+	},
+	horizontalList: {
+		marginLeft: 15,
+		marginRight: 15,
 	},
 });
 

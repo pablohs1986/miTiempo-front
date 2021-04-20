@@ -8,6 +8,8 @@ const TaskList = ({ data, searchTerm }) => {
 	return (
 		<>
 			<FlatList
+				showsVerticalScrollIndicator={false}
+				showsHorizontalScrollIndicator={false}
 				data={tasks}
 				keyExtractor={(task) => task._id}
 				renderItem={({ item }) => {

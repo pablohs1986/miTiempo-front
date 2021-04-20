@@ -17,61 +17,39 @@ import {
 } from '@expo/vector-icons';
 import Spacer from '../components/Spacer';
 import HorizontalList from '../components/HorizontalList';
+import { Context as TaskContext } from '../context/TaskContext';
 
 const TaskCreateScreen = () => {
-	const [selectedLanguage, setSelectedLanguage] = useState();
-	const [day, setDay] = useState([
-		'Monday',
-		'Tuesday',
-		'Wedneday',
-		'Thursday',
-		'Friday',
-		'Saturday',
-		'Sunday',
-	]);
-	const [duration, setDuration] = useState([
-		'5 min',
-		'15 min',
-		'30 min',
-		'45 min',
-		'1 h',
-		'2 h',
-		'3 h',
-		'4 h',
-		'5 h',
-		'6 h',
-		'7 h',
-		'8 h',
-	]);
-	const [repetition, setRepetition] = useState([
-		'Never',
-		'Every day',
-		'Every week',
-	]);
-	const [category, setCategory] = useState([
-		'Routines',
-		'Study',
-		'Family',
-		'Leisure',
-		'Readings',
-		'Cook',
-		'Sports',
-	]);
-	const [color, setColor] = useState([
-		'Black',
-		'White',
-		'Blue',
-		'Brown',
-		'Grey',
-		'Green',
-		'Orange',
-		'Rose',
-		'Purple',
-		'Red',
-		'Yellow',
-	]);
-	const [pomodoro, setPomodoro] = useState(['Yes', 'No']);
-	const [option, setOption] = useState(pomodoro);
+	const {
+		state,
+		listTasks,
+		listTodayTasks,
+		getDays,
+		getDurations,
+		getRepetitions,
+		getCategories,
+		getColors,
+		getPomodoro,
+	} = useContext(TaskContext);
+	const [option, setOption] = useState(state.pomodoro);
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [day, setDay] = useState('');
+	const [duration, setDuration] = useState('');
+	const [repetition, setRepetition] = useState('');
+	const [category, setCategory] = useState('');
+	const [color, setColor] = useState('');
+	const [pomodoro, setPomodoro] = useState('');
+
+	/** Use of useEffect Hook to load preset options. */
+	useEffect(() => {
+		getDays();
+		getDurations();
+		getRepetitions();
+		getCategories();
+		getColors();
+		getPomodoro();
+	}, []);
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
@@ -88,13 +66,13 @@ const TaskCreateScreen = () => {
 						autoCapitalize="none"
 						autoCorrect={false}
 						placeholder="Title"
-						// value={state.email}
+						value={title}
 					/>
 					<Input
 						autoCapitalize="none"
 						autoCorrect={false}
 						placeholder="Description"
-						// value={state.email}
+						value={description}
 					/>
 
 					<Divider />
@@ -102,19 +80,21 @@ const TaskCreateScreen = () => {
 						<View style={styles.container2}>
 							<Button
 								type="clear"
-								buttonStyle={styles.optionsRow1}
+								buttonStyle={styles.optionsButton}
+								titleStyle={styles.titleOptionsButton}
 								icon={
 									<MaterialIcons
 										name="date-range"
 										style={styles.inputIcons}
 									/>
 								}
-								title="Day"
-								onPress={() => setOption(day)}
+								title="Day" // TODO: aplicar {day} para que cambie dinámicamente al seleccionar
+								onPress={() => setOption(state.days)}
 							/>
 							<Button
 								type="clear"
-								buttonStyle={styles.optionsRow1}
+								buttonStyle={styles.optionsButton}
+								titleStyle={styles.titleOptionsButton}
 								icon={
 									<MaterialCommunityIcons
 										name="av-timer"
@@ -122,11 +102,12 @@ const TaskCreateScreen = () => {
 									/>
 								}
 								title="Duration"
-								onPress={() => setOption(duration)}
+								onPress={() => setOption(state.durations)}
 							/>
 							<Button
 								type="clear"
-								buttonStyle={styles.optionsRow1}
+								buttonStyle={styles.optionsButton}
+								titleStyle={styles.titleOptionsButton}
 								icon={
 									<Feather
 										name="repeat"
@@ -134,13 +115,14 @@ const TaskCreateScreen = () => {
 									/>
 								}
 								title="Repeat"
-								onPress={() => setOption(repetition)}
+								onPress={() => setOption(state.repetitions)}
 							/>
 						</View>
 						<View style={styles.container2}>
 							<Button
 								type="clear"
-								buttonStyle={styles.optionsRow2}
+								buttonStyle={styles.optionsButton}
+								titleStyle={styles.titleOptionsButton}
 								icon={
 									<Feather
 										name="tag"
@@ -148,11 +130,12 @@ const TaskCreateScreen = () => {
 									/>
 								}
 								title="Category"
-								onPress={() => setOption(category)}
+								onPress={() => setOption(state.categories)}
 							/>
 							<Button
 								type="clear"
-								buttonStyle={styles.optionsRow2}
+								buttonStyle={styles.optionsButton}
+								titleStyle={styles.titleOptionsButton}
 								icon={
 									<MaterialCommunityIcons
 										name="palette-outline"
@@ -160,11 +143,12 @@ const TaskCreateScreen = () => {
 									/>
 								}
 								title="Color"
-								onPress={() => setOption(color)}
+								onPress={() => setOption(state.colors)}
 							/>
 							<Button
 								type="clear"
-								buttonStyle={styles.optionsRow2}
+								buttonStyle={styles.optionsButton}
+								titleStyle={styles.titleOptionsButton}
 								icon={
 									<MaterialCommunityIcons
 										name="timer-sand"
@@ -172,7 +156,7 @@ const TaskCreateScreen = () => {
 									/>
 								}
 								title="Pomodoro"
-								onPress={() => setOption(pomodoro)}
+								onPress={() => setOption(state.pomodoro)}
 							/>
 						</View>
 					</Spacer>
@@ -197,7 +181,7 @@ const TaskCreateScreen = () => {
 					/>
 					<Button
 						buttonStyle={styles.outlineButton}
-						titleStyle={styles.titleColorOutlineButton}
+						titleStyle={styles.titleOutlineButton}
 						type="outline"
 						title="Start"
 						// onPress={signout}
@@ -238,11 +222,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#C830CC',
 		marginBottom: 10,
 	},
-	optionsRow1: {
-		flex: 1,
-		padding: 10,
-	},
-	optionsRow2: {
+	optionsButton: {
 		flex: 1,
 		padding: 10,
 	},
@@ -250,8 +230,11 @@ const styles = StyleSheet.create({
 		borderColor: '#C830CC',
 		borderWidth: 1,
 	},
-	titleColorOutlineButton: {
+	titleOutlineButton: {
 		color: '#C830CC',
+	},
+	titleOptionsButton: {
+		color: '#86939E',
 	},
 	horizontalList: {
 		alignSelf: 'center',

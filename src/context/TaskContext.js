@@ -150,7 +150,7 @@ const getDurations = (dispatch) => () => {
 /** Get repeat */
 const getRepetitions = (dispatch) => () => {
 	const repetitions = ['Never', 'Every day', 'Every week'];
-	dispatch({ type: 'getRepeat', payload: repetitions });
+	dispatch({ type: 'getRepetitions', payload: repetitions });
 };
 
 /** Get categories */

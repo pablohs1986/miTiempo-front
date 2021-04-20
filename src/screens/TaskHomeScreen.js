@@ -8,7 +8,7 @@ import HorizontalList from '../components/HorizontalList';
 import { Context as TaskContext } from '../context/TaskContext';
 
 const TaskHomeScreen = () => {
-	const { state, listTasks, listTodayTasks, listCategories } = useContext(
+	const { state, listTasks, listTodayTasks, getCategories } = useContext(
 		TaskContext
 	);
 	const [category, setCategory] = useState('All');
@@ -18,7 +18,7 @@ const TaskHomeScreen = () => {
 	useEffect(() => {
 		listTasks({ category });
 		listTodayTasks({ category });
-		listCategories();
+		getCategories();
 	}, [category]);
 
 	return (

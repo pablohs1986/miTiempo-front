@@ -17,10 +17,40 @@ const taskReducer = (state, action) => {
 				...state,
 				todayTasks: action.payload,
 			};
-		case 'listCategories':
+		// case 'listCategories':
+		// 	return {
+		// 		...state,
+		// 		categories: action.payload,
+		// 	};
+		case 'getDays':
+			return {
+				...state,
+				days: action.payload,
+			};
+		case 'getDurations':
+			return {
+				...state,
+				durations: action.payload,
+			};
+		case 'getRepetitions':
+			return {
+				...state,
+				repetitions: action.payload,
+			};
+		case 'getCategories':
 			return {
 				...state,
 				categories: action.payload,
+			};
+		case 'getColors':
+			return {
+				...state,
+				colors: action.payload,
+			};
+		case 'getPomodoro':
+			return {
+				...state,
+				pomodoro: action.payload,
 			};
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
@@ -83,14 +113,109 @@ const listCategories = (dispatch) => async () => {
 
 /** Delete task */
 
+// TODO: documentar bloque
+/**  Get days */
+const getDays = (dispatch) => () => {
+	const days = [
+		'Monday',
+		'Tuesday',
+		'Wedneday',
+		'Thursday',
+		'Friday',
+		'Saturday',
+		'Sunday',
+	];
+	dispatch({ type: 'getDays', payload: days });
+};
+
+/** Get durations */
+const getDurations = (dispatch) => () => {
+	const durations = [
+		'5 min',
+		'15 min',
+		'30 min',
+		'45 min',
+		'1 h',
+		'2 h',
+		'3 h',
+		'4 h',
+		'5 h',
+		'6 h',
+		'7 h',
+		'8 h',
+	];
+	dispatch({ type: 'getDurations', payload: durations });
+};
+
+/** Get repeat */
+const getRepetitions = (dispatch) => () => {
+	const repetitions = ['Never', 'Every day', 'Every week'];
+	dispatch({ type: 'getRepeat', payload: repetitions });
+};
+
+/** Get categories */
+const getCategories = (dispatch) => () => {
+	const categories = [
+		'All',
+		'Done',
+		'Routines',
+		'Study',
+		'Family',
+		'Leisure',
+		'Readings',
+		'Cook',
+		'Sports',
+	];
+	dispatch({ type: 'getCategories', payload: categories });
+};
+
+/** Get colors */
+const getColors = (dispatch) => () => {
+	const colors = [
+		'Black',
+		'White',
+		'Blue',
+		'Brown',
+		'Grey',
+		'Green',
+		'Orange',
+		'Rose',
+		'Purple',
+		'Red',
+		'Yellow',
+	];
+	dispatch({ type: 'getColors', payload: colors });
+};
+
+/** Get pomodoro */
+const getPomodoro = (dispatch) => () => {
+	const pomodoro = ['Yes', 'No'];
+	dispatch({ type: 'getPomodoro', payload: pomodoro });
+};
+
 /** Export and call createDataContext to create the context and its provider. */
 export const { Provider, Context } = createDataContext(
 	taskReducer,
-	{ listTasks, listTodayTasks, listCategories },
+	{
+		listTasks,
+		listTodayTasks,
+		listCategories,
+		getDays,
+		getDurations,
+		getRepetitions,
+		getCategories,
+		getColors,
+		getPomodoro,
+	},
 	{
 		tasks: [],
 		todayTasks: [],
+		days: [],
+		durations: [],
+		repetitions: [],
 		categories: [],
+		colors: [],
+		pomodoro: [],
 		errorMessage: '',
 	}
 );

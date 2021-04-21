@@ -119,7 +119,7 @@ const getDays = (dispatch) => () => {
 	const days = [
 		'Monday',
 		'Tuesday',
-		'Wedneday',
+		'Wednesday',
 		'Thursday',
 		'Friday',
 		'Saturday',
@@ -165,6 +165,7 @@ const getCategories = (dispatch) => () => {
 		'Readings',
 		'Cook',
 		'Sports',
+		'Other',
 	];
 	dispatch({ type: 'getCategories', payload: categories });
 };
@@ -179,7 +180,7 @@ const getColors = (dispatch) => () => {
 		'Grey',
 		'Green',
 		'Orange',
-		'Rose',
+		'Pink',
 		'Purple',
 		'Red',
 		'Yellow',

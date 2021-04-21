@@ -22,8 +22,6 @@ import { Context as TaskContext } from '../context/TaskContext';
 const TaskCreateScreen = () => {
 	const {
 		state,
-		listTasks,
-		listTodayTasks,
 		getDays,
 		getDurations,
 		getRepetitions,
@@ -32,14 +30,15 @@ const TaskCreateScreen = () => {
 		getPomodoro,
 	} = useContext(TaskContext);
 	const [option, setOption] = useState(state.pomodoro);
+	const [optionSetter, setOptionSetter] = useState('');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
-	const [day, setDay] = useState('');
-	const [duration, setDuration] = useState('');
-	const [repetition, setRepetition] = useState('');
-	const [category, setCategory] = useState('');
-	const [color, setColor] = useState('');
-	const [pomodoro, setPomodoro] = useState('');
+	const [day, setDay] = useState('Day');
+	const [duration, setDuration] = useState('Duration');
+	const [repetition, setRepetition] = useState('Repeat');
+	const [category, setCategory] = useState('Category');
+	const [color, setColor] = useState('Color');
+	const [pomodoro, setPomodoro] = useState('Pomodoro');
 
 	/** Use of useEffect Hook to load preset options. */
 	useEffect(() => {
@@ -67,96 +66,144 @@ const TaskCreateScreen = () => {
 						autoCorrect={false}
 						placeholder="Title"
 						value={title}
+						onChangeText={setTitle}
 					/>
 					<Input
 						autoCapitalize="none"
 						autoCorrect={false}
 						placeholder="Description"
 						value={description}
+						onChangeText={setDescription}
 					/>
 
 					<Divider />
 					<Spacer>
-						<View style={styles.container2}>
+						<View style={styles.optionsContainer}>
 							<Button
 								type="clear"
 								buttonStyle={styles.optionsButton}
-								titleStyle={styles.titleOptionsButton}
+								disabledStyle={styles.optionsButtonDisabled}
+								titleStyle={
+									option === state.days
+										? styles.titleOptionsButtonEnabled
+										: styles.titleOptionsButtonDisabled
+								}
 								icon={
 									<MaterialIcons
 										name="date-range"
 										style={styles.inputIcons}
 									/>
 								}
-								title="Day" // TODO: aplicar {day} para que cambie dinámicamente al seleccionar
-								onPress={() => setOption(state.days)}
+								title={day}
+								onPress={() => {
+									setOption(state.days);
+									setOptionSetter(() => setDay);
+								}}
 							/>
 							<Button
 								type="clear"
 								buttonStyle={styles.optionsButton}
-								titleStyle={styles.titleOptionsButton}
+								titleStyle={
+									option === state.durations
+										? styles.titleOptionsButtonEnabled
+										: styles.titleOptionsButtonDisabled
+								}
 								icon={
 									<MaterialCommunityIcons
 										name="av-timer"
 										style={styles.inputIcons}
 									/>
 								}
-								title="Duration"
-								onPress={() => setOption(state.durations)}
+								title={duration}
+								onPress={() => {
+									setOption(state.durations);
+									setOptionSetter(() => setDuration);
+								}}
 							/>
 							<Button
 								type="clear"
 								buttonStyle={styles.optionsButton}
-								titleStyle={styles.titleOptionsButton}
+								titleStyle={
+									option === state.repetitions
+										? styles.titleOptionsButtonEnabled
+										: styles.titleOptionsButtonDisabled
+								}
 								icon={
 									<Feather
 										name="repeat"
 										style={styles.inputIcons}
 									/>
 								}
-								title="Repeat"
-								onPress={() => setOption(state.repetitions)}
+								title={repetition}
+								onPress={() => {
+									setOption(state.repetitions);
+									setOptionSetter(() => setRepetition);
+								}}
 							/>
 						</View>
-						<View style={styles.container2}>
+						<View style={styles.optionsContainer}>
 							<Button
 								type="clear"
 								buttonStyle={styles.optionsButton}
-								titleStyle={styles.titleOptionsButton}
+								titleStyle={
+									option.length ===
+									filterCategories(state.categories).length
+										? styles.titleOptionsButtonEnabled
+										: styles.titleOptionsButtonDisabled
+								}
 								icon={
 									<Feather
 										name="tag"
 										style={styles.inputIcons}
 									/>
 								}
-								title="Category"
-								onPress={() => setOption(state.categories)}
+								title={category}
+								onPress={() => {
+									setOption(
+										filterCategories(state.categories)
+									);
+									setOptionSetter(() => setCategory);
+								}}
 							/>
 							<Button
 								type="clear"
 								buttonStyle={styles.optionsButton}
-								titleStyle={styles.titleOptionsButton}
+								titleStyle={
+									option === state.colors
+										? styles.titleOptionsButtonEnabled
+										: styles.titleOptionsButtonDisabled
+								}
 								icon={
 									<MaterialCommunityIcons
 										name="palette-outline"
 										style={styles.inputIcons}
 									/>
 								}
-								title="Color"
-								onPress={() => setOption(state.colors)}
+								title={color}
+								onPress={() => {
+									setOption(state.colors);
+									setOptionSetter(() => setColor);
+								}}
 							/>
 							<Button
 								type="clear"
 								buttonStyle={styles.optionsButton}
-								titleStyle={styles.titleOptionsButton}
+								titleStyle={
+									option === state.pomodoro
+										? styles.titleOptionsButtonEnabled
+										: styles.titleOptionsButtonDisabled
+								}
 								icon={
 									<MaterialCommunityIcons
 										name="timer-sand"
 										style={styles.inputIcons}
 									/>
 								}
-								title="Pomodoro"
-								onPress={() => setOption(state.pomodoro)}
+								title={pomodoro}
+								onPress={() => {
+									setOption(state.pomodoro);
+									setOptionSetter(() => setPomodoro);
+								}}
 							/>
 						</View>
 					</Spacer>
@@ -166,8 +213,8 @@ const TaskCreateScreen = () => {
 					<Spacer>
 						<HorizontalList
 							data={option}
-							// changeCategory={setOption}
 							style={styles.horizontalList}
+							onSubmit={optionSetter}
 						/>
 					</Spacer>
 
@@ -192,6 +239,13 @@ const TaskCreateScreen = () => {
 	);
 };
 
+/** Method that filters the categories to show the necessary ones to the user. */
+function filterCategories(categories) {
+	return categories.filter(
+		(category) => category !== 'All' && category !== 'Done'
+	);
+}
+
 TaskCreateScreen.navigationOptions = {
 	tabBarIcon: ({ tintColor }) => (
 		<FontAwesome5 name="plus" size={20} style={{ color: tintColor }} />
@@ -204,7 +258,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
 	},
-	container2: {
+	optionsContainer: {
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-around',
@@ -218,13 +272,22 @@ const styles = StyleSheet.create({
 		color: '#C830CC',
 		fontSize: 24,
 	},
-	solidButton: {
-		backgroundColor: '#C830CC',
-		marginBottom: 10,
-	},
 	optionsButton: {
 		flex: 1,
 		padding: 10,
+	},
+	titleOptionsButtonDisabled: {
+		color: '#86939E',
+	},
+	titleOptionsButtonEnabled: {
+		color: 'black',
+	},
+	horizontalList: {
+		alignSelf: 'center',
+	},
+	solidButton: {
+		backgroundColor: '#C830CC',
+		marginBottom: 10,
 	},
 	outlineButton: {
 		borderColor: '#C830CC',
@@ -232,12 +295,6 @@ const styles = StyleSheet.create({
 	},
 	titleOutlineButton: {
 		color: '#C830CC',
-	},
-	titleOptionsButton: {
-		color: '#86939E',
-	},
-	horizontalList: {
-		alignSelf: 'center',
 	},
 });
 

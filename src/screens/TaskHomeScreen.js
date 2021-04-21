@@ -37,7 +37,7 @@ const TaskHomeScreen = () => {
 			<View style={styles.horizontalList}>
 				<HorizontalList
 					data={state.categories}
-					changeCategory={setCategory}
+					onSubmit={setCategory}
 					style={styles.horizontalList}
 				/>
 			</View>

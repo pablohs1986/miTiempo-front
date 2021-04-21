@@ -1,14 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, Picker, ScrollView, View } from 'react-native';
-import {
-	Input,
-	Text,
-	CheckBox,
-	Divider,
-	Button,
-	Icon,
-} from 'react-native-elements';
-import { SafeAreaView, NavigationEvents } from 'react-navigation';
+import { StyleSheet, ScrollView, View } from 'react-native';
+import { Input, Text, Divider, Button } from 'react-native-elements';
+import { SafeAreaView } from 'react-navigation';
 import {
 	FontAwesome5,
 	Feather,
@@ -16,6 +9,7 @@ import {
 	MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import Spacer from '../components/Spacer';
+import MoveToBottom from '../components/MoveToBottom';
 import HorizontalList from '../components/HorizontalList';
 import { Context as TaskContext } from '../context/TaskContext';
 
@@ -29,7 +23,7 @@ const TaskCreateScreen = () => {
 		getColors,
 		getPomodoro,
 	} = useContext(TaskContext);
-	const [option, setOption] = useState(state.pomodoro);
+	const [option, setOption] = useState(state.days);
 	const [optionSetter, setOptionSetter] = useState('');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -120,6 +114,8 @@ const TaskCreateScreen = () => {
 									setOptionSetter(() => setDuration);
 								}}
 							/>
+						</View>
+						<View style={styles.optionsContainer}>
 							<Button
 								type="clear"
 								buttonStyle={styles.optionsButton}
@@ -140,7 +136,28 @@ const TaskCreateScreen = () => {
 									setOptionSetter(() => setRepetition);
 								}}
 							/>
+							<Button
+								type="clear"
+								buttonStyle={styles.optionsButton}
+								titleStyle={
+									option === state.pomodoro
+										? styles.titleOptionsButtonEnabled
+										: styles.titleOptionsButtonDisabled
+								}
+								icon={
+									<MaterialCommunityIcons
+										name="timer-sand"
+										style={styles.inputIcons}
+									/>
+								}
+								title={pomodoro}
+								onPress={() => {
+									setOption(state.pomodoro);
+									setOptionSetter(() => setPomodoro);
+								}}
+							/>
 						</View>
+
 						<View style={styles.optionsContainer}>
 							<Button
 								type="clear"
@@ -185,41 +202,25 @@ const TaskCreateScreen = () => {
 									setOptionSetter(() => setColor);
 								}}
 							/>
-							<Button
-								type="clear"
-								buttonStyle={styles.optionsButton}
-								titleStyle={
-									option === state.pomodoro
-										? styles.titleOptionsButtonEnabled
-										: styles.titleOptionsButtonDisabled
-								}
-								icon={
-									<MaterialCommunityIcons
-										name="timer-sand"
-										style={styles.inputIcons}
-									/>
-								}
-								title={pomodoro}
-								onPress={() => {
-									setOption(state.pomodoro);
-									setOptionSetter(() => setPomodoro);
-								}}
-							/>
 						</View>
 					</Spacer>
 
 					<Divider />
 
 					<Spacer>
-						<HorizontalList
-							data={option}
-							style={styles.horizontalList}
-							onSubmit={optionSetter}
-						/>
+						<View style={styles.optionsSelector}>
+							<HorizontalList
+								data={option}
+								style={styles.horizontalList}
+								onSubmit={optionSetter}
+							/>
+						</View>
 					</Spacer>
 
 					<Divider />
 				</Spacer>
+			</ScrollView>
+			<MoveToBottom>
 				<Spacer>
 					<Button
 						buttonStyle={styles.solidButton}
@@ -234,7 +235,7 @@ const TaskCreateScreen = () => {
 						// onPress={signout}
 					/>
 				</Spacer>
-			</ScrollView>
+			</MoveToBottom>
 		</SafeAreaView>
 	);
 };
@@ -263,6 +264,10 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 	},
+	optionsSelector: {
+		flex: 1,
+		height: 40,
+	},
 	header: {
 		marginTop: 10,
 		alignSelf: 'center',
@@ -274,7 +279,9 @@ const styles = StyleSheet.create({
 	},
 	optionsButton: {
 		flex: 1,
+		justifyContent: 'flex-start',
 		padding: 10,
+		width: 140,
 	},
 	titleOptionsButtonDisabled: {
 		color: '#86939E',

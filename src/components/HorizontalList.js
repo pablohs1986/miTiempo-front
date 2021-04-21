@@ -2,16 +2,30 @@ import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
 
+// FIXME: flatListRef no se reconoce en versión web. Investigar o aplicar código específico para web.
 const HorizontalList = ({ data, onSubmit }) => {
 	return (
 		<>
 			<FlatList
+				ref={(ref) => {
+					this.flatListRef = ref;
+				}}
 				horizontal
 				showsVerticalScrollIndicator={false}
 				showsHorizontalScrollIndicator={false}
 				data={data}
 				keyExtractor={(element) => element._id}
 				renderItem={({ item }) => {
+					// Scroll up on every render if data is not categories (checks the first value)
+					{
+						data[0] === 'All'
+							? null
+							: this.flatListRef.scrollToOffset({
+									animated: true,
+									offset: 0,
+							  });
+					}
+
 					return (
 						<ListItem containerStyle={styles.container}>
 							<ListItem.Content>
@@ -25,7 +39,9 @@ const HorizontalList = ({ data, onSubmit }) => {
 										)}
 										type="outline"
 										title={item}
-										onPress={() => onSubmit(item)}
+										onPress={() => {
+											onSubmit(item);
+										}}
 									/>
 								</ListItem.Title>
 							</ListItem.Content>
@@ -37,6 +53,7 @@ const HorizontalList = ({ data, onSubmit }) => {
 	);
 };
 
+/** TODO: doc */
 function handleButtonStyles(item) {
 	switch (item) {
 		case 'Black':
@@ -125,6 +142,8 @@ function handleButtonStyles(item) {
 			};
 	}
 }
+
+/** TODO: doc */
 function handleButtonTitlesStyles(item) {
 	switch (item) {
 		case 'White':

@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
+import MoveToBottom from '../components/MoveToBottom';
 import { Feather } from '@expo/vector-icons';
 import { Context as UserContext } from '../context/UserContext';
 import { withNavigation } from 'react-navigation';
@@ -86,21 +87,27 @@ const EditAccountScreen = ({ navigation }) => {
 				{errorMessage ? (
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
 				) : null}
-
-				<Button
-					buttonStyle={styles.solidButton}
-					title="Update"
-					disabled={
-						!(
-							newPassword === newPasswordConfirmation &&
-							newPassword.length > 0 || (newPassword==='' && newPasswordConfirmation==='')
-						)
-					}
-					onPress={() =>
-						updateUserInfo({ email, name, city, newPassword })
-					}
-				/>
 			</Spacer>
+
+			<MoveToBottom>
+				<Spacer>
+					<Button
+						buttonStyle={styles.solidButton}
+						title="Update"
+						disabled={
+							!(
+								(newPassword === newPasswordConfirmation &&
+									newPassword.length > 0) ||
+								(newPassword === '' &&
+									newPasswordConfirmation === '')
+							)
+						}
+						onPress={() =>
+							updateUserInfo({ email, name, city, newPassword })
+						}
+					/>
+				</Spacer>
+			</MoveToBottom>
 		</SafeAreaView>
 	);
 };

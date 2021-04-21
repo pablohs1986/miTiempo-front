@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
+import MoveToBottom from '../components/MoveToBottom';
 import { Feather } from '@expo/vector-icons';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as UserContext } from '../context/UserContext';
@@ -50,20 +51,24 @@ const AccountScreen = ({ navigation }) => {
 				{errorMessage ? (
 					<Text style={styles.errorMessage}>{errorMessage}</Text>
 				) : null}
-
-				<Button
-					buttonStyle={styles.solidButton}
-					title="Edit"
-					onPress={() => navigation.navigate('EditAccount')}
-				/>
-				<Button
-					buttonStyle={styles.outlineButton}
-					titleStyle={styles.titleColorOutlineButton}
-					type="outline"
-					title="Sign out"
-					onPress={signout}
-				/>
 			</Spacer>
+
+			<MoveToBottom>
+				<Spacer>
+					<Button
+						buttonStyle={styles.solidButton}
+						title="Edit"
+						onPress={() => navigation.navigate('EditAccount')}
+					/>
+					<Button
+						buttonStyle={styles.outlineButton}
+						titleStyle={styles.titleColorOutlineButton}
+						type="outline"
+						title="Sign out"
+						onPress={signout}
+					/>
+				</Spacer>
+			</MoveToBottom>
 		</SafeAreaView>
 	);
 };

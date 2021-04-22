@@ -59,7 +59,36 @@ const taskReducer = (state, action) => {
 	}
 };
 
-/** Add task */
+/** TODO: Add task */
+const addTask = (dispatch) => async ({
+	title,
+	description,
+	day,
+	duration,
+	repetition,
+	category,
+	color,
+	isPomodoro,
+}) => {
+	try {
+		await miTiempoApi.post('/addTask', {
+			title,
+			description,
+			day,
+			duration,
+			repetition,
+			category,
+			color,
+			isPomodoro,
+		});
+		navigate('TaskHome');
+	} catch (error) {
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong adding task.',
+		});
+	}
+};
 
 /** Action function that fetch all tasks, filtered by category or not.
  * It sends a request with the type of category, if this is succesful, it
@@ -198,6 +227,7 @@ const getPomodoro = (dispatch) => () => {
 export const { Provider, Context } = createDataContext(
 	taskReducer,
 	{
+		addTask,
 		listTasks,
 		listTodayTasks,
 		listCategories,
@@ -216,7 +246,7 @@ export const { Provider, Context } = createDataContext(
 		repetitions: [],
 		categories: [],
 		colors: [],
-		pomodoro: [],
+		isPomodoro: [],
 		errorMessage: '',
 	}
 );

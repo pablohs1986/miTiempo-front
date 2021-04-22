@@ -32,7 +32,7 @@ const TaskCreateScreen = () => {
 	const [repetition, setRepetition] = useState('Repeat');
 	const [category, setCategory] = useState('Category');
 	const [color, setColor] = useState('Color');
-	const [pomodoro, setPomodoro] = useState('Pomodoro');
+	const [isPomodoro, setIsPomodoro] = useState('Pomodoro');
 
 	/** Use of useEffect Hook to load preset options. */
 	useEffect(() => {
@@ -150,10 +150,10 @@ const TaskCreateScreen = () => {
 										style={styles.inputIcons}
 									/>
 								}
-								title={pomodoro}
+								title={isPomodoro}
 								onPress={() => {
 									setOption(state.pomodoro);
-									setOptionSetter(() => setPomodoro);
+									setOptionSetter(() => setIsPomodoro);
 								}}
 							/>
 						</View>

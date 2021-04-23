@@ -7,7 +7,6 @@ import TaskList from '../components/TaskList';
 import HorizontalList from '../components/HorizontalList';
 import { Context as TaskContext } from '../context/TaskContext';
 
-// FIXME: no se actualiza al crear una tarea, revisar
 const TaskHomeScreen = () => {
 	const { state, listTasks, listTodayTasks, getCategories } = useContext(
 		TaskContext
@@ -24,6 +23,8 @@ const TaskHomeScreen = () => {
 
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+			<NavigationEvents onWillFocus={refreshData} />
+
 			<SearchBar
 				round
 				lightTheme
@@ -54,6 +55,12 @@ const TaskHomeScreen = () => {
 		</SafeAreaView>
 	);
 };
+
+/** Method that reloads the task lists. */
+function refreshData() {
+	listTasks({ category });
+	listTodayTasks({ category });
+}
 
 TaskHomeScreen.navigationOptions = {
 	headerShown: false,

@@ -18,6 +18,8 @@ const HorizontalList = ({ data, onSubmit }) => {
 				renderItem={({ item }) => {
 					// Scroll up on every render if data is not categories (checks the first value)
 					{
+						console.log(data[0]);
+						console.log(data.length);
 						data[0] === 'All' && data.length === 10
 							? null
 							: this.flatListRef.scrollToOffset({

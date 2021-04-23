@@ -22,6 +22,7 @@ const TaskCreateScreen = () => {
 		getCategories,
 		getColors,
 		getPomodoro,
+		addTask,
 	} = useContext(TaskContext);
 	const [option, setOption] = useState(state.days);
 	const [optionSetter, setOptionSetter] = useState('');
@@ -225,7 +226,18 @@ const TaskCreateScreen = () => {
 					<Button
 						buttonStyle={styles.solidButton}
 						title="Add"
-						// onPress={() => navigation.navigate('EditAccount')}
+						onPress={() =>
+							addTask({
+								title,
+								description,
+								day,
+								duration,
+								repetition,
+								category,
+								color,
+								isPomodoro,
+							})
+						}
 					/>
 					<Button
 						buttonStyle={styles.outlineButton}

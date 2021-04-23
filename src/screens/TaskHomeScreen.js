@@ -7,6 +7,7 @@ import TaskList from '../components/TaskList';
 import HorizontalList from '../components/HorizontalList';
 import { Context as TaskContext } from '../context/TaskContext';
 
+// FIXME: no se actualiza al crear una tarea, revisar
 const TaskHomeScreen = () => {
 	const { state, listTasks, listTodayTasks, getCategories } = useContext(
 		TaskContext

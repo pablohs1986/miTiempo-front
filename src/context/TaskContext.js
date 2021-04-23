@@ -59,7 +59,10 @@ const taskReducer = (state, action) => {
 	}
 };
 
-/** TODO: Add task */
+/** Action function that add a new task.
+ * It sends a request with the params of the task, if this is succesful, it
+ * navigates to TaskHome. If not, sends an error message.
+ */
 const addTask = (dispatch) => async ({
 	title,
 	description,
@@ -144,17 +147,87 @@ const listCategories = (dispatch) => async () => {
 // TODO: documentar bloque
 /**  Get days */
 const getDays = (dispatch) => () => {
-	const days = [
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Saturday',
-		'Sunday',
-	];
+	const days = getDaysArray();
 	dispatch({ type: 'getDays', payload: days });
 };
+
+/** Function that returns an array with the days of the week, indicating the current day. */
+function getDaysArray() {
+	const today = new Date().toLocaleString('en-GB', { weekday: 'long' });
+
+	switch (today) {
+		case 'Monday':
+			return [
+				'Today',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+				'Saturday',
+				'Sunday',
+			];
+		case 'Tuesday':
+			return [
+				'Today',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+				'Saturday',
+				'Sunday',
+				'Monday',
+			];
+		case 'Wednesday':
+			return [
+				'Today',
+				'Thursday',
+				'Friday',
+				'Saturday',
+				'Sunday',
+				'Monday',
+				'Tuesday',
+			];
+		case 'Thursday':
+			return [
+				'Today',
+				'Friday',
+				'Saturday',
+				'Sunday',
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+			];
+		case 'Friday':
+			return [
+				'Today',
+				'Saturday',
+				'Sunday',
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+			];
+		case 'Saturday':
+			return [
+				'Today',
+				'Sunday',
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+			];
+		case 'Sunday':
+			return [
+				'Today',
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+				'Saturday',
+			];
+	}
+}
 
 /** Get durations */
 const getDurations = (dispatch) => () => {

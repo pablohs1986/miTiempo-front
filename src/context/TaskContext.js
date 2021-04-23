@@ -130,7 +130,6 @@ const listCategories = (dispatch) => async () => {
 		categories.unshift('All'); // add All category to de beginning of the array
 		dispatch({ type: 'listCategories', payload: categories });
 	} catch (error) {
-		console.log(error);
 		dispatch({
 			type: 'add_error',
 			payload: 'Something went wrong retrieving categories.',

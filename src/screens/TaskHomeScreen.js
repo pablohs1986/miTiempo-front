@@ -21,6 +21,12 @@ const TaskHomeScreen = () => {
 		getCategories();
 	}, [category]);
 
+	/** Method that reloads the task lists. */
+	function refreshData() {
+		listTasks({ category });
+		listTodayTasks({ category });
+	}
+
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
 			<NavigationEvents onWillFocus={refreshData} />
@@ -55,12 +61,6 @@ const TaskHomeScreen = () => {
 		</SafeAreaView>
 	);
 };
-
-/** Method that reloads the task lists. */
-function refreshData() {
-	listTasks({ category });
-	listTodayTasks({ category });
-}
 
 TaskHomeScreen.navigationOptions = {
 	headerShown: false,

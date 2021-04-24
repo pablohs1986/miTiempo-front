@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { SearchBar, Text } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -50,24 +50,34 @@ const TaskHomeScreen = () => {
 				/>
 			</View>
 
-			<Spacer>
-				<Text h4>Today</Text>
-				<TaskList data={state.todayTasks} searchTerm={searchTerm} />
-			</Spacer>
-			<Spacer>
-				<Text h4>My Tasks</Text>
-				<TaskList data={state.tasks} searchTerm={searchTerm} />
-			</Spacer>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+				showsHorizontalScrollIndicator={false}
+			>
+				<Spacer>
+					<Text h4>Today</Text>
+					<TaskList data={state.todayTasks} searchTerm={searchTerm} />
+				</Spacer>
+				<Spacer>
+					<Text h4>My Tasks</Text>
+					<TaskList data={state.tasks} searchTerm={searchTerm} />
+				</Spacer>
+			</ScrollView>
 		</SafeAreaView>
 	);
 };
 
 TaskHomeScreen.navigationOptions = {
 	headerShown: false,
-	cardStyle: { backgroundColor: 'white' },
+	cardStyle: { backgroundColor: 'white' }, // FIXME: cambiar fondo??
 };
 
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		alignContent: 'space-around',
+	},
 	searchBarContainer: {
 		backgroundColor: 'transparent',
 		borderWidth: 0,
@@ -80,7 +90,7 @@ const styles = StyleSheet.create({
 		marginBottom: 25,
 	},
 	searchBarInputStyle: {
-		fontSize: 14,
+		// fontSize: 14,
 		color: 'black',
 	},
 	searchBarInputContainerStyle: {

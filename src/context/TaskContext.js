@@ -1,3 +1,4 @@
+import moment from 'moment';
 import createDataContext from './createDataContext';
 import miTiempoApi from '../api/miTiempoApi';
 import { navigate } from '../navigation/externalNavigator';
@@ -153,7 +154,7 @@ const getDays = (dispatch) => () => {
 
 /** Function that returns an array with the days of the week, indicating the current day. */
 function getDaysArray() {
-	const today = new Date().toLocaleString('en-GB', { weekday: 'long' });
+	const today = moment().format('dddd');
 
 	switch (today) {
 		case 'Monday':

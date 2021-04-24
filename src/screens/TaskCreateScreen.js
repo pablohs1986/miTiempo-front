@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Input, Text, Divider, Button } from 'react-native-elements';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import {
 	FontAwesome5,
 	Feather,
@@ -45,8 +45,22 @@ const TaskCreateScreen = () => {
 		getPomodoro();
 	}, []);
 
+	/** Method that reloads option panel presets. */
+	function refreshPresets() {
+		setTitle('');
+		setDescription('');
+		setDay('Day');
+		setDuration('Duration');
+		setRepetition('Repeat');
+		setCategory('Category');
+		setColor('Color');
+		setIsPomodoro('Pomodoro');
+	}
+
 	return (
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+			<NavigationEvents onWillFocus={refreshPresets} />
+
 			<Text style={styles.header} h4>
 				New Task
 			</Text>

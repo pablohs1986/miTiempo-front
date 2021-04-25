@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { Input, Text, Divider, Button } from 'react-native-elements';
+import { Input, Text, Divider, Button, Header } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import {
 	FontAwesome5,
@@ -9,11 +9,12 @@ import {
 	MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import Spacer from '../components/Spacer';
+import SectionContainer from '../components/SectionContainer';
 import MoveToBottom from '../components/MoveToBottom';
 import HorizontalList from '../components/HorizontalList';
 import { Context as TaskContext } from '../context/TaskContext';
 
-const TaskCreateScreen = () => {
+const TaskCreateScreen = ({ navigation }) => {
 	const {
 		state,
 		getDays,
@@ -61,31 +62,71 @@ const TaskCreateScreen = () => {
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
 			<NavigationEvents onWillFocus={refreshPresets} />
 
-			<Text style={styles.header} h4>
+			<Header
+				leftComponent={
+					<Button
+						buttonStyle={styles.headerButtonLeft}
+						titleStyle={styles.titleHeaderButtonLeft}
+						type="clear"
+						title="Cancel"
+						onPress={() => navigation.navigate('homeFlow')}
+					/>
+				}
+				centerComponent={
+					<Text style={styles.headerTitle} h4>
+						New Task
+					</Text>
+				}
+				rightComponent={
+					<Button
+						buttonStyle={styles.headerButtonRight}
+						titleStyle={styles.titleHeaderButtonRight}
+						type="clear"
+						title="Add"
+						onPress={() =>
+							addTask({
+								title,
+								description,
+								day,
+								duration,
+								repetition,
+								category,
+								color,
+								isPomodoro,
+							})
+						}
+					/>
+				}
+				containerStyle={styles.header}
+			/>
+
+			{/* <Text style={styles.header} h4>
 				New Task
-			</Text>
+			</Text> */}
 
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 				showsHorizontalScrollIndicator={false}
 			>
-				<Spacer>
-					<Input
-						autoCapitalize="none"
-						autoCorrect={false}
-						placeholder="Title"
-						value={title}
-						onChangeText={setTitle}
-					/>
-					<Input
-						autoCapitalize="none"
-						autoCorrect={false}
-						placeholder="Description"
-						value={description}
-						onChangeText={setDescription}
-					/>
-
-					<Divider />
+				<SectionContainer>
+					<Spacer>
+						<Input
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="Title"
+							value={title}
+							onChangeText={setTitle}
+						/>
+						<Input
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="Description"
+							value={description}
+							onChangeText={setDescription}
+						/>
+					</Spacer>
+				</SectionContainer>
+				<SectionContainer>
 					<Spacer>
 						<View style={styles.optionsContainer}>
 							<Button
@@ -231,15 +272,14 @@ const TaskCreateScreen = () => {
 							/>
 						</View>
 					</Spacer>
-
-					<Divider />
-				</Spacer>
+				</SectionContainer>
 			</ScrollView>
+
 			<MoveToBottom>
 				<Spacer>
 					<Button
 						buttonStyle={styles.solidButton}
-						title="Add"
+						title="Start"
 						onPress={() =>
 							addTask({
 								title,
@@ -252,13 +292,6 @@ const TaskCreateScreen = () => {
 								isPomodoro,
 							})
 						}
-					/>
-					<Button
-						buttonStyle={styles.outlineButton}
-						titleStyle={styles.titleOutlineButton}
-						type="outline"
-						title="Start"
-						// onPress={signout}
 					/>
 				</Spacer>
 			</MoveToBottom>
@@ -284,6 +317,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
+		backgroundColor: '#F2F1F6',
 	},
 	optionsContainer: {
 		flex: 1,
@@ -295,9 +329,20 @@ const styles = StyleSheet.create({
 		height: 40,
 	},
 	header: {
-		marginTop: 10,
-		alignSelf: 'center',
+		backgroundColor: 'transparent',
+		marginRight: 15,
+		marginLeft: 15,
+		paddingBottom: 0,
 	},
+	headerTitle: {
+		marginTop: 5,
+		fontSize: 24,
+		color: 'black',
+	},
+	// headerButtoms: {
+	// 	fontSize: 18,
+	// 	color: '#C830CC',
+	// },
 	inputIcons: {
 		marginRight: 10,
 		color: '#C830CC',
@@ -320,13 +365,21 @@ const styles = StyleSheet.create({
 	},
 	solidButton: {
 		backgroundColor: '#C830CC',
-		marginBottom: 10,
 	},
-	outlineButton: {
-		borderColor: '#C830CC',
-		borderWidth: 1,
+	headerButtonLeft: {
+		justifyContent: 'flex-start',
+		backgroundColor: 'transparent',
+		width: 100,
 	},
-	titleOutlineButton: {
+	titleHeaderButtonLeft: {
+		color: '#C830CC',
+	},
+	headerButtonRight: {
+		justifyContent: 'flex-end',
+		backgroundColor: 'transparent',
+		width: 100,
+	},
+	titleHeaderButtonRight: {
 		color: '#C830CC',
 	},
 });

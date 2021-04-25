@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -22,43 +22,56 @@ const AccountScreen = ({ navigation }) => {
 				My Account
 			</Text>
 
-			<SectionContainer>
-				<Spacer>
-					<Input
-						leftIcon={
-							<Feather name="mail" style={styles.inputIcons} />
-						}
-						autoCapitalize="none"
-						autoCorrect={false}
-						placeholder="Email"
-						value={state.email}
-					/>
-					<Input
-						leftIcon={
-							<Feather name="user" style={styles.inputIcons} />
-						}
-						autoCapitalize="none"
-						autoCorrect={false}
-						placeholder="Name"
-						value={state.name}
-					/>
-					<Input
-						leftIcon={
-							<Feather name="compass" style={styles.inputIcons} />
-						}
-						autoCapitalize="none"
-						autoCorrect={false}
-						placeholder="City"
-						value={state.city}
-					/>
+			<ScrollView>
+				<SectionContainer>
+					<Spacer>
+						<Input
+							leftIcon={
+								<Feather
+									name="mail"
+									style={styles.inputIcons}
+								/>
+							}
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="Email"
+							value={state.email}
+						/>
+						<Input
+							leftIcon={
+								<Feather
+									name="user"
+									style={styles.inputIcons}
+								/>
+							}
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="Name"
+							value={state.name}
+						/>
+						{/* <Input
+							leftIcon={
+								<Feather
+									name="compass"
+									style={styles.inputIcons}
+								/>
+							}
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="City"
+							value={state.city}
+						/> */}
 
-					<Spacer />
+						<Spacer />
 
-					{errorMessage ? (
-						<Text style={styles.errorMessage}>{errorMessage}</Text>
-					) : null}
-				</Spacer>
-			</SectionContainer>
+						{errorMessage ? (
+							<Text style={styles.errorMessage}>
+								{errorMessage}
+							</Text>
+						) : null}
+					</Spacer>
+				</SectionContainer>
+			</ScrollView>
 
 			<MoveToBottom>
 				<Spacer>
@@ -95,6 +108,7 @@ const styles = StyleSheet.create({
 	header: {
 		marginTop: 10,
 		alignSelf: 'center',
+		fontSize: 24,
 	},
 	solidButton: {
 		backgroundColor: '#C830CC',

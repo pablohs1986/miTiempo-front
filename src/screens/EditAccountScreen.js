@@ -22,6 +22,7 @@ const EditAccountScreen = ({ navigation }) => {
 			<Text style={styles.header} h4>
 				Edit My Account
 			</Text>
+
 			<ScrollView>
 				<SectionContainer>
 					<Spacer>
@@ -51,7 +52,7 @@ const EditAccountScreen = ({ navigation }) => {
 							value={name}
 							onChangeText={setName}
 						/>
-						<Input
+						{/* <Input
 							leftIcon={
 								<Feather
 									name="compass"
@@ -63,11 +64,9 @@ const EditAccountScreen = ({ navigation }) => {
 							placeholder="City"
 							value={city}
 							onChangeText={setCity}
-						/>
+						/> */}
 					</Spacer>
 				</SectionContainer>
-
-				<Divider style={styles.divider} />
 
 				<SectionContainer>
 					<Spacer>
@@ -111,39 +110,39 @@ const EditAccountScreen = ({ navigation }) => {
 				{/* {errorMessage ? (
 				<Text style={styles.errorMessage}>{errorMessage}</Text>
 			) : null} */}
-
-				<MoveToBottom>
-					<Spacer>
-						<Button
-							buttonStyle={styles.solidButton}
-							title="Update"
-							disabled={
-								!(
-									(newPassword === newPasswordConfirmation &&
-										newPassword.length > 0) ||
-									(newPassword === '' &&
-										newPasswordConfirmation === '')
-								)
-							}
-							onPress={() =>
-								updateUserInfo({
-									email,
-									name,
-									city,
-									newPassword,
-								})
-							}
-						/>
-						<Button
-							buttonStyle={styles.outlineButton}
-							titleStyle={styles.titleColorOutlineButton}
-							type="outline"
-							title="Cancel"
-							onPress={() => navigation.navigate('Account')}
-						/>
-					</Spacer>
-				</MoveToBottom>
 			</ScrollView>
+
+			<MoveToBottom>
+				<Spacer>
+					<Button
+						buttonStyle={styles.solidButton}
+						title="Update"
+						disabled={
+							!(
+								(newPassword === newPasswordConfirmation &&
+									newPassword.length > 0) ||
+								(newPassword === '' &&
+									newPasswordConfirmation === '')
+							)
+						}
+						onPress={() =>
+							updateUserInfo({
+								email,
+								name,
+								city,
+								newPassword,
+							})
+						}
+					/>
+					<Button
+						buttonStyle={styles.outlineButton}
+						titleStyle={styles.titleColorOutlineButton}
+						type="outline"
+						title="Cancel"
+						onPress={() => navigation.navigate('Account')}
+					/>
+				</Spacer>
+			</MoveToBottom>
 		</SafeAreaView>
 	);
 };
@@ -162,6 +161,7 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		marginTop: 10,
+		marginBottom: 10,
 		alignSelf: 'center',
 	},
 	divider: {
@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
 	solidButton: {
 		backgroundColor: '#C830CC',
 		marginBottom: 10,
-		marginTop: 11,
 	},
 	inputs: {
 		alignSelf: 'center',

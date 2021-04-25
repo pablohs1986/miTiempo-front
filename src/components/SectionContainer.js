@@ -9,7 +9,7 @@ const SectionContainer = ({ children }) => {
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: 'white',
-		margin: 15,
+		margin: 10,
 		borderRadius: 4,
 	},
 });

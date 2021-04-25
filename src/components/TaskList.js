@@ -11,6 +11,7 @@ const TaskList = ({ data, searchTerm }) => {
 		<FlatList
 			showsVerticalScrollIndicator={false}
 			showsHorizontalScrollIndicator={false}
+			style={styles.listContainer}
 			data={tasks}
 			keyExtractor={(task) => task._id}
 			renderItem={({ item }) => {
@@ -41,8 +42,12 @@ function filterTasks(data, searchTerm) {
 }
 
 const styles = StyleSheet.create({
+	listContainer: {
+		marginTop: 7,
+	},
 	itemContainer: {
 		margin: 3,
+		borderRadius: 4,
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,

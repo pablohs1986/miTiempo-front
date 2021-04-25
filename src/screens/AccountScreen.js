@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
+import SectionContainer from '../components/SectionContainer.js';
 import MoveToBottom from '../components/MoveToBottom';
 import { Feather } from '@expo/vector-icons';
 import { Context as AuthContext } from '../context/AuthContext';
@@ -21,37 +22,43 @@ const AccountScreen = ({ navigation }) => {
 				My Account
 			</Text>
 
-			<Spacer>
-				<Input
-					leftIcon={<Feather name="mail" style={styles.inputIcons} />}
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Email"
-					value={state.email}
-				/>
-				<Input
-					leftIcon={<Feather name="user" style={styles.inputIcons} />}
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Name"
-					value={state.name}
-				/>
-				<Input
-					leftIcon={
-						<Feather name="compass" style={styles.inputIcons} />
-					}
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="City"
-					value={state.city}
-				/>
+			<SectionContainer>
+				<Spacer>
+					<Input
+						leftIcon={
+							<Feather name="mail" style={styles.inputIcons} />
+						}
+						autoCapitalize="none"
+						autoCorrect={false}
+						placeholder="Email"
+						value={state.email}
+					/>
+					<Input
+						leftIcon={
+							<Feather name="user" style={styles.inputIcons} />
+						}
+						autoCapitalize="none"
+						autoCorrect={false}
+						placeholder="Name"
+						value={state.name}
+					/>
+					<Input
+						leftIcon={
+							<Feather name="compass" style={styles.inputIcons} />
+						}
+						autoCapitalize="none"
+						autoCorrect={false}
+						placeholder="City"
+						value={state.city}
+					/>
 
-				<Spacer />
+					<Spacer />
 
-				{errorMessage ? (
-					<Text style={styles.errorMessage}>{errorMessage}</Text>
-				) : null}
-			</Spacer>
+					{errorMessage ? (
+						<Text style={styles.errorMessage}>{errorMessage}</Text>
+					) : null}
+				</Spacer>
+			</SectionContainer>
 
 			<MoveToBottom>
 				<Spacer>
@@ -76,7 +83,7 @@ const AccountScreen = ({ navigation }) => {
 AccountScreen.navigationOptions = () => {
 	return {
 		headerShown: false,
-		cardStyle: { backgroundColor: 'white' },
+		cardStyle: { backgroundColor: '#F2F1F6' },
 	};
 };
 
@@ -96,6 +103,7 @@ const styles = StyleSheet.create({
 	outlineButton: {
 		borderColor: 'red',
 		borderWidth: 1,
+		backgroundColor: 'white',
 	},
 	titleColorOutlineButton: {
 		color: 'red',

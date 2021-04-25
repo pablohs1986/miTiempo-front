@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
+import SectionContainer from '../components/SectionContainer';
 import MoveToBottom from '../components/MoveToBottom';
 import { Feather } from '@expo/vector-icons';
 import { Context as UserContext } from '../context/UserContext';
@@ -21,93 +22,128 @@ const EditAccountScreen = ({ navigation }) => {
 			<Text style={styles.header} h4>
 				Edit My Account
 			</Text>
-
-			<Spacer>
-				<Input
-					leftIcon={<Feather name="mail" style={styles.inputIcons} />}
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Email"
-					value={email}
-					onChangeText={setEmail}
-				/>
-				<Input
-					leftIcon={<Feather name="user" style={styles.inputIcons} />}
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Name"
-					value={name}
-					onChangeText={setName}
-				/>
-				<Input
-					leftIcon={
-						<Feather name="compass" style={styles.inputIcons} />
-					}
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="City"
-					value={city}
-					onChangeText={setCity}
-				/>
+			<ScrollView>
+				<SectionContainer>
+					<Spacer>
+						<Input
+							leftIcon={
+								<Feather
+									name="mail"
+									style={styles.inputIcons}
+								/>
+							}
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="Email"
+							value={email}
+							onChangeText={setEmail}
+						/>
+						<Input
+							leftIcon={
+								<Feather
+									name="user"
+									style={styles.inputIcons}
+								/>
+							}
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="Name"
+							value={name}
+							onChangeText={setName}
+						/>
+						<Input
+							leftIcon={
+								<Feather
+									name="compass"
+									style={styles.inputIcons}
+								/>
+							}
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="City"
+							value={city}
+							onChangeText={setCity}
+						/>
+					</Spacer>
+				</SectionContainer>
 
 				<Divider style={styles.divider} />
 
-				<Input
-					leftIcon={<Feather name="lock" style={styles.inputIcons} />}
-					secureTextEntry
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder={'New password'}
-					value={newPassword}
-					onChangeText={setNewPassword}
-				/>
-				<Input
-					leftIcon={
-						<Feather
-							name="alert-triangle"
-							style={styles.confirmPasswordIcon}
+				<SectionContainer>
+					<Spacer>
+						<Input
+							leftIcon={
+								<Feather
+									name="lock"
+									style={styles.inputIcons}
+								/>
+							}
+							secureTextEntry
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder={'New password'}
+							value={newPassword}
+							onChangeText={setNewPassword}
 						/>
-					}
-					secureTextEntry
-					autoCapitalize="none"
-					autoCorrect={false}
-					placeholder="Confirm password"
-					value={newPasswordConfirmation}
-					onChangeText={setNewPasswordConfirmation}
-					errorMessage={
-						!(newPassword === newPasswordConfirmation)
-							? 'Passwords must match'
-							: null
-					}
-					disabledInputStyle={{ background: '#ddd' }}
-				/>
+						<Input
+							leftIcon={
+								<Feather
+									name="alert-triangle"
+									style={styles.confirmPasswordIcon}
+								/>
+							}
+							secureTextEntry
+							autoCapitalize="none"
+							autoCorrect={false}
+							placeholder="Confirm password"
+							value={newPasswordConfirmation}
+							onChangeText={setNewPasswordConfirmation}
+							errorMessage={
+								!(newPassword === newPasswordConfirmation)
+									? 'Passwords must match'
+									: null
+							}
+							disabledInputStyle={{ background: '#ddd' }}
+						/>
+					</Spacer>
+				</SectionContainer>
 
-				<Spacer />
+				{/* {errorMessage ? (
+				<Text style={styles.errorMessage}>{errorMessage}</Text>
+			) : null} */}
 
-				{errorMessage ? (
-					<Text style={styles.errorMessage}>{errorMessage}</Text>
-				) : null}
-			</Spacer>
-
-			<MoveToBottom>
-				<Spacer>
-					<Button
-						buttonStyle={styles.solidButton}
-						title="Update"
-						disabled={
-							!(
-								(newPassword === newPasswordConfirmation &&
-									newPassword.length > 0) ||
-								(newPassword === '' &&
-									newPasswordConfirmation === '')
-							)
-						}
-						onPress={() =>
-							updateUserInfo({ email, name, city, newPassword })
-						}
-					/>
-				</Spacer>
-			</MoveToBottom>
+				<MoveToBottom>
+					<Spacer>
+						<Button
+							buttonStyle={styles.solidButton}
+							title="Update"
+							disabled={
+								!(
+									(newPassword === newPasswordConfirmation &&
+										newPassword.length > 0) ||
+									(newPassword === '' &&
+										newPasswordConfirmation === '')
+								)
+							}
+							onPress={() =>
+								updateUserInfo({
+									email,
+									name,
+									city,
+									newPassword,
+								})
+							}
+						/>
+						<Button
+							buttonStyle={styles.outlineButton}
+							titleStyle={styles.titleColorOutlineButton}
+							type="outline"
+							title="Cancel"
+							onPress={() => navigation.navigate('Account')}
+						/>
+					</Spacer>
+				</MoveToBottom>
+			</ScrollView>
 		</SafeAreaView>
 	);
 };
@@ -115,7 +151,7 @@ const EditAccountScreen = ({ navigation }) => {
 EditAccountScreen.navigationOptions = () => {
 	return {
 		headerShown: false,
-		cardStyle: { backgroundColor: 'white' },
+		cardStyle: { backgroundColor: '#F2F1F6' },
 	};
 };
 
@@ -136,6 +172,7 @@ const styles = StyleSheet.create({
 	solidButton: {
 		backgroundColor: '#C830CC',
 		marginBottom: 10,
+		marginTop: 11,
 	},
 	inputs: {
 		alignSelf: 'center',
@@ -150,6 +187,20 @@ const styles = StyleSheet.create({
 	confirmPasswordIcon: {
 		marginRight: 5,
 		fontSize: 24,
+		color: 'red',
+	},
+	divider: {
+		marginTop: 10,
+		marginBottom: 10,
+		marginLeft: 15,
+		marginRight: 15,
+	},
+	outlineButton: {
+		borderColor: 'red',
+		borderWidth: 1,
+		backgroundColor: 'white',
+	},
+	titleColorOutlineButton: {
 		color: 'red',
 	},
 });

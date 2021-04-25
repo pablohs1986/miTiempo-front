@@ -69,7 +69,7 @@ const TaskHomeScreen = () => {
 
 TaskHomeScreen.navigationOptions = {
 	headerShown: false,
-	cardStyle: { backgroundColor: 'white' }, // FIXME: cambiar fondo??
+	cardStyle: { backgroundColor: '#F2F1F6' },
 };
 
 const styles = StyleSheet.create({
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 		color: 'black',
 	},
 	searchBarInputContainerStyle: {
-		backgroundColor: '#E7ECF0',
+		backgroundColor: '#E4E3E8',
 		height: 10,
 	},
 	horizontalList: {

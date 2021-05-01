@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, TouchableHighlight, FlatList } from 'react-native';
 import { ListItem, Avatar, Text } from 'react-native-elements';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { withNavigation } from 'react-navigation';
 
-const TaskList = ({ data, searchTerm }) => {
+const TaskList = ({ data, searchTerm, navigation }) => {
 	let tasks = filterTasks(data, searchTerm);
 
-	// FIXME:
 	return (
 		<FlatList
 			showsVerticalScrollIndicator={false}
@@ -19,6 +19,9 @@ const TaskList = ({ data, searchTerm }) => {
 					<ListItem
 						pad={20}
 						containerStyle={styles.itemContainer}
+						onPress={() =>
+							navigation.navigate('TaskDetail', { id: item._id })
+						}
 						style={styles.item}
 					>
 						{/* <FontAwesome5 name="play" size={24} color="#C830CC" /> */}
@@ -63,4 +66,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default TaskList;
+export default withNavigation(TaskList);

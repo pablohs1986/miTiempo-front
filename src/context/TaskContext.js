@@ -18,11 +18,6 @@ const taskReducer = (state, action) => {
 				...state,
 				todayTasks: action.payload,
 			};
-		// case 'listCategories':
-		// 	return {
-		// 		...state,
-		// 		categories: action.payload,
-		// 	};
 		case 'getDays':
 			return {
 				...state,
@@ -126,27 +121,59 @@ const listTodayTasks = (dispatch) => async ({ category }) => {
 	}
 };
 
-/** List categories */
-const listCategories = (dispatch) => async () => {
+/** Action function that updates a task by id.
+ * It sends a request with the id and params, if this is succesful, it
+ * update the desired task.
+ */
+const updateTask = (dispatch) => async ({
+	taskId,
+	title,
+	description,
+	day,
+	duration,
+	repetition,
+	category,
+	color,
+	isPomodoro,
+}) => {
 	try {
-		const response = await miTiempoApi.get('/listCategories');
-		const categories = response.data;
-		categories.unshift('All'); // add All category to de beginning of the array
-		dispatch({ type: 'listCategories', payload: categories });
+		await miTiempoApi.post('/updateTask', {
+			taskId,
+			title,
+			description,
+			day,
+			duration,
+			repetition,
+			category,
+			color,
+			isPomodoro,
+		});
+		navigate('TaskHome');
 	} catch (error) {
 		dispatch({
 			type: 'add_error',
-			payload: 'Something went wrong retrieving categories.',
+			payload: 'Something went wrong updating the task. Try again.',
 		});
 	}
 };
 
-/** Update task */
+/** Action function that removes a task by id.
+ * It sends a request with the id and params, if this is succesful, it
+ * delete the desired task.
+ */
+const deleteTask = (dispatch) => async ({ taskId }) => {
+	try {
+		await miTiempoApi.delete('/deleteTask', { data: { taskId } });
+		navigate('TaskHome');
+	} catch (error) {
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong deleting the task. Try again.',
+		});
+	}
+};
 
-/** Delete task */
-
-// TODO: documentar bloque
-/**  Get days */
+/**  Function that launch an action with an array with the days of the week. */
 const getDays = (dispatch) => () => {
 	const days = getDaysArray();
 	dispatch({ type: 'getDays', payload: days });
@@ -230,7 +257,7 @@ function getDaysArray() {
 	}
 }
 
-/** Get durations */
+/** Function that launch an action with the tasks durations. */
 const getDurations = (dispatch) => () => {
 	const durations = [
 		'5 min',
@@ -249,13 +276,13 @@ const getDurations = (dispatch) => () => {
 	dispatch({ type: 'getDurations', payload: durations });
 };
 
-/** Get repeat */
+/** Function that launch an action with the repetitions values. */
 const getRepetitions = (dispatch) => () => {
 	const repetitions = ['Never', 'Every day', 'Every week'];
 	dispatch({ type: 'getRepetitions', payload: repetitions });
 };
 
-/** Get categories */
+/** Function that launch an action with the categories values. */
 const getCategories = (dispatch) => () => {
 	const categories = [
 		'All',
@@ -272,7 +299,7 @@ const getCategories = (dispatch) => () => {
 	dispatch({ type: 'getCategories', payload: categories });
 };
 
-/** Get colors */
+/** Function that launch an action with the colors values. */
 const getColors = (dispatch) => () => {
 	const colors = [
 		'Black',
@@ -290,7 +317,7 @@ const getColors = (dispatch) => () => {
 	dispatch({ type: 'getColors', payload: colors });
 };
 
-/** Get pomodoro */
+/** Function that launch an action with the isPomodoro values. */
 const getPomodoro = (dispatch) => () => {
 	const pomodoro = ['Yes', 'No'];
 	dispatch({ type: 'getPomodoro', payload: pomodoro });
@@ -303,7 +330,8 @@ export const { Provider, Context } = createDataContext(
 		addTask,
 		listTasks,
 		listTodayTasks,
-		listCategories,
+		updateTask,
+		deleteTask,
 		getDays,
 		getDurations,
 		getRepetitions,

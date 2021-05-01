@@ -7,9 +7,9 @@ const HorizontalList = ({ data, onSubmit }) => {
 	return (
 		<>
 			<FlatList
-				ref={(ref) => {
-					this.flatListRef = ref;
-				}}
+				// ref={(ref) => {
+				// 	this.flatListRef = ref;
+				// }}
 				horizontal
 				showsVerticalScrollIndicator={false}
 				showsHorizontalScrollIndicator={false}
@@ -17,14 +17,14 @@ const HorizontalList = ({ data, onSubmit }) => {
 				keyExtractor={(element) => element._id}
 				renderItem={({ item }) => {
 					// Scroll up on every render if data is not categories (checks the first value)
-					{
-						data[0] === 'All' && data.length === 10
-							? null
-							: this.flatListRef.scrollToOffset({
-									animated: true,
-									offset: 0,
-							  });
-					}
+					// {
+					// 	data[0] === 'All' && data.length === 10
+					// 		? null
+					// 		: this.flatListRef.scrollToOffset({
+					// 				animated: true,
+					// 				offset: 0,
+					// 		  });
+					// }
 
 					return (
 						<ListItem containerStyle={styles.container}>

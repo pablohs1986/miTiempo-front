@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Input, Text, Divider, Button, Header } from 'react-native-elements';
-import { SafeAreaView, NavigationEvents } from 'react-navigation';
+import { NavigationEvents } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
 	FontAwesome5,
 	Feather,

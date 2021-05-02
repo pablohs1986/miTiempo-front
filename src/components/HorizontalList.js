@@ -1,56 +1,102 @@
 import React from 'react';
+import { Platform, View, Text } from 'react-native';
 import { StyleSheet, FlatList } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
+import AuthForm from './AuthForm';
 
 // FIXME: flatListRef no se reconoce en versión web. Investigar o aplicar código específico para web.
 const HorizontalList = ({ data, onSubmit }) => {
-	return (
-		<>
-			<FlatList
-				// ref={(ref) => {
-				// 	this.flatListRef = ref;
-				// }}
-				horizontal
-				showsVerticalScrollIndicator={false}
-				showsHorizontalScrollIndicator={false}
-				data={data}
-				keyExtractor={(element) => element._id}
-				renderItem={({ item }) => {
-					// Scroll up on every render if data is not categories (checks the first value)
-					// {
-					// 	data[0] === 'All' && data.length === 10
-					// 		? null
-					// 		: this.flatListRef.scrollToOffset({
-					// 				animated: true,
-					// 				offset: 0,
-					// 		  });
-					// }
+	if (Platform.OS === 'web') {
+		// Render on web platform.
+		return (
+			<>
+				<FlatList
+					contentContainerStyle={styles.flatlistContainer}
+					horizontal
+					showsVerticalScrollIndicator={false}
+					showsHorizontalScrollIndicator={false}
+					data={data}
+					keyExtractor={(element) => element._id}
+					renderItem={({ item }) => {
+						return (
+							<ListItem containerStyle={styles.container}>
+								<ListItem.Content>
+									<ListItem.Title
+										titleStyle={styles.itemContainer}
+									>
+										<Button
+											buttonStyle={handleButtonStyles(
+												item
+											)}
+											titleStyle={handleButtonTitlesStyles(
+												item
+											)}
+											type="outline"
+											title={item}
+											onPress={() => {
+												onSubmit(item);
+											}}
+										/>
+									</ListItem.Title>
+								</ListItem.Content>
+							</ListItem>
+						);
+					}}
+				/>
+			</>
+		);
+	} else {
+		// Render on mobile platform.
+		return (
+			<>
+				<FlatList
+					ref={(ref) => {
+						this.flatListRef = ref;
+					}}
+					horizontal
+					showsVerticalScrollIndicator={false}
+					showsHorizontalScrollIndicator={false}
+					data={data}
+					keyExtractor={(element) => element._id}
+					renderItem={({ item }) => {
+						// Scroll up on every render if data is not categories (checks the first value)
+						{
+							data[0] === 'All' && data.length === 10
+								? null
+								: this.flatListRef.scrollToOffset({
+										animated: true,
+										offset: 0,
+								  });
+						}
 
-					return (
-						<ListItem containerStyle={styles.container}>
-							<ListItem.Content>
-								<ListItem.Title
-									titleStyle={styles.itemContainer}
-								>
-									<Button
-										buttonStyle={handleButtonStyles(item)}
-										titleStyle={handleButtonTitlesStyles(
-											item
-										)}
-										type="outline"
-										title={item}
-										onPress={() => {
-											onSubmit(item);
-										}}
-									/>
-								</ListItem.Title>
-							</ListItem.Content>
-						</ListItem>
-					);
-				}}
-			/>
-		</>
-	);
+						return (
+							<ListItem containerStyle={styles.container}>
+								<ListItem.Content>
+									<ListItem.Title
+										titleStyle={styles.itemContainer}
+									>
+										<Button
+											buttonStyle={handleButtonStyles(
+												item
+											)}
+											titleStyle={handleButtonTitlesStyles(
+												item
+											)}
+											type="outline"
+											title={item}
+											onPress={() => {
+												onSubmit(item);
+											}}
+										/>
+									</ListItem.Title>
+								</ListItem.Content>
+							</ListItem>
+						);
+					}}
+				/>
+			</>
+		);
+	}
 };
 
 /** TODO: doc */
@@ -168,6 +214,10 @@ function handleButtonTitlesStyles(item) {
 }
 
 const styles = StyleSheet.create({
+	flatlistContainer: {
+		flex: 1,
+		justifyContent: 'center',
+	},
 	container: {
 		backgroundColor: 'transparent',
 		padding: 0,

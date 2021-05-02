@@ -19,7 +19,7 @@ const TaskHomeScreen = () => {
 		listTasks({ category });
 		listTodayTasks({ category });
 		getCategories();
-	}, [category, state.tasks]);
+	}, [category]);
 
 	/** Method that reloads the task lists. */
 	function refreshData() {

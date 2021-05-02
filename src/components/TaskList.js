@@ -1,11 +1,24 @@
-import React from 'react';
-import { StyleSheet, TouchableHighlight, FlatList } from 'react-native';
-import { ListItem, Avatar, Text } from 'react-native-elements';
+import React, { useContext } from 'react';
+import { StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { ListItem, Text } from 'react-native-elements';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
+import { Context as TaskContext } from '../context/TaskContext';
 
 const TaskList = ({ data, searchTerm, navigation }) => {
 	let tasks = filterTasks(data, searchTerm);
+	const { updateTask } = useContext(TaskContext);
+
+    // TODO: marcar circulo y deshabilitar tarea nada más marcarla + uptate.
+    // 
+
+	/** TODO: */
+	function markTaskDone(taskId, isDone) {
+		console.log(isDone);
+		isDone = isDone ? false : true;
+		console.log(isDone);
+		updateTask({ taskId, isDone });
+	}
 
 	return (
 		<FlatList
@@ -17,19 +30,55 @@ const TaskList = ({ data, searchTerm, navigation }) => {
 			renderItem={({ item }) => {
 				return (
 					<ListItem
+						disabled={item.isDone}
+						disabledStyle={{ opacity: 0.5 }}
 						pad={20}
 						containerStyle={styles.itemContainer}
-						onPress={() =>
-							navigation.navigate('TaskDetail', { id: item._id })
-						}
 						style={styles.item}
 					>
-						{/* <FontAwesome5 name="play" size={24} color="#C830CC" /> */}
-						<FontAwesome5 name="circle" size={24} color="#C830CC" />
+						<TouchableOpacity onPress={() => console.log('play')}>
+							<FontAwesome5
+								name="play"
+								size={20}
+								color="#C830CC"
+							/>
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => markTaskDone(item._id, item.isDone)}
+						>
+							{item.isDone ? (
+								<FontAwesome5
+									name="dot-circle"
+									size={20}
+									color="#C830CC"
+								/>
+							) : (
+								<FontAwesome5
+									name="circle"
+									size={20}
+									color="#C830CC"
+								/>
+							)}
+						</TouchableOpacity>
+
 						<ListItem.Content>
-							<ListItem.Title>{item.title}</ListItem.Title>
+							<ListItem.Title>
+								<Text>{item.title}</Text>
+							</ListItem.Title>
 						</ListItem.Content>
-						<ListItem.Chevron />
+						<TouchableOpacity
+							onPress={() =>
+								navigation.navigate('TaskDetail', {
+									id: item._id,
+								})
+							}
+						>
+							<FontAwesome5
+								name="chevron-right"
+								size={20}
+								color="#C830CC"
+							/>
+						</TouchableOpacity>
 					</ListItem>
 				);
 			}}

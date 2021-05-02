@@ -135,6 +135,7 @@ const updateTask = (dispatch) => async ({
 	category,
 	color,
 	isPomodoro,
+	isDone,
 }) => {
 	try {
 		await miTiempoApi.post('/updateTask', {
@@ -147,9 +148,11 @@ const updateTask = (dispatch) => async ({
 			category,
 			color,
 			isPomodoro,
+			isDone,
 		});
 		navigate('TaskHome');
 	} catch (error) {
+		console.log(error);
 		dispatch({
 			type: 'add_error',
 			payload: 'Something went wrong updating the task. Try again.',

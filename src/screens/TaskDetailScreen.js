@@ -272,18 +272,7 @@ const TaskDetailScreen = ({ navigation }) => {
 					<Button
 						buttonStyle={styles.solidButton}
 						title="Start"
-						onPress={() =>
-							addTask({
-								title,
-								description,
-								day,
-								duration,
-								repetition,
-								category,
-								color,
-								isPomodoro,
-							})
-						}
+						onPress={() => navigation.navigate('TaskTimer')}
 					/>
 				</Spacer>
 			</MoveToBottom>

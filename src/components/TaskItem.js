@@ -28,7 +28,7 @@ const TaskItem = ({ item, navigation }) => {
 			containerStyle={styles.itemContainer}
 			style={styles.item}
 		>
-			<TouchableOpacity onPress={() => console.log('play')}>
+			<TouchableOpacity onPress={() => navigation.navigate('TaskTimer')}>
 				<FontAwesome5 name="play" size={20} color="#C830CC" />
 			</TouchableOpacity>
 			<TouchableOpacity

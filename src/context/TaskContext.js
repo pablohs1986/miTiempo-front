@@ -152,7 +152,6 @@ const updateTask = (dispatch) => async ({
 		});
 		navigate('TaskHome');
 	} catch (error) {
-		console.log(error);
 		dispatch({
 			type: 'add_error',
 			payload: 'Something went wrong updating the task. Try again.',

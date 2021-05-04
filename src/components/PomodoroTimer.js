@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-elements';
+import SectionContainer from '../components/SectionContainer';
+import TaskItem from './TaskItem';
 
-const PomodoroTimer = () => {
-	const [minutes, setMinutes] = useState(25);
+const PomodoroTimer = ({ timerTask }) => {
+	const [minutes, setMinutes] = useState(1);
 	const [seconds, setSeconds] = useState(0);
 	const [displayMessage, setDisplayMessage] = useState(false);
+
+	// duracion total de la tarea
+	// tiempo restante
 
 	const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
 	const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
@@ -38,20 +44,33 @@ const PomodoroTimer = () => {
 	};
 
 	return (
-		<View>
-			<Text>
-				{displayMessage && (
-					<Text>Break time! New session starts in:</Text>
-				)}
-			</Text>
-			<Text>
-				asdas
-				{timerMinutes}:{timerSeconds}
-			</Text>
-		</View>
+		<>
+			<SectionContainer>
+				<View style={styles.container}>
+					<Text>
+						{displayMessage && (
+							<Text>Break time! New session starts in:</Text>
+						)}
+					</Text>
+					<Text style={styles.clock}>
+						{timerMinutes}:{timerSeconds}
+					</Text>
+				</View>
+			</SectionContainer>
+		</>
 	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		alignSelf: 'center',
+		justifyContent: 'center',
+		height: 350,
+	},
+	clock: {
+		fontSize: 120,
+		fontWeight: '900',
+	},
+});
 
 export default PomodoroTimer;

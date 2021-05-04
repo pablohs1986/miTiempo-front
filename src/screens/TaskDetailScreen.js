@@ -290,40 +290,40 @@ function filterCategories(categories) {
 /** Function that handle the durations, transforming the data received from
  * the backend to be handled by the front. */
 function handleDurations(data) {
-	if (data === 300) {
+	if (data === 5) {
 		return '5 min';
 	}
-	if (data === 900) {
+	if (data === 15) {
 		return '15 min';
 	}
-	if (data === 1800) {
+	if (data === 30) {
 		return '30 min';
 	}
-	if (data === 2700) {
+	if (data === 45) {
 		return '45 min';
 	}
-	if (data === 3600) {
+	if (data === 60) {
 		return '1 h';
 	}
-	if (data === 7200) {
+	if (data === 120) {
 		return '2 h';
 	}
-	if (data === 10800) {
+	if (data === 180) {
 		return '3 h';
 	}
-	if (data === 14400) {
+	if (data === 240) {
 		return '4 h';
 	}
-	if (data === 18000) {
+	if (data === 300) {
 		return '5 h';
 	}
-	if (data === 21600) {
+	if (data === 360) {
 		return '6 h';
 	}
-	if (data === 25200) {
+	if (data === 420) {
 		return '7 h';
 	}
-	if (data === 28800) {
+	if (data === 480) {
 		return '8 h';
 	} else {
 		return data;

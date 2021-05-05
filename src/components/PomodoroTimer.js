@@ -5,9 +5,16 @@ import SectionContainer from '../components/SectionContainer';
 import TaskItem from './TaskItem';
 
 const PomodoroTimer = ({ timerTask }) => {
+	const [isPomodoro, setIsPomodoro] = useState(timerTask.isPomodoro);
+	const [duration, setDuration] = useState(timerTask.duration);
 	const [minutes, setMinutes] = useState(1);
 	const [seconds, setSeconds] = useState(0);
 	const [displayMessage, setDisplayMessage] = useState(false);
+	const [pomodorosCounter, setPomodorosCounter] = useState(0);
+
+	// descanso corto = 5min
+	// descanso largo = 15min
+	// cada 4 cortos, 1 largo
 
 	// duracion total de la tarea
 	// tiempo restante
@@ -22,6 +29,7 @@ const PomodoroTimer = ({ timerTask }) => {
 	}, [seconds]);
 
 	const timer = () => {
+		console.log(pomodorosCounter);
 		let interval = setInterval(() => {
 			clearInterval(interval);
 
@@ -30,17 +38,29 @@ const PomodoroTimer = ({ timerTask }) => {
 					setSeconds(59);
 					setMinutes(minutes - 1);
 				} else {
-					let minutes = displayMessage ? 24 : 4;
+					let minutes;
+
+					if (pomodorosCounter < 4) {
+						console.log('corto');
+						minutes = displayMessage ? 24 : 4;
+					} else if (pomodorosCounter === 4) {
+						console.log('largo');
+						// setPomodorosCounter(0);
+						minutes = displayMessage ? 24 : 14;
+					}
 					let seconds = 59;
 
 					setSeconds(seconds);
 					setMinutes(minutes);
 					setDisplayMessage(!displayMessage);
+					pomodorosCounter < 4
+						? setPomodorosCounter(pomodorosCounter + 1)
+						: setPomodorosCounter(0);
 				}
 			} else {
 				setSeconds(seconds - 1);
 			}
-		}, 1000);
+		}, 1);
 	};
 
 	return (
@@ -48,9 +68,19 @@ const PomodoroTimer = ({ timerTask }) => {
 			<SectionContainer>
 				<View style={styles.container}>
 					<Text>
-						{displayMessage && (
+						{displayMessage && pomodorosCounter < 4 ? (
+							<Text>
+								Short break '{pomodorosCounter}'! New session
+								starts in:
+							</Text>
+						) : null}
+						{displayMessage && pomodorosCounter === 4 ? (
+							<Text>Long break! New session starts in:</Text>
+						) : null}
+
+						{/* {displayMessage && (
 							<Text>Break time! New session starts in:</Text>
-						)}
+						)} */}
 					</Text>
 					<Text style={styles.clock}>
 						{timerMinutes}:{timerSeconds}

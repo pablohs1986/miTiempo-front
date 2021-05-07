@@ -9,8 +9,9 @@ const PomodoroTimer = ({ timerTask }) => {
 	const [duration, setDuration] = useState(timerTask.duration);
 	const [minutes, setMinutes] = useState(1);
 	const [seconds, setSeconds] = useState(0);
-	const [displayMessage, setDisplayMessage] = useState(false);
-	const [pomodorosCounter, setPomodorosCounter] = useState(0);
+	const [pomodorosCounter, setPomodorosCounter] = useState(1);
+	const [isBreakTime, setIsBreakTime] = useState(true);
+	const [message, setMessage] = useState('Work!!!\n ');
 
 	// descanso corto = 5min
 	// descanso largo = 15min
@@ -29,7 +30,6 @@ const PomodoroTimer = ({ timerTask }) => {
 	}, [seconds]);
 
 	const timer = () => {
-		console.log(pomodorosCounter);
 		let interval = setInterval(() => {
 			clearInterval(interval);
 
@@ -38,50 +38,52 @@ const PomodoroTimer = ({ timerTask }) => {
 					setSeconds(59);
 					setMinutes(minutes - 1);
 				} else {
-					let minutes;
+					// Break or reset the timer
+					let minutes = 0;
+					let seconds = 0;
 
-					if (pomodorosCounter < 4) {
-						console.log('corto');
-						minutes = displayMessage ? 24 : 4;
-					} else if (pomodorosCounter === 4) {
-						console.log('largo');
-						// setPomodorosCounter(0);
-						minutes = displayMessage ? 24 : 14;
+					if (isBreakTime) {
+						// Short break
+						if (pomodorosCounter >= 1 || pomodorosCounter <= 3) {
+							minutes = 0;
+							seconds = 59;
+							setMessage(
+								'Short break ' +
+									pomodorosCounter +
+									' of 4!\nNew session starts in:'
+							);
+							setPomodorosCounter(pomodorosCounter + 1);
+						}
+						// Long break
+						if (pomodorosCounter === 5) {
+							minutes = 1;
+							seconds = 59;
+							setMessage(`Long break!\nNew session starts in:`);
+							setPomodorosCounter(1);
+							setPomodorosCounter(1);
+						}
+					} else if (!isBreakTime) {
+						minutes = 1;
+						seconds = 59;
+						setMessage(`Work!!!\n `);
 					}
-					let seconds = 59;
 
 					setSeconds(seconds);
 					setMinutes(minutes);
-					setDisplayMessage(!displayMessage);
-					pomodorosCounter < 4
-						? setPomodorosCounter(pomodorosCounter + 1)
-						: setPomodorosCounter(0);
+					setIsBreakTime(!isBreakTime);
+					// setDisplayMessage(!displayMessage);
 				}
 			} else {
 				setSeconds(seconds - 1);
 			}
-		}, 1);
+		}, 0.1);
 	};
 
 	return (
 		<>
 			<SectionContainer>
 				<View style={styles.container}>
-					<Text>
-						{displayMessage && pomodorosCounter < 4 ? (
-							<Text>
-								Short break '{pomodorosCounter}'! New session
-								starts in:
-							</Text>
-						) : null}
-						{displayMessage && pomodorosCounter === 4 ? (
-							<Text>Long break! New session starts in:</Text>
-						) : null}
-
-						{/* {displayMessage && (
-							<Text>Break time! New session starts in:</Text>
-						)} */}
-					</Text>
+					<Text style={styles.message}>{message}</Text>
 					<Text style={styles.clock}>
 						{timerMinutes}:{timerSeconds}
 					</Text>
@@ -99,6 +101,12 @@ const styles = StyleSheet.create({
 	},
 	clock: {
 		fontSize: 120,
+		fontWeight: '900',
+		color: '#C830CC',
+	},
+	message: {
+		textAlign: 'center',
+		fontSize: 24,
 		fontWeight: '900',
 	},
 });

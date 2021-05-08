@@ -35,7 +35,7 @@ const TaskItem = ({ item, navigation }) => {
 					})
 				}
 			>
-				<FontAwesome5 name="play" size={20} color="#C830CC" />
+				<FontAwesome5 name="play" size={20} color={item.color} />
 			</TouchableOpacity>
 			<TouchableOpacity
 				onPress={() =>
@@ -43,9 +43,13 @@ const TaskItem = ({ item, navigation }) => {
 				}
 			>
 				{isTaskDone ? (
-					<FontAwesome5 name="dot-circle" size={20} color="#C830CC" />
+					<FontAwesome5
+						name="dot-circle"
+						size={20}
+						color={item.color}
+					/>
 				) : (
-					<FontAwesome5 name="circle" size={20} color="#C830CC" />
+					<FontAwesome5 name="circle" size={20} color={item.color} />
 				)}
 			</TouchableOpacity>
 
@@ -61,7 +65,11 @@ const TaskItem = ({ item, navigation }) => {
 					})
 				}
 			>
-				<FontAwesome5 name="chevron-right" size={20} color="#C830CC" />
+				<FontAwesome5
+					name="chevron-right"
+					size={20}
+					color={item.color}
+				/>
 			</TouchableOpacity>
 		</ListItem>
 	);

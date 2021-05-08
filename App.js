@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogBox } from 'react-native';
+import { LogBox, Platform } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import appNavigator from './src/navigation/appNavigator';
 import { setNavigator } from './src/navigation/externalNavigator';
@@ -8,7 +8,10 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as UserProvider } from './src/context/UserContext';
 import { Provider as TaskProvider } from './src/context/TaskContext';
 
-// LogBox.ignoreAllLogs(); // Ignore all log notifications on dev device
+// Ignore logs on emulator screen
+if (Platform.OS != 'web') {
+	LogBox.ignoreAllLogs();
+}
 
 const App = createAppContainer(appNavigator());
 

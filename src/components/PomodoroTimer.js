@@ -7,7 +7,8 @@ import TaskItem from './TaskItem';
 const PomodoroTimer = ({ timerTask }) => {
 	const [isPomodoro, setIsPomodoro] = useState(timerTask.isPomodoro);
 	const [duration, setDuration] = useState(timerTask.duration);
-	const [minutes, setMinutes] = useState(1);
+	const [timeToExpend, setTimeToExpend] = useState(0);
+	const [minutes, setMinutes] = useState(timeToExpend);
 	const [seconds, setSeconds] = useState(0);
 	const [pomodorosCounter, setPomodorosCounter] = useState(1);
 	const [isBreakTime, setIsBreakTime] = useState(true);
@@ -26,6 +27,8 @@ const PomodoroTimer = ({ timerTask }) => {
 	// https://dev.to/alekswritescode/infinite-pomodoro-app-in-react-52jj
 
 	useEffect(() => {
+		handleTimeToExpend();
+		console.log(timeToExpend);
 		timer();
 	}, [seconds]);
 
@@ -75,8 +78,19 @@ const PomodoroTimer = ({ timerTask }) => {
 				}
 			} else {
 				setSeconds(seconds - 1);
+				setDuration(duration - 1);
 			}
 		}, 0.1);
+	};
+
+	const handleTimeToExpend = () => {
+		if (duration - 25 <= 0) {
+			setTimeToExpend(duration);
+		}
+
+		if (duration - 25 > 0) {
+			setTimeToExpend(25);
+		}
 	};
 
 	return (

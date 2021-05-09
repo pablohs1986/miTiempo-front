@@ -19,11 +19,13 @@ const TaskList = ({ data, searchTerm }) => {
 	);
 };
 
-/** Method that filters the tasks according to the searchTerm. */
+/** Method that filters the tasks if they include the searchTerm. */
 function filterTasks(data, searchTerm) {
 	return searchTerm === ''
 		? data
-		: data.filter((task) => task.title === searchTerm);
+		: data.filter((task) =>
+				task.title.toLowerCase().includes(searchTerm.toLowerCase())
+		  );
 }
 
 const styles = StyleSheet.create({

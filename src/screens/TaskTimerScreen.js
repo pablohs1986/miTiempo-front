@@ -93,8 +93,10 @@ const TaskTimerScreen = ({ navigation }) => {
 	function markTaskDone() {
 		let category = 'Done';
 		let isDone = true;
-		updateTask({ taskId, isDone, category });
-		setIsTaskDone(true);
+		setTimeout(() => {
+			updateTask({ taskId, isDone, category });
+			setIsTaskDone(true);
+		}, 3000);
 	}
 
 	/** useEffect hook for launch timerLoadHandler every time that isTimerEnded changes. */

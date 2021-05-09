@@ -276,7 +276,7 @@ const TaskCreateScreen = ({ navigation }) => {
 				</SectionContainer>
 			</ScrollView>
 
-			<MoveToBottom>
+			{/* <MoveToBottom>
 				<Spacer>
 					<Button
 						buttonStyle={styles.solidButton}
@@ -301,7 +301,7 @@ const TaskCreateScreen = ({ navigation }) => {
 						}
 					/>
 				</Spacer>
-			</MoveToBottom>
+			</MoveToBottom> */}
 		</SafeAreaView>
 	);
 };
@@ -370,25 +370,25 @@ const styles = StyleSheet.create({
 	horizontalList: {
 		alignSelf: 'center',
 	},
-	solidButton: {
-		...Platform.select({
-			android: {
-				backgroundColor: '#C830CC',
-				marginBottom: 10,
-			},
-			ios: {
-				backgroundColor: '#C830CC',
-				marginBottom: 10,
-			},
-			default: {
-				alignSelf: 'center',
-				backgroundColor: '#C830CC',
-				marginBottom: 10,
-				width: '15%',
-				padding: 10,
-			},
-		}),
-	},
+	// solidButton: {
+	// 	...Platform.select({
+	// 		android: {
+	// 			backgroundColor: '#C830CC',
+	// 			marginBottom: 10,
+	// 		},
+	// 		ios: {
+	// 			backgroundColor: '#C830CC',
+	// 			marginBottom: 10,
+	// 		},
+	// 		default: {
+	// 			alignSelf: 'center',
+	// 			backgroundColor: '#C830CC',
+	// 			marginBottom: 10,
+	// 			width: '15%',
+	// 			padding: 10,
+	// 		},
+	// 	}),
+	// },
 	headerButtonLeft: {
 		justifyContent: 'flex-start',
 		backgroundColor: 'transparent',

@@ -8,26 +8,33 @@ import MoveToBottom from '../components/MoveToBottom';
 import Timer from '../components/Timer';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Context as TaskContext } from '../context/TaskContext';
+import TaskList from '../components/TaskList';
 
 // TODO: implementar pausar, completar tarea al terminar temporizador y documentar
 const TaskTimerScreen = ({ navigation }) => {
 	const taskId = navigation.getParam('id');
-	const { state } = useContext(TaskContext);
+	const { state, updateTask } = useContext(TaskContext);
 	const task = state.tasks.find((task) => task._id === taskId);
-	const [taskDuration, setTaskDuration] = useState(task.duration);
+	const [taskDuration, setTaskDuration] = useState(
+		task != undefined ? task.duration : 0
+	);
 
 	const [isTimerEnded, setIsTimerEnded] = useState(false);
-	const [isPomodoro, setIsPomodoro] = useState(task.isPomodoro);
+	const [isPomodoro, setIsPomodoro] = useState(
+		task != undefined ? task.isPomodoro : false
+	);
 	const [timerLoad, setTimerLoad] = useState(0);
 	const [isBreakTime, setIsBreakTime] = useState(false);
 	const [isLastLoad, setIsLastLoad] = useState(false);
 	const [pomodorosCounter, setPomodorosCounter] = useState(0);
 	const [message, setMessage] = useState('Work!\n ');
+	const [isTaskDone, setIsTaskDone] = useState(false);
 
 	const refreshTimer = () => {
 		if (isLastLoad === true) {
 			setTimerLoad(0);
 			setMessage('Task completed');
+			markTaskDone();
 		} else {
 			setTimerLoad(0);
 			setIsBreakTime(!isBreakTime);
@@ -78,6 +85,15 @@ const TaskTimerScreen = ({ navigation }) => {
 		}
 	};
 
+	/** Function that mark a task as done.
+	 */
+	function markTaskDone() {
+		let category = 'Done';
+		let isDone = true;
+		updateTask({ taskId, isDone, category });
+		setIsTaskDone(true);
+	}
+
 	useEffect(() => {
 		timerLoadHandler();
 	}, [isTimerEnded]);
@@ -103,7 +119,8 @@ const TaskTimerScreen = ({ navigation }) => {
 					</Spacer>
 
 					<Text style={styles.infoMessage}>
-						Total task time: {task.duration} min
+						Total task time: {task != undefined ? task.duration : 0}{' '}
+						min
 					</Text>
 					{isPomodoro ? (
 						<Text style={styles.infoMessage}>
@@ -122,11 +139,19 @@ const TaskTimerScreen = ({ navigation }) => {
 
 			<MoveToBottom>
 				<Spacer>
-					<Button
-						buttonStyle={styles.solidButton}
-						title="Cancel"
-						onPress={() => navigation.navigate('TaskHome')}
-					/>
+					{!isTaskDone ? (
+						<Button
+							buttonStyle={styles.solidButton}
+							title="Cancel"
+							onPress={() => navigation.navigate('TaskHome')}
+						/>
+					) : (
+						<Button
+							buttonStyle={styles.solidButton}
+							title="Go back"
+							onPress={() => navigation.navigate('TaskHome')}
+						/>
+					)}
 				</Spacer>
 			</MoveToBottom>
 		</SafeAreaView>

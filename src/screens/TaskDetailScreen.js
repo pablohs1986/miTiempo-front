@@ -279,7 +279,11 @@ const TaskDetailScreen = ({ navigation }) => {
 								color={'white'}
 							/>
 						}
-						onPress={() => navigation.navigate('TaskTimer')}
+						onPress={() =>
+							navigation.navigate('TaskTimer', {
+								id: task._id,
+							})
+						}
 					/>
 				</Spacer>
 			</MoveToBottom>

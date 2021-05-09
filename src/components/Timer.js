@@ -29,7 +29,6 @@ const Timer = ({ timerLoad, refreshTimer }) => {
 				setSeconds(seconds - 1);
 			}
 			if (minutes === 0 && seconds === 0) {
-				console.log('finn');
 				refreshTimer();
 			}
 		}, 5);
@@ -42,7 +41,6 @@ const Timer = ({ timerLoad, refreshTimer }) => {
 					{timerMinutes}:{timerSeconds}
 				</Text>
 			</View>
-			<Text>Carga en timer: {timerLoad}</Text>
 		</>
 	);
 };
@@ -51,7 +49,6 @@ const styles = StyleSheet.create({
 	container: {
 		alignSelf: 'center',
 		justifyContent: 'center',
-		// height: 350,
 	},
 	clock: {
 		fontSize: 120,

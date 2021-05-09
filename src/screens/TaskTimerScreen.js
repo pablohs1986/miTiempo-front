@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Button } from 'react-native-elements';
+import { Text, Button, Divider } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import SectionContainer from '../components/SectionContainer';
 import MoveToBottom from '../components/MoveToBottom';
@@ -97,26 +97,35 @@ const TaskTimerScreen = ({ navigation }) => {
 						/>
 					)}
 				</View>
-			</SectionContainer>
+				<Spacer>
+					<Spacer>
+						<Divider />
+					</Spacer>
 
-			<Text>Pomodoro? : {isPomodoro ? 'yes' : 'no'}</Text>
-			<Text>Duracion tarae: {task.duration}</Text>
-			<Text>Tiempo restante: {taskDuration}</Text>
-			<Text>Break time: {isBreakTime ? 'yes' : 'no'} </Text>
-			<Text>Descanso nº : {pomodorosCounter}</Text>
+					<Text style={styles.infoMessage}>
+						Total task time: {task.duration} min
+					</Text>
+					{isPomodoro ? (
+						<Text style={styles.infoMessage}>
+							Time remaining: {taskDuration} min
+						</Text>
+					) : null}
+
+					<Text style={styles.infoMessage}>
+						Pomodoro is {isPomodoro ? 'ON' : 'OFF'}
+					</Text>
+					<Spacer>
+						<Divider />
+					</Spacer>
+				</Spacer>
+			</SectionContainer>
 
 			<MoveToBottom>
 				<Spacer>
 					<Button
 						buttonStyle={styles.solidButton}
-						icon={
-							<FontAwesome5
-								name="play"
-								size={20}
-								color={'white'}
-							/>
-						}
-						onPress={() => navigation.navigate('EditAccount')}
+						title="Cancel"
+						onPress={() => navigation.navigate('TaskHome')}
 					/>
 				</Spacer>
 			</MoveToBottom>
@@ -139,7 +148,17 @@ const styles = StyleSheet.create({
 	timerContainer: {
 		alignSelf: 'center',
 		justifyContent: 'center',
-		height: 350,
+		...Platform.select({
+			android: {
+				height: 350,
+			},
+			ios: {
+				height: 350,
+			},
+			default: {
+				height: 400,
+			},
+		}),
 	},
 	message: {
 		textAlign: 'center',
@@ -196,6 +215,10 @@ const styles = StyleSheet.create({
 				padding: 10,
 			},
 		}),
+	},
+	infoMessage: {
+		textAlign: 'center',
+		fontSize: 16,
 	},
 });
 

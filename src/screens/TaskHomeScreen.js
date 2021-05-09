@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Platform } from 'react-native';
 import { SearchBar, Text } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -96,6 +96,19 @@ const styles = StyleSheet.create({
 	searchBarInputContainerStyle: {
 		backgroundColor: '#E4E3E8',
 		height: 10,
+		alignSelf: 'center',
+		...Platform.select({
+			android: {
+				width: '100%',
+			},
+			ios: {
+				width: '100%',
+			},
+			default: {
+				width: '55%',
+				marginBottom: -15,
+			},
+		}),
 	},
 	horizontalList: {
 		marginLeft: 15,

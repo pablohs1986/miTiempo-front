@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
 				alignSelf: 'center',
 				backgroundColor: '#C830CC',
 				marginBottom: 10,
-				width: '15%',
+				width: '25%',
 				padding: 10,
 			},
 		}),

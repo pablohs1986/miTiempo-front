@@ -4,7 +4,6 @@ import { StyleSheet, FlatList } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
 import AuthForm from './AuthForm';
 
-// FIXME: flatListRef no se reconoce en versión web. Investigar o aplicar código específico para web.
 const HorizontalList = ({ data, onSubmit }) => {
 	if (Platform.OS === 'web') {
 		// Render on web platform.

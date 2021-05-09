@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Platform } from 'react-native';
 import { Text, Input, Button, Divider } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -170,8 +170,23 @@ const styles = StyleSheet.create({
 		margin: 10,
 	},
 	solidButton: {
-		backgroundColor: '#C830CC',
-		marginBottom: 10,
+		...Platform.select({
+			android: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			ios: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			default: {
+				alignSelf: 'center',
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+				width: '15%',
+				padding: 10,
+			},
+		}),
 	},
 	inputs: {
 		alignSelf: 'center',
@@ -195,9 +210,26 @@ const styles = StyleSheet.create({
 		marginRight: 15,
 	},
 	outlineButton: {
-		borderColor: 'red',
-		borderWidth: 1,
-		backgroundColor: 'white',
+		...Platform.select({
+			android: {
+				borderColor: 'red',
+				borderWidth: 1,
+				backgroundColor: 'white',
+			},
+			ios: {
+				borderColor: 'red',
+				borderWidth: 1,
+				backgroundColor: 'white',
+			},
+			default: {
+				alignSelf: 'center',
+				borderColor: 'red',
+				borderWidth: 1,
+				backgroundColor: 'white',
+				width: '15%',
+				padding: 10,
+			},
+		}),
 	},
 	titleColorOutlineButton: {
 		color: 'red',

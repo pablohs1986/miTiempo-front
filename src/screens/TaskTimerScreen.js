@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, Button } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import SectionContainer from '../components/SectionContainer';
 import MoveToBottom from '../components/MoveToBottom';
 import Timer from '../components/Timer';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Context as TaskContext } from '../context/TaskContext';
 
 // TODO: implementar pausar, completar tarea al terminar temporizador y documentar
@@ -102,6 +104,22 @@ const TaskTimerScreen = ({ navigation }) => {
 			<Text>Tiempo restante: {taskDuration}</Text>
 			<Text>Break time: {isBreakTime ? 'yes' : 'no'} </Text>
 			<Text>Descanso nº : {pomodorosCounter}</Text>
+
+			<MoveToBottom>
+				<Spacer>
+					<Button
+						buttonStyle={styles.solidButton}
+						icon={
+							<FontAwesome5
+								name="play"
+								size={20}
+								color={'white'}
+							/>
+						}
+						onPress={() => navigation.navigate('EditAccount')}
+					/>
+				</Spacer>
+			</MoveToBottom>
 		</SafeAreaView>
 	);
 };
@@ -160,6 +178,25 @@ const styles = StyleSheet.create({
 			},
 		},
 	}),
+	solidButton: {
+		...Platform.select({
+			android: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			ios: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			default: {
+				alignSelf: 'center',
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+				width: '15%',
+				padding: 10,
+			},
+		}),
+	},
 });
 
 export default TaskTimerScreen;

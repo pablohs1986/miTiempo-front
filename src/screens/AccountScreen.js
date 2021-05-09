@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Platform } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -111,13 +111,45 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 	},
 	solidButton: {
-		backgroundColor: '#C830CC',
-		marginBottom: 10,
+		...Platform.select({
+			android: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			ios: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			default: {
+				alignSelf: 'center',
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+				width: '15%',
+				padding: 10,
+			},
+		}),
 	},
 	outlineButton: {
-		borderColor: 'red',
-		borderWidth: 1,
-		backgroundColor: 'white',
+		...Platform.select({
+			android: {
+				borderColor: 'red',
+				borderWidth: 1,
+				backgroundColor: 'white',
+			},
+			ios: {
+				borderColor: 'red',
+				borderWidth: 1,
+				backgroundColor: 'white',
+			},
+			default: {
+				alignSelf: 'center',
+				borderColor: 'red',
+				borderWidth: 1,
+				backgroundColor: 'white',
+				width: '15%',
+				padding: 10,
+			},
+		}),
 	},
 	titleColorOutlineButton: {
 		color: 'red',

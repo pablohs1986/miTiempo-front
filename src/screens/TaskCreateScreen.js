@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView, View, Platform } from 'react-native';
 import { Input, Text, Divider, Button, Header } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -280,7 +280,13 @@ const TaskCreateScreen = ({ navigation }) => {
 				<Spacer>
 					<Button
 						buttonStyle={styles.solidButton}
-						title="Start"
+						icon={
+							<FontAwesome5
+								name="play"
+								size={20}
+								color={'white'}
+							/>
+						}
 						onPress={() =>
 							addTask({
 								title,
@@ -365,7 +371,23 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	solidButton: {
-		backgroundColor: '#C830CC',
+		...Platform.select({
+			android: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			ios: {
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+			},
+			default: {
+				alignSelf: 'center',
+				backgroundColor: '#C830CC',
+				marginBottom: 10,
+				width: '15%',
+				padding: 10,
+			},
+		}),
 	},
 	headerButtonLeft: {
 		justifyContent: 'flex-start',

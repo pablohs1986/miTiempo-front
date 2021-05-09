@@ -6,11 +6,8 @@ import Spacer from '../components/Spacer';
 import SectionContainer from '../components/SectionContainer';
 import MoveToBottom from '../components/MoveToBottom';
 import Timer from '../components/Timer';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Context as TaskContext } from '../context/TaskContext';
-import TaskList from '../components/TaskList';
 
-// TODO: implementar pausar, completar tarea al terminar temporizador y documentar
 const TaskTimerScreen = ({ navigation }) => {
 	const taskId = navigation.getParam('id');
 	const { state, updateTask } = useContext(TaskContext);
@@ -30,6 +27,9 @@ const TaskTimerScreen = ({ navigation }) => {
 	const [message, setMessage] = useState('Work!\n ');
 	const [isTaskDone, setIsTaskDone] = useState(false);
 
+	/** Method that refresh the timer.
+	 * Check if it is the last load and assign values ​​according to the case.
+	 */
 	const refreshTimer = () => {
 		if (isLastLoad === true) {
 			setTimerLoad(0);
@@ -42,6 +42,9 @@ const TaskTimerScreen = ({ navigation }) => {
 		}
 	};
 
+	/** Method that handles the load of time to pass to the timer.
+	 * Check if it is a pomodoro timer or not and manage the load accordingly.
+	 */
 	const timerLoadHandler = () => {
 		if (isPomodoro) {
 			// If pomodoro
@@ -85,7 +88,7 @@ const TaskTimerScreen = ({ navigation }) => {
 		}
 	};
 
-	/** Function that mark a task as done.
+	/** Function that mark a task as done and launch updateTask for the active task.
 	 */
 	function markTaskDone() {
 		let category = 'Done';
@@ -94,6 +97,7 @@ const TaskTimerScreen = ({ navigation }) => {
 		setIsTaskDone(true);
 	}
 
+	/** useEffect hook for launch timerLoadHandler every time that isTimerEnded changes. */
 	useEffect(() => {
 		timerLoadHandler();
 	}, [isTimerEnded]);

@@ -34,7 +34,7 @@ const TaskTimerScreen = ({ navigation }) => {
 		if (isLastLoad === true) {
 			setTimerLoad(0);
 			setMessage('Task completed');
-			markTaskDone();
+			setIsTaskDone(true);
 		} else {
 			setTimerLoad(0);
 			setIsBreakTime(!isBreakTime);
@@ -89,14 +89,14 @@ const TaskTimerScreen = ({ navigation }) => {
 	};
 
 	/** Function that mark a task as done and launch updateTask for the active task.
+	 * Then, returns to TaskHome screen.
 	 */
-	function markTaskDone() {
+	function markTaskDoneAndGoBack() {
 		let category = 'Done';
 		let isDone = true;
-		setTimeout(() => {
-			updateTask({ taskId, isDone, category });
-			setIsTaskDone(true);
-		}, 3000);
+		setIsTaskDone(true);
+		updateTask({ taskId, isDone, category });
+		navigation.navigate('TaskHome');
 	}
 
 	/** useEffect hook for launch timerLoadHandler every time that isTimerEnded changes. */
@@ -155,7 +155,7 @@ const TaskTimerScreen = ({ navigation }) => {
 						<Button
 							buttonStyle={styles.solidButton}
 							title="Go back"
-							onPress={() => navigation.navigate('TaskHome')}
+							onPress={() => markTaskDoneAndGoBack()}
 						/>
 					)}
 				</Spacer>

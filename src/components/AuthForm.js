@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import Spacer from './Spacer';
 import { withNavigation } from 'react-navigation';
+import { Linking } from 'react-native';
+import { Platform } from 'react-native';
 
 const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
 	const [email, setEmail] = useState('');
@@ -43,7 +45,17 @@ const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
 					title={`${buttonText} with `}
 					icon={icon}
 					iconRight
-					onPress={() => navigation.navigate('mainFlow')}
+					onPress={() =>
+						Platform.OS === 'web'
+							? window.open(
+									'http://mitiempo-back.herokuapp.com/auth/google',
+									'_blank'
+							  )
+							: Linking.openURL(
+									'http://mitiempo-back.herokuapp.com/auth/google',
+									'_self'
+							  )
+					}
 				/>
 			</Spacer>
 		</>

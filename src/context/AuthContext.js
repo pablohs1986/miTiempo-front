@@ -28,19 +28,24 @@ const authReducer = (state, action) => {
  * stores it on the device with AsyncStorage to maintain the session,
  * launch an action and takes the user to the main flow.
  */
-const signup = (dispatch) => async ({ email, password }) => {
-	try {
-		const response = await miTiempoApi.post('/signup', { email, password }); // make post request to backend
-		await AsyncStorage.setItem('token', response.data.token); // stores the token
-		dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
-		navigate('mainFlow'); // navigate to main flow
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong with sign up',
-		});
-	}
-};
+const signup =
+	(dispatch) =>
+	async ({ email, password }) => {
+		try {
+			const response = await miTiempoApi.post('/signup', {
+				email,
+				password,
+			}); // make post request to backend
+			await AsyncStorage.setItem('token', response.data.token); // stores the token
+			dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
+			navigate('mainFlow'); // navigate to main flow
+		} catch (error) {
+			dispatch({
+				type: 'add_error',
+				payload: 'Something went wrong with sign up',
+			});
+		}
+	};
 
 /** Action function that makes a request to sign in a user.
  * If the login is not accepted by the backend, it returns an error message.
@@ -48,22 +53,27 @@ const signup = (dispatch) => async ({ email, password }) => {
  * stores it on the device with AsyncStorage to maintain the session,
  * launch an action and takes the user to the main flow.
  */
-const signin = (dispatch) => async ({ email, password }) => {
-	try {
-		const response = await miTiempoApi.post('/signin', { email, password }); // make post request to backend
-		await AsyncStorage.setItem('token', response.data.token); // stores the token
-		dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
-		navigate('mainFlow'); // navigate to main flow
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong with sign in',
-		});
-	}
-};
+const signin =
+	(dispatch) =>
+	async ({ email, password }) => {
+		try {
+			const response = await miTiempoApi.post('/signin', {
+				email,
+				password,
+			}); // make post request to backend
+			await AsyncStorage.setItem('token', response.data.token); // stores the token
+			dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
+			navigate('mainFlow'); // navigate to main flow
+		} catch (error) {
+			dispatch({
+				type: 'add_error',
+				payload: 'Something went wrong with sign in',
+			});
+		}
+	};
 
-/** Action function that checks if the user has a stored token. If so, log into 
- * the app. If not, it redirects to the registration screen.  
+/** Action function that checks if the user has a stored token. If so, log into
+ * the app. If not, it redirects to the registration screen.
  * */
 const tryLocalSignIn = (dispatch) => async () => {
 	const token = await AsyncStorage.getItem('token');
@@ -90,6 +100,12 @@ const clearErrorMessage = (dispatch) => () => {
 /** Export and call createDataContext to create the context and its provider. */
 export const { Provider, Context } = createDataContext(
 	authReducer,
-	{ signup, signin, tryLocalSignIn, signout, clearErrorMessage },
+	{
+		signup,
+		signin,
+		tryLocalSignIn,
+		signout,
+		clearErrorMessage,
+	},
 	{ token: null, errorMessage: '' }
 );

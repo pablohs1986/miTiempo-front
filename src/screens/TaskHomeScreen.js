@@ -6,11 +6,11 @@ import Spacer from '../components/Spacer';
 import TaskList from '../components/TaskList';
 import HorizontalList from '../components/HorizontalList';
 import { Context as TaskContext } from '../context/TaskContext';
+import moment from 'moment';
 
 const TaskHomeScreen = () => {
-	const { state, listTasks, listTodayTasks, getCategories } = useContext(
-		TaskContext
-	);
+	const { state, listTasks, listTodayTasks, updateTask, getCategories } =
+		useContext(TaskContext);
 	const [category, setCategory] = useState('All');
 	const [searchTerm, setSearchTerm] = useState('');
 
@@ -19,12 +19,42 @@ const TaskHomeScreen = () => {
 		listTasks({ category });
 		listTodayTasks({ category });
 		getCategories();
+		handleRoutines(); // TODO: revisar si aquí o mejor en refresh data
 	}, [category]);
 
 	/** Method that reloads the task lists. */
 	function refreshData() {
 		listTasks({ category });
 		listTodayTasks({ category });
+	}
+
+	/** TODO: */
+	function handleRoutines() {
+		const today = moment().format('dddd');
+		const inAWeek = moment().add(6, 'days').format('dddd');
+
+		state.tasks.forEach((task) => {
+			if (task.day === moment().subtract(1, 'days').format('dddd')) {
+				let taskId = task._id;
+				let day = '';
+				let isDone = false;
+
+				switch (task.repetition) {
+					case 'Every day':
+						day = today;
+						updateTask({ taskId, day, isDone });
+						break;
+
+					case 'Every week':
+						day = inAWeek;
+						updateTask({ taskId, day, isDone });
+						break;
+
+					default:
+						break;
+				}
+			}
+		});
 	}
 
 	return (

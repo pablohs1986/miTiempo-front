@@ -63,245 +63,217 @@ const TaskCreateScreen = ({ navigation }) => {
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
 			<NavigationEvents onWillFocus={refreshPresets} />
 
-			<Header
-				leftComponent={
-					<Button
-						buttonStyle={styles.headerButtonLeft}
-						titleStyle={styles.titleHeaderButtonLeft}
-						type="clear"
-						title="Cancel"
-						onPress={() => navigation.navigate('homeFlow')}
-					/>
-				}
-				centerComponent={
-					<Text style={styles.headerTitle} h4>
-						New Task
-					</Text>
-				}
-				rightComponent={
-					<Button
-						buttonStyle={styles.headerButtonRight}
-						titleStyle={styles.titleHeaderButtonRight}
-						type="clear"
-						title="Add"
-						onPress={() =>
-							addTask({
-								title,
-								description,
-								day,
-								duration,
-								repetition,
-								category,
-								color,
-								isPomodoro,
-							})
-						}
-					/>
-				}
-				containerStyle={styles.header}
-			/>
-
-			{/* <Text style={styles.header} h4>
-				New Task
-			</Text> */}
-
-			<ScrollView
-				showsVerticalScrollIndicator={false}
-				showsHorizontalScrollIndicator={false}
-			>
-				<SectionContainer>
-					<Spacer>
-						<Input
-							autoCapitalize="none"
-							autoCorrect={false}
-							placeholder="Title"
-							value={title}
-							onChangeText={setTitle}
+			<View style={styles.container2}>
+				<Header
+					leftComponent={
+						<Button
+							buttonStyle={styles.headerButtonLeft}
+							titleStyle={styles.titleHeaderButtonLeft}
+							type="clear"
+							title="Cancel"
+							onPress={() => navigation.navigate('homeFlow')}
 						/>
-						<Input
-							autoCapitalize="none"
-							autoCorrect={false}
-							placeholder="Description"
-							value={description}
-							onChangeText={setDescription}
+					}
+					centerComponent={
+						<Text style={styles.headerTitle} h4>
+							New Task
+						</Text>
+					}
+					rightComponent={
+						<Button
+							buttonStyle={styles.headerButtonRight}
+							titleStyle={styles.titleHeaderButtonRight}
+							type="clear"
+							title="Add"
+							onPress={() =>
+								addTask({
+									title,
+									description,
+									day,
+									duration,
+									repetition,
+									category,
+									color,
+									isPomodoro,
+								})
+							}
 						/>
-					</Spacer>
-				</SectionContainer>
-				<SectionContainer>
-					<Spacer>
-						<View style={styles.optionsContainer}>
-							<Button
-								type="clear"
-								buttonStyle={styles.optionsButton}
-								disabledStyle={styles.optionsButtonDisabled}
-								titleStyle={
-									option === state.days
-										? styles.titleOptionsButtonEnabled
-										: styles.titleOptionsButtonDisabled
-								}
-								icon={
-									<MaterialIcons
-										name="date-range"
-										style={styles.inputIcons}
-									/>
-								}
-								title={day}
-								onPress={() => {
-									setOption(state.days);
-									setOptionSetter(() => setDay);
-								}}
-							/>
-							<Button
-								type="clear"
-								buttonStyle={styles.optionsButton}
-								titleStyle={
-									option === state.durations
-										? styles.titleOptionsButtonEnabled
-										: styles.titleOptionsButtonDisabled
-								}
-								icon={
-									<MaterialCommunityIcons
-										name="av-timer"
-										style={styles.inputIcons}
-									/>
-								}
-								title={duration}
-								onPress={() => {
-									setOption(state.durations);
-									setOptionSetter(() => setDuration);
-								}}
-							/>
-						</View>
-						<View style={styles.optionsContainer}>
-							<Button
-								type="clear"
-								buttonStyle={styles.optionsButton}
-								titleStyle={
-									option === state.repetitions
-										? styles.titleOptionsButtonEnabled
-										: styles.titleOptionsButtonDisabled
-								}
-								icon={
-									<Feather
-										name="repeat"
-										style={styles.inputIcons}
-									/>
-								}
-								title={repetition}
-								onPress={() => {
-									setOption(state.repetitions);
-									setOptionSetter(() => setRepetition);
-								}}
-							/>
-							<Button
-								type="clear"
-								buttonStyle={styles.optionsButton}
-								titleStyle={
-									option === state.pomodoro
-										? styles.titleOptionsButtonEnabled
-										: styles.titleOptionsButtonDisabled
-								}
-								icon={
-									<MaterialCommunityIcons
-										name="timer-sand"
-										style={styles.inputIcons}
-									/>
-								}
-								title={isPomodoro}
-								onPress={() => {
-									setOption(state.pomodoro);
-									setOptionSetter(() => setIsPomodoro);
-								}}
-							/>
-						</View>
+					}
+					containerStyle={styles.header}
+				/>
 
-						<View style={styles.optionsContainer}>
-							<Button
-								type="clear"
-								buttonStyle={styles.optionsButton}
-								titleStyle={
-									option.length ===
-									filterCategories(state.categories).length
-										? styles.titleOptionsButtonEnabled
-										: styles.titleOptionsButtonDisabled
-								}
-								icon={
-									<Feather
-										name="tag"
-										style={styles.inputIcons}
-									/>
-								}
-								title={category}
-								onPress={() => {
-									setOption(
+				<ScrollView
+					showsVerticalScrollIndicator={false}
+					showsHorizontalScrollIndicator={false}
+				>
+					<SectionContainer>
+						<Spacer>
+							<Input
+								autoCapitalize="none"
+								autoCorrect={false}
+								placeholder="Title"
+								value={title}
+								onChangeText={setTitle}
+							/>
+							<Input
+								autoCapitalize="none"
+								autoCorrect={false}
+								placeholder="Description"
+								value={description}
+								onChangeText={setDescription}
+							/>
+						</Spacer>
+					</SectionContainer>
+					<SectionContainer>
+						<Spacer>
+							<View style={styles.optionsContainer}>
+								<Button
+									type="clear"
+									buttonStyle={styles.optionsButton}
+									disabledStyle={styles.optionsButtonDisabled}
+									titleStyle={
+										option === state.days
+											? styles.titleOptionsButtonEnabled
+											: styles.titleOptionsButtonDisabled
+									}
+									icon={
+										<MaterialIcons
+											name="date-range"
+											style={styles.inputIcons}
+										/>
+									}
+									title={day}
+									onPress={() => {
+										setOption(state.days);
+										setOptionSetter(() => setDay);
+									}}
+								/>
+								<Button
+									type="clear"
+									buttonStyle={styles.optionsButton}
+									titleStyle={
+										option === state.durations
+											? styles.titleOptionsButtonEnabled
+											: styles.titleOptionsButtonDisabled
+									}
+									icon={
+										<MaterialCommunityIcons
+											name="av-timer"
+											style={styles.inputIcons}
+										/>
+									}
+									title={duration}
+									onPress={() => {
+										setOption(state.durations);
+										setOptionSetter(() => setDuration);
+									}}
+								/>
+							</View>
+							<View style={styles.optionsContainer}>
+								<Button
+									type="clear"
+									buttonStyle={styles.optionsButton}
+									titleStyle={
+										option === state.repetitions
+											? styles.titleOptionsButtonEnabled
+											: styles.titleOptionsButtonDisabled
+									}
+									icon={
+										<Feather
+											name="repeat"
+											style={styles.inputIcons}
+										/>
+									}
+									title={repetition}
+									onPress={() => {
+										setOption(state.repetitions);
+										setOptionSetter(() => setRepetition);
+									}}
+								/>
+								<Button
+									type="clear"
+									buttonStyle={styles.optionsButton}
+									titleStyle={
+										option === state.pomodoro
+											? styles.titleOptionsButtonEnabled
+											: styles.titleOptionsButtonDisabled
+									}
+									icon={
+										<MaterialCommunityIcons
+											name="timer-sand"
+											style={styles.inputIcons}
+										/>
+									}
+									title={isPomodoro}
+									onPress={() => {
+										setOption(state.pomodoro);
+										setOptionSetter(() => setIsPomodoro);
+									}}
+								/>
+							</View>
+
+							<View style={styles.optionsContainer}>
+								<Button
+									type="clear"
+									buttonStyle={styles.optionsButton}
+									titleStyle={
+										option.length ===
 										filterCategories(state.categories)
-									);
-									setOptionSetter(() => setCategory);
-								}}
-							/>
-							<Button
-								type="clear"
-								buttonStyle={styles.optionsButton}
-								titleStyle={
-									option === state.colors
-										? styles.titleOptionsButtonEnabled
-										: styles.titleOptionsButtonDisabled
-								}
-								icon={
-									<MaterialCommunityIcons
-										name="palette-outline"
-										style={styles.inputIcons}
-									/>
-								}
-								title={color}
-								onPress={() => {
-									setOption(state.colors);
-									setOptionSetter(() => setColor);
-								}}
-							/>
-						</View>
-					</Spacer>
+											.length
+											? styles.titleOptionsButtonEnabled
+											: styles.titleOptionsButtonDisabled
+									}
+									icon={
+										<Feather
+											name="tag"
+											style={styles.inputIcons}
+										/>
+									}
+									title={category}
+									onPress={() => {
+										setOption(
+											filterCategories(state.categories)
+										);
+										setOptionSetter(() => setCategory);
+									}}
+								/>
+								<Button
+									type="clear"
+									buttonStyle={styles.optionsButton}
+									titleStyle={
+										option === state.colors
+											? styles.titleOptionsButtonEnabled
+											: styles.titleOptionsButtonDisabled
+									}
+									icon={
+										<MaterialCommunityIcons
+											name="palette-outline"
+											style={styles.inputIcons}
+										/>
+									}
+									title={color}
+									onPress={() => {
+										setOption(state.colors);
+										setOptionSetter(() => setColor);
+									}}
+								/>
+							</View>
+						</Spacer>
 
-					<Divider />
+						<Divider />
 
-					<Spacer>
-						<View style={styles.optionsSelector}>
-							<HorizontalList
-								data={option}
-								style={styles.horizontalList}
-								onSubmit={optionSetter}
-							/>
-						</View>
-					</Spacer>
-				</SectionContainer>
-			</ScrollView>
-
-			{/* <MoveToBottom>
-				<Spacer>
-					<Button
-						buttonStyle={styles.solidButton}
-						icon={
-							<FontAwesome5
-								name="play"
-								size={20}
-								color={'white'}
-							/>
-						}
-						onPress={() =>
-							addTask({
-								title,
-								description,
-								day,
-								duration,
-								repetition,
-								category,
-								color,
-								isPomodoro,
-							})
-						}
-					/>
-				</Spacer>
-			</MoveToBottom> */}
+						<Spacer>
+							<View style={styles.optionsSelector}>
+								<HorizontalList
+									data={option}
+									style={styles.horizontalList}
+									onSubmit={optionSetter}
+								/>
+							</View>
+						</Spacer>
+					</SectionContainer>
+				</ScrollView>
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -325,6 +297,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
 		backgroundColor: '#F2F1F6',
+	},
+	container2: {
 		...Platform.select({
 			android: {
 				marginLeft: 0,
@@ -374,10 +348,6 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		color: 'black',
 	},
-	// headerButtoms: {
-	// 	fontSize: 18,
-	// 	color: '#C830CC',
-	// },
 	inputIcons: {
 		marginRight: 10,
 		color: '#C830CC',
@@ -398,25 +368,6 @@ const styles = StyleSheet.create({
 	horizontalList: {
 		alignSelf: 'center',
 	},
-	// solidButton: {
-	// 	...Platform.select({
-	// 		android: {
-	// 			backgroundColor: '#C830CC',
-	// 			marginBottom: 10,
-	// 		},
-	// 		ios: {
-	// 			backgroundColor: '#C830CC',
-	// 			marginBottom: 10,
-	// 		},
-	// 		default: {
-	// 			alignSelf: 'center',
-	// 			backgroundColor: '#C830CC',
-	// 			marginBottom: 10,
-	// 			width: '15%',
-	// 			padding: 10,
-	// 		},
-	// 	}),
-	// },
 	headerButtonLeft: {
 		justifyContent: 'flex-start',
 		backgroundColor: 'transparent',

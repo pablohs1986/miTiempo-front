@@ -70,29 +70,31 @@ const TrackerScreen = () => {
 				style={styles.container}
 				forceInset={{ top: 'always' }}
 			>
-				<Text style={styles.header} h4>
-					My Time
-				</Text>
-				<SectionContainer>
-					<View style={styles.webChart}>
-						<iframe
-							src={selectedChart}
-							height={400}
-							width={'100%'}
-							height={500}
-							frameBorder="0"
-						/>
-					</View>
-				</SectionContainer>
-				<MoveToBottom>
-					<View style={styles.horizontalList}>
-						<HorizontalList
-							data={CHARTS}
-							onSubmit={selectChartOption}
-							style={styles.horizontalList}
-						/>
-					</View>
-				</MoveToBottom>
+				<View style={styles.container2}>
+					<Text style={styles.header} h4>
+						My Time
+					</Text>
+					<SectionContainer>
+						<View style={styles.webChart}>
+							<iframe
+								src={selectedChart}
+								height={400}
+								width={'100%'}
+								height={500}
+								frameBorder="0"
+							/>
+						</View>
+					</SectionContainer>
+					<MoveToBottom>
+						<View style={styles.horizontalList}>
+							<HorizontalList
+								data={CHARTS}
+								onSubmit={selectChartOption}
+								style={styles.horizontalList}
+							/>
+						</View>
+					</MoveToBottom>
+				</View>
 			</SafeAreaView>
 		);
 	} else if (Platform.OS === 'android' || Platform.OS === 'ios') {
@@ -101,23 +103,25 @@ const TrackerScreen = () => {
 				style={styles.container}
 				forceInset={{ top: 'always' }}
 			>
-				<Text style={styles.header} h4>
-					My Time
-				</Text>
+				<View style={styles.container2}>
+					<Text style={styles.header} h4>
+						My Time
+					</Text>
 
-				<WebView
-					source={{
-						html: `<iframe width="100%" height="100%" src=${selectedChart} frameborder="0" ></iframe>`,
-					}}
-					style={styles.mobileChart}
-				/>
-
-				<View style={styles.horizontalList}>
-					<HorizontalList
-						data={CHARTS}
-						onSubmit={selectChartOption}
-						style={styles.horizontalList}
+					<WebView
+						source={{
+							html: `<iframe width="100%" height="100%" src=${selectedChart} frameborder="0" ></iframe>`,
+						}}
+						style={styles.mobileChart}
 					/>
+
+					<View style={styles.horizontalList}>
+						<HorizontalList
+							data={CHARTS}
+							onSubmit={selectChartOption}
+							style={styles.horizontalList}
+						/>
+					</View>
 				</View>
 			</SafeAreaView>
 		);
@@ -136,6 +140,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
 		backgroundColor: '#F2F1F6',
+	},
+	container2: {
 		...Platform.select({
 			android: {
 				marginLeft: 0,

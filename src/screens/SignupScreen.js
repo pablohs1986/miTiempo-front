@@ -28,7 +28,7 @@ const SignupScreen = () => {
 				buttonText="Sign up"
 				icon={<FontAwesome name="google" style={styles.googleIcon} />}
 				showGoogleButton={true}
-                onSubmit={signup}
+				onSubmit={signup}
 			/>
 
 			<View style={styles.linkContainer}>

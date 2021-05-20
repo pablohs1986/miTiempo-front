@@ -6,7 +6,14 @@ import { withNavigation } from 'react-navigation';
 import { Linking } from 'react-native';
 import { Platform } from 'react-native';
 
-const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
+const AuthForm = ({
+	navigation,
+	buttonText,
+	icon,
+	showGoogleButton,
+	errorMessage,
+	onSubmit,
+}) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -38,25 +45,28 @@ const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
 					title={buttonText}
 					onPress={() => onSubmit({ email, password })}
 				/>
-				<Button
-					buttonStyle={styles.outlineButton}
-					titleStyle={styles.titleColorOutlineButton}
-					type="outline"
-					title={`${buttonText} with `}
-					icon={icon}
-					iconRight
-					onPress={() =>
-						Platform.OS === 'web'
-							? window.open(
-									'http://mitiempo-back.herokuapp.com/auth/google',
-									'_blank'
-							  )
-							: Linking.openURL(
-									'http://mitiempo-back.herokuapp.com/auth/google',
-									'_self'
-							  )
-					}
-				/>
+
+				{showGoogleButton ? (
+					<Button
+						buttonStyle={styles.outlineButton}
+						titleStyle={styles.titleColorOutlineButton}
+						type="outline"
+						title={`${buttonText} with `}
+						icon={icon}
+						iconRight
+						onPress={() =>
+							Platform.OS === 'web'
+								? window.open(
+										'http://mitiempo-back.herokuapp.com/auth/google',
+										'_blank'
+								  )
+								: Linking.openURL(
+										'http://mitiempo-back.herokuapp.com/auth/google',
+										'_self'
+								  )
+						}
+					/>
+				) : null}
 			</Spacer>
 		</>
 	);
@@ -65,12 +75,48 @@ const AuthForm = ({ navigation, buttonText, icon, errorMessage, onSubmit }) => {
 const styles = StyleSheet.create({
 	solidButton: {
 		backgroundColor: '#C830CC',
-		marginTop: 5,
-		marginBottom: 10,
+		...Platform.select({
+			android: {
+				backgroundColor: '#C830CC',
+				marginTop: 5,
+				marginBottom: 10,
+			},
+			ios: {
+				backgroundColor: '#C830CC',
+				marginTop: 5,
+				marginBottom: 10,
+			},
+			default: {
+				alignSelf: 'center',
+				backgroundColor: '#C830CC',
+				marginTop: 30,
+				marginBottom: 10,
+				width: '40%',
+				padding: 10,
+			},
+		}),
 	},
 	outlineButton: {
-		borderColor: '#C830CC',
-		borderWidth: 1,
+		...Platform.select({
+			android: {
+				borderColor: '#C830CC',
+				borderWidth: 1,
+				backgroundColor: 'white',
+			},
+			ios: {
+				borderColor: '#C830CC',
+				borderWidth: 1,
+				backgroundColor: 'white',
+			},
+			default: {
+				alignSelf: 'center',
+				borderColor: '#C830CC',
+				borderWidth: 1,
+				backgroundColor: 'white',
+				width: '40%',
+				padding: 10,
+			},
+		}),
 	},
 	titleColorOutlineButton: {
 		color: '#C830CC',

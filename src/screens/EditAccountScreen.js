@@ -158,11 +158,37 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'flex-start',
+		...Platform.select({
+			android: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			ios: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			default: {
+				marginLeft: 300,
+				marginRight: 300,
+			},
+		}),
 	},
 	header: {
-		marginTop: 10,
-		marginBottom: 10,
 		alignSelf: 'center',
+		...Platform.select({
+			android: {
+				marginTop: 0,
+				marginBottom: 5,
+			},
+			ios: {
+				marginTop: 0,
+				marginBottom: 5,
+			},
+			default: {
+				marginTop: 20,
+				marginBottom: 20,
+			},
+		}),
 	},
 	divider: {
 		width: '100%',
@@ -183,7 +209,7 @@ const styles = StyleSheet.create({
 				alignSelf: 'center',
 				backgroundColor: '#C830CC',
 				marginBottom: 10,
-				width: '25%',
+				width: '40%',
 				padding: 10,
 			},
 		}),
@@ -226,7 +252,7 @@ const styles = StyleSheet.create({
 				borderColor: 'red',
 				borderWidth: 1,
 				backgroundColor: 'white',
-				width: '25%',
+				width: '40%',
 				padding: 10,
 			},
 		}),

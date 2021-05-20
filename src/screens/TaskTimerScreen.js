@@ -175,6 +175,21 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
 		backgroundColor: '#F2F1F6',
+		...Platform.select({
+			android: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			ios: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			default: {
+				marginTop: 20,
+				marginLeft: 300,
+				marginRight: 300,
+			},
+		}),
 	},
 	timerContainer: {
 		alignSelf: 'center',
@@ -242,7 +257,7 @@ const styles = StyleSheet.create({
 				alignSelf: 'center',
 				backgroundColor: '#C830CC',
 				marginBottom: 10,
-				width: '15%',
+				width: '40%',
 				padding: 10,
 			},
 		}),

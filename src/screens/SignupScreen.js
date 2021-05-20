@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform, View } from 'react-native';
 import { Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -27,13 +27,16 @@ const SignupScreen = () => {
 				errorMessage={state.errorMessage}
 				buttonText="Sign up"
 				icon={<FontAwesome name="google" style={styles.googleIcon} />}
-				onSubmit={signup}
+				showGoogleButton={true}
+                onSubmit={signup}
 			/>
 
-			<NavLink
-				text="Already have an account? Sign in instead!"
-				routeName="Signin"
-			/>
+			<View style={styles.linkContainer}>
+				<NavLink
+					text="Already have an account? Sign in instead!"
+					routeName="Signin"
+				/>
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -49,18 +52,58 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'flex-start',
+		...Platform.select({
+			android: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			ios: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			default: {
+				marginLeft: 300,
+				marginRight: 300,
+			},
+		}),
 	},
 	logo: {
-		width: 200,
-		height: 200,
 		alignSelf: 'center',
 		marginTop: 10,
 		marginBottom: 5,
+		...Platform.select({
+			android: {
+				width: 250,
+				height: 250,
+			},
+			ios: {
+				width: 250,
+				height: 250,
+			},
+			default: {
+				width: 350,
+				height: 350,
+			},
+		}),
 	},
 	googleIcon: {
 		marginLeft: 5,
 		fontSize: 24,
 		color: '#C830CC',
+	},
+	linkContainer: {
+		alignSelf: 'center',
+		...Platform.select({
+			android: {
+				width: '100%',
+			},
+			ios: {
+				width: '100%',
+			},
+			default: {
+				width: '40%',
+			},
+		}),
 	},
 });
 

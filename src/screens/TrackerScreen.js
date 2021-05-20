@@ -136,9 +136,36 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
 		backgroundColor: '#F2F1F6',
+		...Platform.select({
+			android: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			ios: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			default: {
+				marginLeft: 300,
+				marginRight: 300,
+			},
+		}),
 	},
 	header: {
-		marginTop: 10,
+		...Platform.select({
+			android: {
+				marginTop: 0,
+				marginBottom: 5,
+			},
+			ios: {
+				marginTop: 0,
+				marginBottom: 5,
+			},
+			default: {
+				marginTop: 20,
+				marginBottom: 20,
+			},
+		}),
 		alignSelf: 'center',
 		fontSize: 24,
 	},
@@ -153,6 +180,7 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 		marginRight: 15,
 		marginBottom: 15,
+		marginTop: 5,
 	},
 });
 

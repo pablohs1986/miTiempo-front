@@ -402,6 +402,20 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
 		backgroundColor: '#F2F1F6',
+		...Platform.select({
+			android: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			ios: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			default: {
+				marginLeft: 300,
+				marginRight: 300,
+			},
+		}),
 	},
 	optionsContainer: {
 		flex: 1,
@@ -417,6 +431,20 @@ const styles = StyleSheet.create({
 		marginRight: 15,
 		marginLeft: 15,
 		paddingBottom: 0,
+		...Platform.select({
+			android: {
+				marginTop: 7,
+				marginBottom: 5,
+			},
+			ios: {
+				marginTop: 7,
+				marginBottom: 5,
+			},
+			default: {
+				marginTop: 5,
+				marginBottom: 20,
+			},
+		}),
 	},
 	headerTitle: {
 		marginTop: 5,

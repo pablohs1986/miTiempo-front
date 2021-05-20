@@ -107,6 +107,20 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'flex-start',
 		alignContent: 'space-around',
+		...Platform.select({
+			android: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			ios: {
+				marginLeft: 0,
+				marginRight: 0,
+			},
+			default: {
+				marginLeft: 300,
+				marginRight: 300,
+			},
+		}),
 	},
 	searchBarContainer: {
 		backgroundColor: 'transparent',
@@ -135,7 +149,7 @@ const styles = StyleSheet.create({
 				width: '100%',
 			},
 			default: {
-				width: '55%',
+				width: '67%',
 				marginBottom: -15,
 			},
 		}),

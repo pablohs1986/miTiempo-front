@@ -31,15 +31,27 @@ const TaskDetailScreen = ({ navigation }) => {
 	const task = state.tasks.find((task) => task._id === taskId);
 	const [option, setOption] = useState(state.days);
 	const [optionSetter, setOptionSetter] = useState('');
-	const [title, setTitle] = useState(task.title);
-	const [description, setDescription] = useState(task.description);
-	const [day, setDay] = useState(handleDays(task.day));
-	const [duration, setDuration] = useState(handleDurations(task.duration));
-	const [repetition, setRepetition] = useState(task.repetition);
-	const [category, setCategory] = useState(task.category);
-	const [color, setColor] = useState(handleColors(task.color));
+	const [title, setTitle] = useState(task != undefined ? task.title : '');
+	const [description, setDescription] = useState(
+		task != undefined ? task.description : ''
+	);
+	const [day, setDay] = useState(
+		handleDays(task != undefined ? task.day : '')
+	);
+	const [duration, setDuration] = useState(
+		handleDurations(task != duration ? task.duration : '')
+	);
+	const [repetition, setRepetition] = useState(
+		task != undefined ? task.repetition : ''
+	);
+	const [category, setCategory] = useState(
+		task != undefined ? task.category : ''
+	);
+	const [color, setColor] = useState(
+		handleColors(task != undefined ? task.color : '')
+	);
 	const [isPomodoro, setIsPomodoro] = useState(
-		handlePomodoro(task.isPomodoro)
+		handlePomodoro(task != undefined ? task.isPomodoro : false)
 	);
 
 	/** Use of useEffect Hook to load preset options. */

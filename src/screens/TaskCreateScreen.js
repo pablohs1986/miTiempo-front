@@ -1,5 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Platform } from 'react-native';
+import {
+	Dimensions,
+	StyleSheet,
+	ScrollView,
+	View,
+	Platform,
+} from 'react-native';
 import { Input, Text, Divider, Button, Header } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -63,7 +69,13 @@ const TaskCreateScreen = ({ navigation }) => {
 		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
 			<NavigationEvents onWillFocus={refreshPresets} />
 
-			<View style={styles.container2}>
+			<View
+				style={
+					Dimensions.get('window').width < 1200
+						? styles.containerWeb1200
+						: styles.container2
+				}
+			>
 				<Header
 					leftComponent={
 						<Button
@@ -313,6 +325,13 @@ const styles = StyleSheet.create({
 				marginRight: 300,
 			},
 		}),
+	},
+	containerWeb1200: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		alignContent: 'space-around',
+		marginLeft: 0,
+		marginRight: 0,
 	},
 	optionsContainer: {
 		flex: 1,

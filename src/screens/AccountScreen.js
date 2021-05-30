@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, ScrollView, Platform } from 'react-native';
+import { Dimensions, StyleSheet, ScrollView, Platform } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -15,7 +15,14 @@ const AccountScreen = ({ navigation }) => {
 	const { state, getUserInfo, errorMessage } = useContext(UserContext);
 
 	return (
-		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+		<SafeAreaView
+			style={
+				Dimensions.get('window').width < 1200
+					? styles.containerWeb1200
+					: styles.container
+			}
+			forceInset={{ top: 'always' }}
+		>
 			<NavigationEvents onWillFocus={getUserInfo} />
 
 			<Text style={styles.header} h4>
@@ -119,10 +126,17 @@ const styles = StyleSheet.create({
 			},
 		}),
 	},
+	containerWeb1200: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		alignContent: 'space-around',
+		marginLeft: 0,
+		marginRight: 0,
+	},
 	header: {
 		alignSelf: 'center',
 		fontSize: 24,
-        ...Platform.select({
+		...Platform.select({
 			android: {
 				marginTop: 0,
 				marginBottom: 5,

@@ -1,5 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Platform } from 'react-native';
+import {
+	Dimensions,
+	StyleSheet,
+	View,
+	ScrollView,
+	Platform,
+} from 'react-native';
 import { SearchBar, Text } from 'react-native-elements';
 import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -19,7 +25,7 @@ const TaskHomeScreen = () => {
 		listTasks({ category });
 		listTodayTasks({ category });
 		getCategories();
-		handleRoutines(); 
+		handleRoutines();
 	}, [category]);
 
 	/** Method that reloads the task lists. */
@@ -58,7 +64,14 @@ const TaskHomeScreen = () => {
 	}
 
 	return (
-		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+		<SafeAreaView
+			style={
+				Dimensions.get('window').width < 1200
+					? styles.containerWeb1200
+					: styles.container
+			}
+			forceInset={{ top: 'always' }}
+		>
 			<NavigationEvents onWillFocus={refreshData} />
 
 			<SearchBar
@@ -121,6 +134,13 @@ const styles = StyleSheet.create({
 				marginRight: 300,
 			},
 		}),
+	},
+	containerWeb1200: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		alignContent: 'space-around',
+		marginLeft: 0,
+		marginRight: 0,
 	},
 	searchBarContainer: {
 		backgroundColor: 'transparent',

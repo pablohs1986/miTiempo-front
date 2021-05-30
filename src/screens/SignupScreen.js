@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Platform, View } from 'react-native';
+import { Dimensions, StyleSheet, Platform, View } from 'react-native';
 import { Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import Spacer from '../components/Spacer';
@@ -13,7 +13,14 @@ const SignupScreen = () => {
 	const { state, signup, clearErrorMessage } = useContext(AuthContext);
 
 	return (
-		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+		<SafeAreaView
+			style={
+				Dimensions.get('window').width < 1200
+					? styles.containerWeb1200
+					: styles.container
+			}
+			forceInset={{ top: 'always' }}
+		>
 			<NavigationEvents onWillFocus={clearErrorMessage} />
 
 			<Spacer>
@@ -66,6 +73,13 @@ const styles = StyleSheet.create({
 				marginRight: 300,
 			},
 		}),
+	},
+	containerWeb1200: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		alignContent: 'space-around',
+		marginLeft: 0,
+		marginRight: 0,
 	},
 	logo: {
 		alignSelf: 'center',

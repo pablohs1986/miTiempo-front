@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { Dimensions, View, StyleSheet, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, Button, Divider } from 'react-native-elements';
 import Spacer from '../components/Spacer';
@@ -105,7 +105,14 @@ const TaskTimerScreen = ({ navigation }) => {
 	}, [isTimerEnded]);
 
 	return (
-		<SafeAreaView style={styles.container} forceInset={{ top: 'always' }}>
+		<SafeAreaView
+			style={
+				Dimensions.get('window').width < 1200
+					? styles.containerWeb1200
+					: styles.container
+			}
+			forceInset={{ top: 'always' }}
+		>
 			<SectionContainer>
 				<View style={styles.timerContainer}>
 					<Text style={styles.message}>{message}</Text>
@@ -190,6 +197,13 @@ const styles = StyleSheet.create({
 				marginRight: 300,
 			},
 		}),
+	},
+	containerWeb1200: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		alignContent: 'space-around',
+		marginLeft: 0,
+		marginRight: 0,
 	},
 	timerContainer: {
 		alignSelf: 'center',

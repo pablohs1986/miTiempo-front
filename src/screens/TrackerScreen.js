@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { Dimensions, View, StyleSheet, Platform } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-navigation';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -70,7 +70,13 @@ const TrackerScreen = () => {
 				style={styles.container}
 				forceInset={{ top: 'always' }}
 			>
-				<View style={styles.container2}>
+				<View
+					style={
+						Dimensions.get('window').width < 1200
+							? styles.containerWeb1200
+							: styles.container2
+					}
+				>
 					<Text style={styles.header} h4>
 						My Time
 					</Text>
@@ -155,6 +161,13 @@ const styles = StyleSheet.create({
 				marginRight: 300,
 			},
 		}),
+	},
+	containerWeb1200: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		alignContent: 'space-around',
+		marginLeft: 0,
+		marginRight: 0,
 	},
 	header: {
 		...Platform.select({

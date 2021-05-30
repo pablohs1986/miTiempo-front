@@ -107,21 +107,20 @@ const TrackerScreen = () => {
 					<Text style={styles.header} h4>
 						My Time
 					</Text>
+				</View>
+				<WebView
+					source={{
+						html: `<iframe width="100%" height="100%" src=${selectedChart} frameborder="0" ></iframe>`,
+					}}
+					style={styles.mobileChart}
+				/>
 
-					<WebView
-						source={{
-							html: `<iframe width="100%" height="100%" src=${selectedChart} frameborder="0" ></iframe>`,
-						}}
-						style={styles.mobileChart}
+				<View style={styles.horizontalList}>
+					<HorizontalList
+						data={CHARTS}
+						onSubmit={selectChartOption}
+						style={styles.horizontalList}
 					/>
-
-					<View style={styles.horizontalList}>
-						<HorizontalList
-							data={CHARTS}
-							onSubmit={selectChartOption}
-							style={styles.horizontalList}
-						/>
-					</View>
 				</View>
 			</SafeAreaView>
 		);

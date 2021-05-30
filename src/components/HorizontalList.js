@@ -98,7 +98,7 @@ const HorizontalList = ({ data, onSubmit }) => {
 	}
 };
 
-/** TODO: doc */
+/** Function that handle de styles of buttons on Color option */
 function handleButtonStyles(item) {
 	switch (item) {
 		case 'Black':
@@ -188,7 +188,7 @@ function handleButtonStyles(item) {
 	}
 }
 
-/** TODO: doc */
+/** Function that handle the title style of buttons on color option */
 function handleButtonTitlesStyles(item) {
 	switch (item) {
 		case 'White':

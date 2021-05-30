@@ -19,7 +19,7 @@ const TaskHomeScreen = () => {
 		listTasks({ category });
 		listTodayTasks({ category });
 		getCategories();
-		handleRoutines(); // TODO: revisar si aquí o mejor en refresh data
+		handleRoutines(); 
 	}, [category]);
 
 	/** Method that reloads the task lists. */
@@ -28,7 +28,7 @@ const TaskHomeScreen = () => {
 		listTodayTasks({ category });
 	}
 
-	/** TODO: */
+	/** Function that handles tasks that are routines. */
 	function handleRoutines() {
 		const today = moment().format('dddd');
 		const inAWeek = moment().add(6, 'days').format('dddd');

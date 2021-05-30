@@ -11,8 +11,6 @@ const Timer = ({ timerLoad, refreshTimer }) => {
 	const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
 	const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-	// https://dev.to/alekswritescode/infinite-pomodoro-app-in-react-52jj
-
 	useEffect(() => {
 		timer();
 	}, [seconds]);

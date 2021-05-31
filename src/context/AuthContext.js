@@ -31,18 +31,27 @@ const authReducer = (state, action) => {
 const signup =
 	(dispatch) =>
 	async ({ email, password }) => {
-		try {
-			const response = await miTiempoApi.post('/signup', {
-				email,
-				password,
-			}); // make post request to backend
-			await AsyncStorage.setItem('token', response.data.token); // stores the token
-			dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
-			navigate('mainFlow'); // navigate to main flow
-		} catch (error) {
+		let infoMessage = validateForm(email, password);
+
+		if (infoMessage === '') {
+			try {
+				const response = await miTiempoApi.post('/signup', {
+					email,
+					password,
+				}); // make post request to backend
+				await AsyncStorage.setItem('token', response.data.token); // stores the token
+				dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
+				navigate('mainFlow'); // navigate to main flow
+			} catch (error) {
+				dispatch({
+					type: 'add_error',
+					payload: 'The email entered is already registered',
+				});
+			}
+		} else {
 			dispatch({
 				type: 'add_error',
-				payload: 'Something went wrong with sign up',
+				payload: infoMessage,
 			});
 		}
 	};
@@ -56,18 +65,27 @@ const signup =
 const signin =
 	(dispatch) =>
 	async ({ email, password }) => {
-		try {
-			const response = await miTiempoApi.post('/signin', {
-				email,
-				password,
-			}); // make post request to backend
-			await AsyncStorage.setItem('token', response.data.token); // stores the token
-			dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
-			navigate('mainFlow'); // navigate to main flow
-		} catch (error) {
+		let infoMessage = validateForm(email, password);
+
+		if (infoMessage === '') {
+			try {
+				const response = await miTiempoApi.post('/signin', {
+					email,
+					password,
+				}); // make post request to backend
+				await AsyncStorage.setItem('token', response.data.token); // stores the token
+				dispatch({ type: 'signInUp', payload: response.data.token }); // launch an action
+				navigate('mainFlow'); // navigate to main flow
+			} catch (error) {
+				dispatch({
+					type: 'add_error',
+					payload: 'Invalid password or email',
+				});
+			}
+		} else {
 			dispatch({
 				type: 'add_error',
-				payload: 'Something went wrong with sign in',
+				payload: infoMessage,
 			});
 		}
 	};
@@ -96,6 +114,29 @@ const signout = (dispatch) => async () => {
 const clearErrorMessage = (dispatch) => () => {
 	dispatch({ type: 'clear_error_message' });
 };
+
+/** Method that validates the email and password fields of the forms. */
+function validateForm(email, password) {
+	const regexEmail =
+		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+	if (email === '') {
+		return 'Please enter an email';
+	}
+
+	if (!regexEmail.test(email)) {
+		return 'Please enter a valid email';
+	}
+
+	if (password === '') {
+		return 'Please enter a password';
+	}
+
+	if (password.length <= 7) {
+		return 'Password must be longer than 7 characters';
+	}
+	return '';
+}
 
 /** Export and call createDataContext to create the context and its provider. */
 export const { Provider, Context } = createDataContext(

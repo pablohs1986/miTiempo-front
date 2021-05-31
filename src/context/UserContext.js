@@ -43,36 +43,57 @@ const getUserInfo = (dispatch) => async () => {
 /** Action that makes a request to update the user's information.
  * If there's some problem updating, returns an error message.
  */
-const updateUserInfo = (dispatch) => async ({
-	email,
-	name,
-	city,
-	newPassword,
-}) => {
-	try {
-		if (newPassword === '') {
-			await miTiempoApi.post('/updateUserInfo', {
-				email,
-				name,
-				city,
-			});
+const updateUserInfo =
+	(dispatch) =>
+	async ({ email, name, city, newPassword }) => {
+		let infoMessage = validateForm(email, newPassword);
+		if (infoMessage === '') {
+			try {
+				if (newPassword === '') {
+					await miTiempoApi.post('/updateUserInfo', {
+						email,
+						name,
+						city,
+					});
+				} else {
+					await miTiempoApi.post('/updateUserInfo', {
+						email,
+						name,
+						city,
+						newPassword,
+					});
+				}
+
+				navigate('Account');
+			} catch (error) {
+				dispatch({
+					type: 'add_error',
+					payload:
+						'Something went wrong updating your data. Try again.',
+				});
+			}
 		} else {
-			await miTiempoApi.post('/updateUserInfo', {
-				email,
-				name,
-				city,
-				newPassword,
+			dispatch({
+				type: 'add_error',
+				payload: infoMessage,
 			});
 		}
+	};
 
-		navigate('Account');
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong updating your data. Try again.',
-		});
+/** Method that validates the email and password fields of the forms. */
+function validateForm(email, password) {
+	const regexEmail =
+		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+	if (email === '') {
+		return 'Please enter an email';
 	}
-};
+
+	if (!regexEmail.test(email)) {
+		return 'Please enter a valid email';
+	}
+	return '';
+}
 
 /** Export and call createDataContext to create the context and its provider. */
 export const { Provider, Context } = createDataContext(

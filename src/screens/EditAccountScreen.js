@@ -16,7 +16,7 @@ const EditAccountScreen = ({ navigation }) => {
 	const [city, setCity] = useState(state.city);
 	const [newPassword, setNewPassword] = useState('');
 	const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
-
+	console.log(state.errorMessage);
 	return (
 		<SafeAreaView
 			style={
@@ -45,6 +45,9 @@ const EditAccountScreen = ({ navigation }) => {
 							placeholder="Email"
 							value={email}
 							onChangeText={setEmail}
+							errorMessage={
+								state.errorMessage ? state.errorMessage : null
+							}
 						/>
 						<Input
 							leftIcon={
@@ -59,19 +62,6 @@ const EditAccountScreen = ({ navigation }) => {
 							value={name}
 							onChangeText={setName}
 						/>
-						{/* <Input
-							leftIcon={
-								<Feather
-									name="compass"
-									style={styles.inputIcons}
-								/>
-							}
-							autoCapitalize="none"
-							autoCorrect={false}
-							placeholder="City"
-							value={city}
-							onChangeText={setCity}
-						/> */}
 					</Spacer>
 				</SectionContainer>
 
@@ -113,10 +103,6 @@ const EditAccountScreen = ({ navigation }) => {
 						/>
 					</Spacer>
 				</SectionContainer>
-
-				{/* {errorMessage ? (
-				<Text style={styles.errorMessage}>{errorMessage}</Text>
-			) : null} */}
 			</ScrollView>
 
 			<MoveToBottom>

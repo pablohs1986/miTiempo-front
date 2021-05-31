@@ -113,6 +113,7 @@ const TaskDetailScreen = ({ navigation }) => {
 									isPomodoro,
 								})
 							}
+							disabled={!(title && description)}
 						/>
 					}
 					containerStyle={styles.header}
@@ -130,6 +131,9 @@ const TaskDetailScreen = ({ navigation }) => {
 								placeholder="Title"
 								value={title}
 								onChangeText={setTitle}
+								errorMessage={
+									!title ? 'Enter a title for the task' : null
+								}
 							/>
 							<Input
 								autoCapitalize="none"
@@ -137,6 +141,11 @@ const TaskDetailScreen = ({ navigation }) => {
 								placeholder="Description"
 								value={description}
 								onChangeText={setDescription}
+								errorMessage={
+									!description
+										? 'Enter a description for the task'
+										: null
+								}
 							/>
 						</Spacer>
 					</SectionContainer>

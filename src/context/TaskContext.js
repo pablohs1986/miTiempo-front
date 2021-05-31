@@ -59,121 +59,133 @@ const taskReducer = (state, action) => {
  * It sends a request with the params of the task, if this is succesful, it
  * navigates to TaskHome. If not, sends an error message.
  */
-const addTask = (dispatch) => async ({
-	title,
-	description,
-	day,
-	duration,
-	repetition,
-	category,
-	color,
-	isPomodoro,
-}) => {
-	try {
-		await miTiempoApi.post('/addTask', {
-			title,
-			description,
-			day,
-			duration,
-			repetition,
-			category,
-			color,
-			isPomodoro,
-		});
-		navigate('TaskHome');
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong adding task.',
-		});
-	}
-};
+const addTask =
+	(dispatch) =>
+	async ({
+		title,
+		description,
+		day,
+		duration,
+		repetition,
+		category,
+		color,
+		isPomodoro,
+	}) => {
+		try {
+			await miTiempoApi.post('/addTask', {
+				title,
+				description,
+				day,
+				duration,
+				repetition,
+				category,
+				color,
+				isPomodoro,
+			});
+			navigate('TaskHome');
+		} catch (error) {
+			dispatch({
+				type: 'add_error',
+				payload: 'Something went wrong adding task.',
+			});
+		}
+	};
 
 /** Action function that fetch all tasks, filtered by category or not.
  * It sends a request with the type of category, if this is succesful, it
  * launches an action with the tasks.
  */
-const listTasks = (dispatch) => async ({ category }) => {
-	try {
-		const response = await miTiempoApi.get(`/listTasks/${category}`);
-		dispatch({ type: 'listTasks', payload: response.data });
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong retrieving tasks data.',
-		});
-	}
-};
+const listTasks =
+	(dispatch) =>
+	async ({ category }) => {
+		try {
+			const response = await miTiempoApi.get(`/listTasks/${category}`);
+			dispatch({ type: 'listTasks', payload: response.data });
+		} catch (error) {
+			dispatch({
+				type: 'add_error',
+				payload: 'Something went wrong retrieving tasks data.',
+			});
+		}
+	};
 
 /** Action function that fetch today tasks, filtered by category or not.
  * It sends a request with the type of category, if this is succesful, it
  * launches an action with the tasks.
  */
-const listTodayTasks = (dispatch) => async ({ category }) => {
-	try {
-		const response = await miTiempoApi.get(`/listTodayTasks/${category}`);
-		dispatch({ type: 'listTodayTasks', payload: response.data });
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong retrieving today tasks data.',
-		});
-	}
-};
+const listTodayTasks =
+	(dispatch) =>
+	async ({ category }) => {
+		try {
+			const response = await miTiempoApi.get(
+				`/listTodayTasks/${category}`
+			);
+			dispatch({ type: 'listTodayTasks', payload: response.data });
+		} catch (error) {
+			dispatch({
+				type: 'add_error',
+				payload: 'Something went wrong retrieving today tasks data.',
+			});
+		}
+	};
 
 /** Action function that updates a task by id.
  * It sends a request with the id and params, if this is succesful, it
  * update the desired task.
  */
-const updateTask = (dispatch) => async ({
-	taskId,
-	title,
-	description,
-	day,
-	duration,
-	repetition,
-	category,
-	color,
-	isPomodoro,
-	isDone,
-}) => {
-	try {
-		await miTiempoApi.post('/updateTask', {
-			taskId,
-			title,
-			description,
-			day,
-			duration,
-			repetition,
-			category,
-			color,
-			isPomodoro,
-			isDone,
-		});
-		navigate('TaskHome');
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong updating the task. Try again.',
-		});
-	}
-};
+const updateTask =
+	(dispatch) =>
+	async ({
+		taskId,
+		title,
+		description,
+		day,
+		duration,
+		repetition,
+		category,
+		color,
+		isPomodoro,
+		isDone,
+	}) => {
+		try {
+			await miTiempoApi.post('/updateTask', {
+				taskId,
+				title,
+				description,
+				day,
+				duration,
+				repetition,
+				category,
+				color,
+				isPomodoro,
+				isDone,
+			});
+			navigate('TaskHome');
+		} catch (error) {
+			dispatch({
+				type: 'add_error',
+				payload: 'Something went wrong updating the task. Try again.',
+			});
+		}
+	};
 
 /** Action function that removes a task by id.
  * It sends a request with the id and params, if this is succesful, it
  * delete the desired task.
  */
-const deleteTask = (dispatch) => async ({ taskId }) => {
-	try {
-		await miTiempoApi.delete('/deleteTask', { data: { taskId } });
-		navigate('TaskHome');
-	} catch (error) {
-		dispatch({
-			type: 'add_error',
-			payload: 'Something went wrong deleting the task. Try again.',
-		});
-	}
-};
+const deleteTask =
+	(dispatch) =>
+	async ({ taskId }) => {
+		try {
+			await miTiempoApi.delete('/deleteTask', { data: { taskId } });
+			navigate('TaskHome');
+		} catch (error) {
+			dispatch({
+				type: 'add_error',
+				payload: 'Something went wrong deleting the task. Try again.',
+			});
+		}
+	};
 
 /**  Function that launch an action with an array with the days of the week. */
 const getDays = (dispatch) => () => {

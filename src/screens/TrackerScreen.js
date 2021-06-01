@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Dimensions, View, StyleSheet, Platform } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView, NavigationEvents } from 'react-navigation';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { WebView } from 'react-native-webview';
 import Spacer from '../components/Spacer';
 import SectionContainer from '../components/SectionContainer';
 import HorizontalList from '../components/HorizontalList';
 import MoveToBottom from '../components/MoveToBottom';
+import { Context as UserContext } from '../context/UserContext';
 
 const TrackerScreen = () => {
+	const { state, getUserId, errorMessage } = useContext(UserContext);
+
 	const CHART_OPTIONS = {
-		TASKS_BY_CATEGORY:
-			'https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=93ce989d-3c06-4c03-ab13-f043470138f5&theme=light',
-		TASKS_BY_CREATION_DATE:
-			'https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=f8bb6578-7add-431d-975c-2dcfb668ea95&theme=light',
-		TASKS_DONE:
-			'https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=ca1cf875-a36f-4e78-8355-71ca516d7c6d&theme=light',
-		CONCENTRATED_MINUTES:
-			'https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=88615f15-7209-4048-a1f0-e8944d467c26&theme=light',
-		POMODORO_VS_NOTPOMODORO:
-			'https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=621b0122-e7b2-445c-af4d-99ae61be51ed&theme=light',
-		POMODORO_TASKS:
-			'https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=c51e6898-7d28-449c-bb6b-1f189fcfdbcf&theme=light',
+		TASKS_BY_CATEGORY: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=93ce989d-3c06-4c03-ab13-f043470138f5&filter={"userId":%20{'$oid':%20'${state._id}'}}&theme=light`,
+		TASKS_BY_CREATION_DATE: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=f8bb6578-7add-431d-975c-2dcfb668ea95&filter={"userId":%20{'$oid':%20'${state._id}'}}&theme=light`,
+		TASKS_DONE: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=ca1cf875-a36f-4e78-8355-71ca516d7c6d&filter={"userId":%20{'$oid':%20'${state._id}'}}&theme=light`,
+		CONCENTRATED_MINUTES: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=88615f15-7209-4048-a1f0-e8944d467c26&filter={"userId":%20{'$oid':%20'${state._id}'}}&theme=light`,
+		POMODORO_VS_NOTPOMODORO: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=621b0122-e7b2-445c-af4d-99ae61be51ed&filter={"userId":%20{'$oid':%20'${state._id}'}}&theme=light`,
+		POMODORO_TASKS: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=c51e6898-7d28-449c-bb6b-1f189fcfdbcf&filter={"userId":%20{'$oid':%20'${state._id}'}}&theme=light`,
 	};
 
 	const CHARTS = [
@@ -70,6 +67,8 @@ const TrackerScreen = () => {
 				style={styles.container}
 				forceInset={{ top: 'always' }}
 			>
+				<NavigationEvents onWillFocus={getUserId} />
+
 				<View
 					style={
 						Dimensions.get('window').width < 1200
@@ -109,6 +108,8 @@ const TrackerScreen = () => {
 				style={styles.container}
 				forceInset={{ top: 'always' }}
 			>
+				<NavigationEvents onWillFocus={getUserId} />
+
 				<View style={styles.container2}>
 					<Text style={styles.header} h4>
 						My Time

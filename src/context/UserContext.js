@@ -14,6 +14,11 @@ const userReducer = (state, action) => {
 				name: action.payload.name,
 				city: action.payload.city,
 			};
+		case 'getUserId':
+			return {
+				...state,
+				_id: action.payload.id,
+			};
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
 		default:
@@ -30,6 +35,25 @@ const getUserInfo = (dispatch) => async () => {
 		const response = await miTiempoApi.get('/getUserInfo');
 		dispatch({
 			type: 'getUserInfo',
+			payload: response.data,
+		});
+	} catch (error) {
+		dispatch({
+			type: 'add_error',
+			payload: 'Something went wrong retrieving user data.',
+		});
+	}
+};
+
+/** Action function that makes a request to get the id of a user.
+ * It sends the request, if this is successful, it launches an action with
+ * the user it receives from the backend. If not, it returns an error message.
+ */
+const getUserId = (dispatch) => async () => {
+	try {
+		const response = await miTiempoApi.get('/getUserId');
+		dispatch({
+			type: 'getUserId',
 			payload: response.data,
 		});
 	} catch (error) {
@@ -98,6 +122,6 @@ function validateForm(email, password) {
 /** Export and call createDataContext to create the context and its provider. */
 export const { Provider, Context } = createDataContext(
 	userReducer,
-	{ getUserInfo, updateUserInfo },
-	{ email: '', name: '', city: '', errorMessage: '' }
+	{ getUserInfo, getUserId, updateUserInfo },
+	{ _id: '', email: '', name: '', city: '', errorMessage: '' }
 );

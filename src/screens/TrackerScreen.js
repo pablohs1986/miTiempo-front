@@ -15,12 +15,12 @@ const TrackerScreen = () => {
 
 	const userIdFilter = `filter={"userId":%20{'$oid':%20'${state._id}'}}`;
 	const CHART_OPTIONS = {
-		TASKS_BY_CATEGORY: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=93ce989d-3c06-4c03-ab13-f043470138f5&${userIdFilter}&theme=light`,
-		TASKS_BY_CREATION_DATE: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=f8bb6578-7add-431d-975c-2dcfb668ea95&${userIdFilter}&theme=light`,
-		TASKS_DONE: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=ca1cf875-a36f-4e78-8355-71ca516d7c6d&${userIdFilter}&theme=light`,
-		CONCENTRATED_MINUTES: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=88615f15-7209-4048-a1f0-e8944d467c26&${userIdFilter}&theme=light`,
-		POMODORO_VS_NOTPOMODORO: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=621b0122-e7b2-445c-af4d-99ae61be51ed&${userIdFilter}&theme=light`,
-		POMODORO_TASKS: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=c51e6898-7d28-449c-bb6b-1f189fcfdbcf&${userIdFilter}&theme=light`,
+		TASKS_BY_CATEGORY: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=93ce989d-3c06-4c03-ab13-f043470138f5&${userIdFilter}&autoRefresh=10&theme=light`,
+		TASKS_BY_CREATION_DATE: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=f8bb6578-7add-431d-975c-2dcfb668ea95&${userIdFilter}&autoRefresh=10&theme=light`,
+		TASKS_DONE: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=ca1cf875-a36f-4e78-8355-71ca516d7c6d&${userIdFilter}&autoRefresh=10&theme=light`,
+		CONCENTRATED_MINUTES: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=88615f15-7209-4048-a1f0-e8944d467c26&${userIdFilter}&autoRefresh=10&theme=light`,
+		POMODORO_VS_NOTPOMODORO: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=621b0122-e7b2-445c-af4d-99ae61be51ed&${userIdFilter}&autoRefresh=10&theme=light`,
+		POMODORO_TASKS: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=c51e6898-7d28-449c-bb6b-1f189fcfdbcf&${userIdFilter}&autoRefresh=10&theme=light`,
 	};
 	const CHARTS = [
 		'Tasks done',

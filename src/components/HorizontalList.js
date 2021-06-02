@@ -1,8 +1,7 @@
 import React from 'react';
-import { Platform, View, Text } from 'react-native';
+import { Platform } from 'react-native';
 import { StyleSheet, FlatList } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
-import AuthForm from './AuthForm';
 
 const HorizontalList = ({ data, onSubmit }) => {
 	if (Platform.OS === 'web') {

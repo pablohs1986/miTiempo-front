@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text, Button } from 'react-native-elements';
-import SectionContainer from '../components/SectionContainer';
-import TaskItem from './TaskItem';
+import { Text } from 'react-native-elements';
 
 const Timer = ({ timerLoad, refreshTimer }) => {
 	const [minutes, setMinutes] = useState(timerLoad);

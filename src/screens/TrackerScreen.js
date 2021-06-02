@@ -11,9 +11,9 @@ import { Context as UserContext } from '../context/UserContext';
 
 const TrackerScreen = () => {
 	const { state, getUserInfo } = useContext(UserContext);
+	const [selectedChart, setSelectedChart] = useState('');
 
 	const userIdFilter = `filter={"userId":%20{'$oid':%20'${state._id}'}}`;
-
 	const CHART_OPTIONS = {
 		TASKS_BY_CATEGORY: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=93ce989d-3c06-4c03-ab13-f043470138f5&${userIdFilter}&theme=light`,
 		TASKS_BY_CREATION_DATE: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=f8bb6578-7add-431d-975c-2dcfb668ea95&${userIdFilter}&theme=light`,
@@ -22,7 +22,6 @@ const TrackerScreen = () => {
 		POMODORO_VS_NOTPOMODORO: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=621b0122-e7b2-445c-af4d-99ae61be51ed&${userIdFilter}&theme=light`,
 		POMODORO_TASKS: `https://charts.mongodb.com/charts-mitiempo-trqxx/embed/charts?id=c51e6898-7d28-449c-bb6b-1f189fcfdbcf&${userIdFilter}&theme=light`,
 	};
-
 	const CHARTS = [
 		'Tasks done',
 		'Tasks by category',
@@ -31,8 +30,6 @@ const TrackerScreen = () => {
 		'Pomodoro vs not pomodoro',
 		'Pomodoro tasks',
 	];
-
-	const [selectedChart, setSelectedChart] = useState('');
 
 	/** useEffect Hook for  */
 	useEffect(() => {
@@ -112,7 +109,7 @@ const TrackerScreen = () => {
 				style={styles.container}
 				forceInset={{ top: 'always' }}
 			>
-				<NavigationEvents onWillFocus={getUserId} />
+				<NavigationEvents onWillFocus={getUserInfo} />
 
 				<View style={styles.container2}>
 					<Text style={styles.header} h4>

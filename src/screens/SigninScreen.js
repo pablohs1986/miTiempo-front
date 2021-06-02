@@ -61,14 +61,17 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		...Platform.select({
 			android: {
+				justifyContent: 'flex-start',
 				marginLeft: 0,
 				marginRight: 0,
 			},
 			ios: {
+				justifyContent: 'flex-start',
 				marginLeft: 0,
 				marginRight: 0,
 			},
 			default: {
+				justifyContent: 'center',
 				marginLeft: 300,
 				marginRight: 300,
 			},

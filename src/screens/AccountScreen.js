@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 		...Platform.select({
 			android: {
-				marginTop: 0,
+				marginTop: 10,
 				marginBottom: 5,
 			},
 			ios: {

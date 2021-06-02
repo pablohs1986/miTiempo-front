@@ -474,7 +474,7 @@ const styles = StyleSheet.create({
 		paddingBottom: 0,
 		...Platform.select({
 			android: {
-				marginTop: 7,
+				marginTop: -25,
 				marginBottom: 5,
 			},
 			ios: {

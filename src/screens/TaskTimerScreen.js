@@ -53,8 +53,9 @@ const TaskTimerScreen = ({ navigation }) => {
 				setMessage('Work!');
 				if (taskDuration - 25 <= 0) {
 					// Work time less than break
-					setTimerLoad(taskDuration);
+					setTimerLoad(0);
 					setIsLastLoad(true);
+					setTaskDuration(0);
 				}
 
 				if (taskDuration - 25 > 0) {

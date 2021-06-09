@@ -33,6 +33,7 @@ const TaskTimerScreen = ({ navigation }) => {
 	const refreshTimer = () => {
 		if (isLastLoad === true) {
 			setTimerLoad(0);
+			setTaskDuration(0);
 			setMessage('Task completed');
 			setIsTaskDone(true);
 		} else {
@@ -53,9 +54,11 @@ const TaskTimerScreen = ({ navigation }) => {
 				setMessage('Work!');
 				if (taskDuration - 25 <= 0) {
 					// Work time less than break
-					setTimerLoad(0);
+					setTimerLoad(taskDuration);
+					setTaskDuration(
+						taskDuration - 25 < 0 ? 0 : taskDuration - 25
+					);
 					setIsLastLoad(true);
-					setTaskDuration(0);
 				}
 
 				if (taskDuration - 25 > 0) {
